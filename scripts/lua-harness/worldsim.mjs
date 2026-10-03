@@ -1,3 +1,5 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
+import { bundleTS } from "./_bundle.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // worldsim.mjs — parité TS ↔ Lua de la simulation d'univers (worldSim).
 //
@@ -15,13 +17,12 @@ import path from "node:path";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
 
-const RACINE = "E:/narvosprime-web-prototype";
-const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
+const RACINE = RACINE_DEPOT + "";
 const LUA = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 
 // 1. TS : bundle worldSim.ts → createWorld/stepWorld/advanceWorld.
 const tmp = path.join(os.tmpdir(), `world-ts-${Date.now()}.mjs`);
-execFileSync("node", [ESBUILD, `${RACINE}/WebPortal/src/rpg/world/worldSim.ts`, "--bundle", "--format=esm", "--platform=node", `--outfile=${tmp}`]);
+await bundleTS(`${RACINE}/WebPortal/src/rpg/world/worldSim.ts`, tmp);
 const ts = await import(pathToFileURL(tmp).href);
 
 // 2. Lua : WorldSim.

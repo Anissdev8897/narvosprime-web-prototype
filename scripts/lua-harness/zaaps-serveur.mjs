@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // zaaps-serveur.mjs — harnais des EXÉCUTANTS des Zaaps et de la réapparition
 // (narvos-map-proto/Server/Zaaps.lua + Server/Reapparition.lua) branchés sur les
 // VRAIES règles (Logic/Zaaps, Logic/Teleports, Logic/Reapparition, Logic/Depart)
@@ -15,7 +16,7 @@
 import fs from "node:fs";
 import { LuaFactory } from "wasmoon";
 
-const RACINE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/";
+const RACINE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/";
 const lire = (p) => fs.readFileSync(RACINE + p, "utf8");
 
 const lua = await new LuaFactory().createEngine();

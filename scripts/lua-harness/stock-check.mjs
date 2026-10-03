@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // stock-check.mjs — chaque article en vente existe-t-il ?
 //
@@ -26,7 +27,7 @@
 import fs from "node:fs";
 
 const CAT =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared/Catalogs";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared/Catalogs";
 
 const lire = (f) => fs.readFileSync(`${CAT}/${f}`, "utf8");
 

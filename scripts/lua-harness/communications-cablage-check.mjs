@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // communications-cablage-check.mjs — talkie-walkie, smartphone et digicode
 // sont-ils BRANCHÉS, d'un bout à l'autre ?
@@ -25,7 +26,7 @@
 
 import fs from "node:fs";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const PAQUETS = `${RACINE}/WebPortal/Server/nanos_world/packages`;
 
 let reussis = 0;

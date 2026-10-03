@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // pas.mjs — les bruits de pas : de la surface touchée à une clé du pack.
 //
@@ -20,7 +21,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const BASE = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 const TOML = `${RACINE}/WebPortal/Server/Assets/narvos/Assets.toml`;
 

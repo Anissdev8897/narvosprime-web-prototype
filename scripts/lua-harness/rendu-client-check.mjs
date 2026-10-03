@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // rendu-client-check.mjs — le projet qui CUIT a-t-il les memes reglages de rendu que
 // le CLIENT nanos qui DESSINE ?
@@ -20,7 +21,7 @@
 // ══════════════════════════════════════════════════════════════════════════════
 import fs from "node:fs";
 
-const ADK = "E:/narvosprime-web-prototype/WebPortal/Server/adk/Config/DefaultEngine.ini";
+const ADK = RACINE_DEPOT + "/WebPortal/Server/adk/Config/DefaultEngine.ini";
 const CLIENT = process.env.NANOS_CLIENT_INI
     ?? "D:/steam/steamapps/common/nanos-world-playtest/NanosWorld/Config/DefaultEngine.ini";
 const SECTION = "[/Script/Engine.RendererSettings]";

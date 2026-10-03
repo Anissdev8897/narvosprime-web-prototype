@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ============================================================================
 // vecteur-minuscule-check.mjs — un champ `.x` `.y` `.z` lu sur un Vector nanos.
 //
@@ -30,7 +31,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const RACINE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 
 const BS = String.fromCharCode(92); // le heredoc mange les barres obliques inverses
 

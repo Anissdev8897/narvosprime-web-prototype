@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // voyage.mjs — exécute les tests de Catalogs/Mondes.lua et Logic/Voyage.lua.
 //
@@ -16,7 +17,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const mondes = fs.readFileSync(`${BASE}/Catalogs/Mondes.lua`, "utf8");
 const voyage = fs.readFileSync(`${BASE}/Logic/Voyage.lua`, "utf8");

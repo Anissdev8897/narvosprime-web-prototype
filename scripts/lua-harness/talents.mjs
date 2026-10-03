@@ -1,3 +1,5 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
+import { bundleTS } from "./_bundle.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // talents.mjs — parité TS ↔ Lua de l'agrégation de talents (talentEffects).
 //
@@ -11,13 +13,12 @@ import path from "node:path";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
 
-const RACINE = "E:/narvosprime-web-prototype";
-const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
+const RACINE = RACINE_DEPOT + "";
 const LUA = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 
 // 1. TS : bundle talentEffects.ts (importe talentCatalog) → aggregateTalents/….
 const tmp = path.join(os.tmpdir(), `talents-ts-${Date.now()}.mjs`);
-execFileSync("node", [ESBUILD, `${RACINE}/WebPortal/src/rpg/talents/talentEffects.ts`, "--bundle", "--format=esm", "--platform=node", `--outfile=${tmp}`]);
+await bundleTS(`${RACINE}/WebPortal/src/rpg/talents/talentEffects.ts`, tmp);
 const ts = await import(pathToFileURL(tmp).href);
 
 // 2. Lua : Talents (catalogue généré + logique).

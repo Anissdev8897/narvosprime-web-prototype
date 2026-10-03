@@ -28,6 +28,8 @@ const RACINE = path.resolve(ICI, "../..");
 
 const HORS = new Set([
   "tout.mjs",                 // lui-même
+  "_racine.mjs",              // helper de chemin, pas un harnais
+  "_bundle.mjs",              // helper esbuild, pas un harnais
   "arenas-gen.mjs",           // génère des arènes
   "generateur-cartes.mjs",    // génère des cartes
   "pnj-clips-mesure.mjs",     // mesure, ne juge pas

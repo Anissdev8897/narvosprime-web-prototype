@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // schema-check.mjs — toute colonne du CREATE a-t-elle son ALTER de migration ?
 //
@@ -27,7 +28,7 @@
 import fs from "node:fs";
 
 const SOURCE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared/Logic/Comptes.lua";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared/Logic/Comptes.lua";
 
 const lua = fs.readFileSync(SOURCE, "utf8");
 

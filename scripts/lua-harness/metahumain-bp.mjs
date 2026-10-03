@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // metahumain-bp.mjs — charge Server/MetaHumainBP.lua avec le VRAI catalogue
 // Modular et le VRAI Assets.toml, puis lui applique metahumain-bp-tests.lua.
@@ -24,7 +25,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const PAQUETS = `${RACINE}/WebPortal/Server/nanos_world/packages`;
 const TOML = `${RACINE}/WebPortal/Server/Assets/narvos/Assets.toml`;
 

@@ -1,11 +1,12 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // check-traversee.mjs — syntax-check Lua 5.4 (wasmoon) des fichiers modifiés.
 // Usage : node scripts/lua-harness/check-traversee.mjs
 import { readFileSync } from "node:fs";
 import { LuaFactory } from "wasmoon";
 
 const FICHIERS = [
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos-map-proto/Server/Traversee.lua",
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos-map-proto/Client/Traversee.lua",
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos-map-proto/Server/Traversee.lua",
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos-map-proto/Client/Traversee.lua",
 ];
 
 const factory = new LuaFactory();

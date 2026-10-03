@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // metahumain.mjs — harnais de Logic/MetaHumain.lua (la tenue MetaHuman, pure)
 // et des invariants du catalogue GÉNÉRÉ Catalogs/MetaHumain.lua.
 //
@@ -8,7 +9,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const SHARED = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const SHARED = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 const logique = fs.readFileSync(`${SHARED}/Logic/MetaHumain.lua`, "utf8");
 const cheminCatalogue = `${SHARED}/Catalogs/MetaHumain.lua`;
 const catalogueReel = fs.existsSync(cheminCatalogue) ? fs.readFileSync(cheminCatalogue, "utf8") : null;

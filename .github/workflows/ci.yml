@@ -2,6 +2,12 @@
 # CI — NARVOS PRIME WebPortal
 # Déclenché sur push (main, develop) et toute PR vers main/develop.
 #
+# ⚠ Ce workflow DOIT vivre à la racine du dépôt (.github/workflows/) : GitHub
+#   Actions n'exécute QUE les workflows de la racine. Le code web vit sous
+#   WebPortal/, d'où `defaults.run.working-directory: WebPortal` pour les étapes
+#   `run`, et des chemins préfixés par WebPortal/ pour les étapes `uses`
+#   (cache npm, cache wasm, artefacts), que le working-directory n'affecte pas.
+#
 # Étages:
 #   1. typecheck   → tsc --noEmit
 #   2. tests       → vitest run
@@ -25,6 +31,11 @@ env:
   NODE_VERSION: "20"
   NODE_OPTIONS: --max-old-space-size=4096
 
+# Le projet web vit sous WebPortal/ ; toutes les étapes `run` s'y exécutent.
+defaults:
+  run:
+    working-directory: WebPortal
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
@@ -43,6 +54,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
+          cache-dependency-path: WebPortal/package-lock.json
 
       - name: 📦 Installer les dépendances (sans scripts natifs)
         run: npm ci --ignore-scripts
@@ -64,6 +76,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
+          cache-dependency-path: WebPortal/package-lock.json
 
       - name: 📦 Installer les dépendances (sans scripts natifs)
         run: npm ci --ignore-scripts
@@ -85,6 +98,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
+          cache-dependency-path: WebPortal/package-lock.json
 
       - name: 📦 Installer les dépendances (sans scripts natifs)
         run: npm ci --ignore-scripts
@@ -108,6 +122,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
+          cache-dependency-path: WebPortal/package-lock.json
 
       - name: 📦 Installer les dépendances (sans scripts natifs)
         run: npm ci --ignore-scripts
@@ -122,7 +137,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: web-build
-          path: dist/
+          path: WebPortal/dist/
           if-no-files-found: error
 
   # ───────── wasm (C++ → Emscripten) ─────────
@@ -136,6 +151,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
+          cache-dependency-path: WebPortal/package-lock.json
 
       - name: 🔧 Installer Emscripten (emsdk)
         uses: mymindstorm/setup-emsdk@v14
@@ -155,8 +171,8 @@ jobs:
       - name: ⚙️ Cache wasm/dist
         uses: actions/cache@v4
         with:
-          path: wasm/dist
-          key: wasm-${{ runner.os }}-${{ hashFiles('wasm/CMakeLists.txt', 'wasm/src/**/*.cpp', 'wasm/src/**/*.h') }}
+          path: WebPortal/wasm/dist
+          key: wasm-${{ runner.os }}-${{ hashFiles('WebPortal/wasm/CMakeLists.txt', 'WebPortal/wasm/src/**/*.cpp', 'WebPortal/wasm/src/**/*.h') }}
           restore-keys: |
             wasm-${{ runner.os }}-
 
@@ -170,5 +186,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: wasm-build
-          path: public/wasm/
+          path: WebPortal/public/wasm/
           if-no-files-found: warn

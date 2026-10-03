@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // constantes-check.mjs — deux constantes qui décrivent le même fait doivent
 // dire la même chose.
@@ -29,15 +30,15 @@
 import fs from "node:fs";
 
 const LOGIC =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared/Logic";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared/Logic";
 
 // Certaines constantes ne vivent pas dans `Shared/Logic`. On donne alors le
 // chemin complet plutôt que d'ajouter une deuxième racine : deux racines
 // finiraient par diverger, comme tout le reste.
 const AILLEURS = {
   "Server/Spawner.lua":
-    "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos-map-proto/Server/Spawner.lua",
-  "Config.toml": "E:/narvosprime-web-prototype/WebPortal/Server/Config.toml",
+    RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos-map-proto/Server/Spawner.lua",
+  "Config.toml": RACINE_DEPOT + "/WebPortal/Server/Config.toml",
 };
 
 /** Lit `<Module>.<NOM> = <nombre>` dans un fichier Lua. */

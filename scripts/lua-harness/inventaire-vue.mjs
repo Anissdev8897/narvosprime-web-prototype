@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // inventaire-vue.mjs — tests de Shared/Logic/InventaireVue.lua et des gestes
 // d'équipement purs d'Inventory (EquiperDepuisGrille / DesequiperVersGrille).
@@ -12,7 +13,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const BASE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const BASE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 const lire = (p) => fs.readFileSync(`${BASE}/${p}`, "utf8");
 
 const lua = await new LuaFactory().createEngine();

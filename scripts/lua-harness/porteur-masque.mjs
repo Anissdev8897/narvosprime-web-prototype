@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // porteur-masque.mjs — Builder.MasquerPorteur / RendrePorteur (Logic/Character.lua)
 //
@@ -18,7 +19,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const module = fs.readFileSync(`${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared/Logic/Character.lua`, "utf8");
 
 const lua = await new LuaFactory().createEngine();

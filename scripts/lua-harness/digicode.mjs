@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // digicode.mjs — exécute les tests de Logic/Digicode.lua avec le VRAI Crypto
 // (SHA-256, comparaison à temps constant) et le VRAI catalogue d'objets.
@@ -11,7 +12,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const CIBLES = ["Logic/Digicode.lua", "Logic/Crypto.lua", "Catalogs/Items.lua"];
 let manquante = false;

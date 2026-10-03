@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // constantes-mortes-check.mjs — une CONSTANTE indexée mais jamais déclarée.
 //
@@ -36,7 +37,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const RACINE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 
 /** Fournies par Lua ou par le moteur. */
 const FOURNIES = new Set(["_G", "_ENV", "_VERSION"]);

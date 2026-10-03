@@ -1,3 +1,5 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
+import { bundleTS } from "./_bundle.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // craft.mjs — exécute les tests de Shared/Logic/Craft.lua.
 //
@@ -20,10 +22,9 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const BASE = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 const TS_CRAFT = `${RACINE}/WebPortal/src/rpg/items/craftingSystem.ts`;
-const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
 
 const lire = (p) => fs.readFileSync(`${BASE}/${p}`, "utf8");
 const items = lire("Catalogs/Items.lua");
@@ -36,8 +37,7 @@ const tests = fs.readFileSync(new URL("./craft-tests.lua", import.meta.url), "ut
 let ts;
 try {
   const tmp = path.join(os.tmpdir(), `craft-ts-bundle-${Date.now()}.mjs`);
-  execFileSync("node", [ESBUILD, TS_CRAFT, "--bundle", "--format=esm",
-    "--platform=node", `--outfile=${tmp}`]);
+  await bundleTS(TS_CRAFT, tmp);
   ts = await import(pathToFileURL(tmp).href);
 } catch (e) {
   console.error("ERREUR esbuild (import TS):", e.message);

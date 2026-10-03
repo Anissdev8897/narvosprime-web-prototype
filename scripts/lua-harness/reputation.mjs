@@ -1,3 +1,5 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
+import { bundleTS } from "./_bundle.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // reputation.mjs — parité TS ↔ Lua pour la réputation (currentTier, tiers,
 // merchantDiscount) + comportement (gain/lose/set, tierOf).
@@ -12,10 +14,9 @@ import path from "node:path";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
 
-const SRC = "E:/narvosprime-web-prototype/WebPortal/src/rpg/reputation";
-const LUA = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
-const RACINE = "E:/narvosprime-web-prototype";
-const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
+const SRC = RACINE_DEPOT + "/WebPortal/src/rpg/reputation";
+const LUA = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const RACINE = RACINE_DEPOT + "";
 
 // 1. TS : bundle reputationStore + reputationCatalog (noms exportés) via le binaire esbuild.
 // L'entrée est ÉCRITE ICI (2026-09-19) : elle pointait sur un artefact orphelin de %TEMP%
@@ -24,7 +25,7 @@ const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
 const tmp = path.join(os.tmpdir(), `rep-ts-${Date.now()}.mjs`);
 const entry = path.join(os.tmpdir(), "_rep_entry.ts");
 fs.writeFileSync(entry, `export * from "${SRC}/reputationStore";\nexport * from "${SRC}/reputationCatalog";\n`);
-execFileSync("node", [ESBUILD, entry, "--bundle", "--format=esm", "--platform=node", `--outfile=${tmp}`]);
+await bundleTS(entry, tmp);
 const ts = await import(pathToFileURL(tmp).href);
 
 // 2. Lua : Reputation + Reputations.

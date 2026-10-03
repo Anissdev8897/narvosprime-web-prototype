@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // listes-recopiees-check.mjs — une liste de clés recopiée diverge toujours de sa
 // source.
@@ -41,7 +42,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const PACKAGES =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 
 // ── Les catalogues surveillés ────────────────────────────────────────────────
 // Chacun donne : où lire les clés, et comment les reconnaître. Ajouter un

@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // ramassage.mjs — charge Logic/Ramassage.lua et Logic/ArmesInventaire.lua, puis
 // leur applique ramassage-tests.lua.
@@ -28,7 +29,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const ramassage = fs.readFileSync(`${BASE}/Logic/Ramassage.lua`, "utf8");
 const armes = fs.readFileSync(`${BASE}/Logic/ArmesInventaire.lua`, "utf8");

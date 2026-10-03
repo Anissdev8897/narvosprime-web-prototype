@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // distance-optim.mjs — la coupure de synchro tombe-t-elle où on le croit ?
 //
@@ -25,9 +26,9 @@
 import fs from "node:fs";
 
 const SPAWNER =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos-map-proto/Server/Spawner.lua";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos-map-proto/Server/Spawner.lua";
 const IA =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos-map-proto/Server/Ia.lua";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos-map-proto/Server/Ia.lua";
 
 // ⚠ LES CONSTANTES SONT LUES DANS LE LUA, PAS RECOPIÉES ICI. Un test qui porte
 // sa propre copie des valeurs teste sa copie, pas le code.

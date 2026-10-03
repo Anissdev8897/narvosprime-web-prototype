@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // minimap-cablage-check.mjs — la minimap Ako est-elle BRANCHÉE, de l'ADK au client ?
 //
@@ -18,7 +19,7 @@
 
 import fs from "node:fs";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const ADK = `${RACINE}/WebPortal/Server/adk`;
 const PAQUETS = `${RACINE}/WebPortal/Server/nanos_world/packages`;
 

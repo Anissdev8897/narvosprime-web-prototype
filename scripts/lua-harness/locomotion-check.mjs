@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ============================================================================
 // locomotion-check.mjs — un site qui cree un `Character` sans poser NOTRE
 // locomotion.
@@ -29,7 +30,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const RACINE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 
 /** Fichiers ou un Character sert d autre chose que d acteur du monde. */
 const HORS_JEU = new Set([

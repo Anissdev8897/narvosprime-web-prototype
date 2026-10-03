@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // assemblage-visuel.mjs — captures de l'établi d'assemblage, hors du jeu.
 //
@@ -24,8 +25,8 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 
 const UI =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos-map-proto/Client/UI";
-const SORTIE = "E:/narvosprime-web-prototype/docs/assemblage-ui";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos-map-proto/Client/UI";
+const SORTIE = RACINE_DEPOT + "/docs/assemblage-ui";
 
 const CHROME_CANDIDATS = [
   "C:/Program Files/Google/Chrome/Application/chrome.exe",

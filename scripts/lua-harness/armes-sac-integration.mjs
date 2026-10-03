@@ -1,6 +1,7 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 import fs from 'node:fs';
 import {LuaFactory} from 'wasmoon';
-const root='E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/';
+const root=RACINE_DEPOT + '/WebPortal/Server/nanos_world/packages/';
 const read=p=>fs.readFileSync(root+p,'utf8');
 const lua=await new LuaFactory().createEngine();
 try { await lua.doString(`

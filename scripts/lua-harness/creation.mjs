@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // creation.mjs — exécute les tests de Shared/Logic/CharacterCreation.lua.
 //
@@ -18,7 +19,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const BASE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const BASE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const classes = fs.readFileSync(`${BASE}/Catalogs/Classes.lua`, "utf8");
 const modular = fs.readFileSync(`${BASE}/Catalogs/Modular.lua`, "utf8");

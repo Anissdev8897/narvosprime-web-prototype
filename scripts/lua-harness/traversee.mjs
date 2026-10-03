@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // traversee.mjs — exécute les tests de Shared/Logic/Traversee.lua.
 //
@@ -12,7 +13,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const BASE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+const BASE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 const SRC_TRAVERSEE = `${BASE}/narvos/Shared/Logic/Traversee.lua`;
 const SRC_SERVER = `${BASE}/narvos-map-proto/Server/Traversee.lua`;
 const SRC_CATALOGUE = `${BASE}/narvos/Shared/Catalogs/Animations.lua`;

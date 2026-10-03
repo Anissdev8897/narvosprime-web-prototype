@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // cablage-check.mjs — le module est-il BRANCHÉ, et expose-t-il ce qu'on lui demande ?
 //
@@ -36,7 +37,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const RACINE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+const RACINE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 const SHARED = `${RACINE}/narvos/Shared`;
 
 /** Tous les .lua des packages, chemin relatif à `RACINE`. */
