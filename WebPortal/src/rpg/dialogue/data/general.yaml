@@ -1,0 +1,107 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# dialogues/general.yaml — Dialogues génériques (marchands, PNJ quêtes secondaires)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+dialogues:
+
+  # ── Dialogue marchand : accueil de base ────────────────────────────────────
+  - id: "marchand_accueil"
+    title: "Bonjour le Marchand"
+    npcFolder: "gran_cheff"
+    npcName: "Forgemaître Kael"
+    startNode: "saluer"
+    tags: ["merchant", "generic"]
+
+    nodes:
+      - id: "saluer"
+        text: |
+          Bienvenue, voyageur. Mes marchandises sont les meilleures
+          de toute la Forge. Que puis-je pour toi ?
+        speaker: "Forgemaître Kael"
+
+        choices:
+          - id: "open_shop"
+            text: "Montre-moi ce que t'as."
+            nextNode: "ouvrir_boutique"
+            onSelect:
+              - type: open_shop
+                params:
+                  merchantId: "mer_weapons"
+
+          - id: "ask_news"
+            text: "Quoi de neuf dans le secteur ?"
+            nextNode: "nouvelles"
+
+          - id: "say_bye"
+            text: "Pas maintenant, merci."
+            nextNode: "au_revoir_marchand"
+
+      - id: "ouvrir_boutique"
+        text: "Reviens quand tu veux, j'aurai toujours de l'acier à vendre."
+        speaker: "Forgemaître Kael"
+
+      - id: "nouvelles"
+        text: |
+          Les combats font rage au nord. Boris recrute tous les
+          bras valides. Et j'ai entendu dire que les Zayan
+          préparent une offensive d'envergure…
+        speaker: "Forgemaître Kael"
+        choices:
+          - id: "back_to_shop_from_news"
+            text: "Intéressant… Bon, je vais voir ton stock."
+            nextNode: "ouvrir_boutique"
+
+      - id: "au_revoir_marchand"
+        text: "À la prochaîne, voyageur. Que l'acier te guide."
+        speaker: "Forgemaître Kael"
+
+  # ── Dialogue PNJ secondaire (apothicaire) ──────────────────────────────────
+  - id: "apothicaire_accueil"
+    title: "L'Apothicaire"
+    npcFolder: "soldat_femme"
+    npcName: "Lyra"
+    startNode: "saluer_lyra"
+    tags: ["merchant", "potions"]
+
+    nodes:
+      - id: "saluer_lyra"
+        text: |
+          Fatigué, aventurier ? J'ai de quoi te remettre d'aplomb.
+          Des potions, des remèdes, des stimulants…
+        speaker: "Lyra"
+
+        choices:
+          - id: "open_potions"
+            text: "Fais voir tes potions."
+            nextNode: "ouvrir_potions"
+            onSelect:
+              - type: open_shop
+                params:
+                  merchantId: "mer_potions"
+
+          - id: "ask_heal"
+            text: "Tu soignes aussi ?"
+            nextNode: "soins_info"
+
+          - id: "bye_lyra"
+            text: "Je repasserai."
+            nextNode: "au_revoir_lyra"
+
+      - id: "ouvrir_potions"
+        text: "Servez-vous, tout est étiqueté."
+        speaker: "Lyra"
+
+      - id: "soins_info"
+        text: |
+          Je peux panser tes blessures, oui. Mais pour les fractures
+          ouvertes et les brûlures de plasma, va voir l'infirmerie
+          militaire au sud de la zone.
+        speaker: "Lyra"
+        choices:
+          - id: "back_to_potions"
+            text: "Merci du conseil. Je vais jeter un œil à tes potions."
+            nextNode: "ouvrir_potions"
+
+      - id: "au_revoir_lyra"
+        text: "Prends soin de toi. La Forge est impitoyable."
+        speaker: "Lyra"

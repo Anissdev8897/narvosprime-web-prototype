@@ -1,0 +1,1095 @@
+{
+	"name": "Weapon",
+	"description": "Weapons are entities with firing, reloading and aiming functionalities.<br/><br/>They are fully customizable, all pieces of the weapon can be changed with immense possibility of creation.",
+	"authority": "server",
+	"network_distribution": "enabled",
+	"inheritance": [
+		"Entity",
+		"Actor",
+		"Paintable",
+		"Pickable"
+	],
+	"constructors": [
+		{
+			"name": "Default Constructor",
+			"parameters": [
+				{
+					"name": "location",
+					"type": "Vector"
+				},
+				{
+					"name": "rotation",
+					"type": "Rotator"
+				},
+				{
+					"name": "asset",
+					"type": "SkeletalMeshPath"
+				},
+				{
+					"name": "collision_type",
+					"type": "CollisionType",
+					"default": "CollisionType.Auto"
+				},
+				{
+					"name": "gravity_enabled",
+					"type": "boolean",
+					"default": "true"
+				},
+				{
+					"type": "SpawnMode",
+					"name": "spawn_mode",
+					"default": "SpawnMode.Immediate",
+					"description": "Pass <code>SpawnMode.AfterConstructor</code> or <code>SpawnMode.Manual</code> to avoid immediately sending the entity to clients and improve performance when you want to configure it by setting several configs. Must call <code>FinishSpawn()</code> after all"
+				}
+			]
+		}
+	],
+	"functions": [
+		{
+			"authority": "server",
+			"name": "Reload",
+			"description": "Forces this Weapon to reload",
+			"description_long": "Forces this Weapon to reload (only if being handled by a Character)",
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "server",
+			"name": "SetAmmoBag",
+			"description": "Sets this Weapon's Ammo in the Bag",
+			"parameters": [
+				{
+					"name": "new_ammo_bag",
+					"type": "integer"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetAmmoClip",
+			"description": "Sets this Weapon's Ammo in the Clip",
+			"parameters": [
+				{
+					"name": "new_ammo_clip",
+					"type": "integer"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetAmmoSettings",
+			"description": "Aux for setting and configuring ammo",
+			"parameters": [
+				{
+					"name": "ammo_clip",
+					"type": "integer"
+				},
+				{
+					"name": "ammo_bag",
+					"type": "integer"
+				},
+				{
+					"name": "ammo_to_reload",
+					"type": "integer",
+					"default": "ammo_clip"
+				},
+				{
+					"name": "clip_capacity",
+					"type": "integer",
+					"default": "ammo_clip"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetAnimationFire",
+			"description": "Animation played by the Weapon when Firing",
+			"parameters": [
+				{
+					"name": "animation_fire_path",
+					"type": "AnimationPath"
+				},
+				{
+					"name": "play_rate",
+					"type": "float",
+					"default": "1"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetAnimationCharacterFire",
+			"description": "Animation played by the Character when Firing",
+			"parameters": [
+				{
+					"name": "animation_character_fire_path",
+					"type": "AnimationPath"
+				},
+				{
+					"name": "play_rate",
+					"type": "float",
+					"default": "1"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetAnimationReload",
+			"description": "Animation played by the Character when Reloading",
+			"parameters": [
+				{
+					"name": "reload_animation_path",
+					"type": "AnimationPath"
+				},
+				{
+					"name": "play_rate",
+					"type": "float",
+					"default": "1"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "both",
+			"name": "GetAnimationReload",
+			"description": "Gets the reload animation",
+			"return": [
+				{
+					"name": "reload_animation_path",
+					"type": "AnimationPath"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetAutoReload",
+			"description": "If the Character will reload automatically when ammo empties",
+			"description_long": "If the Character will reload automatically when ammo empties. Default is true",
+			"parameters": [
+				{
+					"name": "auto_reload",
+					"type": "boolean"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetBulletColor",
+			"description": "Set the Bullet Color",
+			"description_long": "Set the Bullet Color<br/><br/>Only has effect if using Bullet Trail particle P_Bullet_Trail or if you particle has the Color parameter",
+			"parameters": [
+				{
+					"name": "bullet_color",
+					"type": "Color"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetBulletSettings",
+			"description": "Aux for setting and configuring the Bullet",
+			"parameters": [
+				{
+					"name": "bullet_count",
+					"type": "integer",
+					"description": "1 for common weapons<br/>> 1 for shotguns"
+				},
+				{
+					"name": "bullet_max_distance",
+					"type": "integer"
+				},
+				{
+					"name": "bullet_velocity",
+					"type": "integer",
+					"description": "Visuals only"
+				},
+				{
+					"name": "bullet_color",
+					"type": "Color"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetCadence",
+			"description": "Speed of shots",
+			"parameters": [
+				{
+					"name": "cadence",
+					"type": "float",
+					"description": "1 shot at each <code>cadence</code> second"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetClipCapacity",
+			"description": "Capacity of the Weapon's clip",
+			"parameters": [
+				{
+					"name": "clip",
+					"type": "integer"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetDamage",
+			"description": "Set the Base Weapon's Damage",
+			"description_long": "Base Weapon's Damage<br/><br/>This will be multiplied by multiplier factors when hitting specific bones",
+			"parameters": [
+				{
+					"name": "damage",
+					"type": "integer"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetHandlingMode",
+			"description": "Sets how the Character grabs this Weapon",
+			"parameters": [
+				{
+					"name": "handling_mode",
+					"type": "HandlingMode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetLeftHandTransform",
+			"description": "Left Hand Offset",
+			"parameters": [
+				{
+					"name": "left_hand_location",
+					"type": "Vector"
+				},
+				{
+					"name": "left_hand_rotation",
+					"type": "Rotator"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetMagazineMesh",
+			"description": "Set the mesh used when the Character reloads the weapon",
+			"description_long": "Set the mesh used when the Character reloads the weapon.<br/><br/>Will drop this Mesh as an animation effect.",
+			"parameters": [
+				{
+					"name": "magazine_mesh",
+					"type": "StaticMeshPath"
+				},
+				{
+					"name": "magazine_mesh_hide_bone",
+					"type": "string",
+					"default": "b_gun_mag",
+					"description": "Weapon bone to hide when reloading it"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "both",
+			"name": "PlayAnimation",
+			"description": "Plays an Animation on this Weapon",
+			"parameters": [
+				{
+					"type": "AnimationPath",
+					"name": "animation_path"
+				},
+				{
+					"type": "string",
+					"name": "slot_name",
+					"default": "DefaultSlot"
+				},
+				{
+					"type": "boolean",
+					"name": "loop_indefinitely",
+					"default": "false",
+					"description": "This parameter is only used if the Weapon has an Animation Blueprint"
+				},
+				{
+					"type": "float",
+					"name": "blend_in_time",
+					"default": "0.25",
+					"description": "This parameter is only used if the Weapon has an Animation Blueprint"
+				},
+				{
+					"type": "float",
+					"name": "blend_out_time",
+					"default": "0.25",
+					"description": "This parameter is only used if the Weapon has an Animation Blueprint"
+				},
+				{
+					"type": "float",
+					"name": "play_rate",
+					"default": "1.0",
+					"description": "This parameter is only used if the Weapon has an Animation Blueprint"
+				},
+				{
+					"type": "boolean",
+					"name": "stop_all_montages",
+					"default": "false",
+					"description": "Stops all running Montages from the same Group. This parameter is only used if the Weapon has an Animation Blueprint"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "both",
+			"name": "StopAnimation",
+			"description": "Stops an Animation Montage on this Weapon",
+			"parameters": [
+				{
+					"type": "AnimationPath",
+					"name": "animation_asset",
+					"default": "",
+					"description": "Leave empty to stop all Montages"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetParticlesBulletTrail",
+			"description": "Particle of the Bullet flying",
+			"parameters": [
+				{
+					"name": "particle_bullet_trail_asset_path",
+					"type": "ParticlePath"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetParticlesBarrel",
+			"description": "Particle of the Fire Blast in the muzzle",
+			"parameters": [
+				{
+					"name": "particle_asset_path",
+					"type": "ParticlePath"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetParticlesShells",
+			"description": "Particle of the empty bullet flying from the weapon when shooting",
+			"parameters": [
+				{
+					"name": "particle_shells_asset_path",
+					"type": "ParticlePath"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetRightHandOffset",
+			"description": "Set the offset of Right Hand",
+			"description_long": "Set the Offset of Right Hand. To position relative to the camera.",
+			"parameters": [
+				{
+					"name": "right_hand_offset",
+					"type": "Vector"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetSightFOVMultiplier",
+			"description": "The FOV multiplier when ADS",
+			"parameters": [
+				{
+					"name": "sight_fov_multiplier",
+					"type": "float"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetSightTransform",
+			"description": "Offset applied to align player's head to weapon's sight and rotation applied on the weapon when ADS",
+			"parameters": [
+				{
+					"name": "sight_location",
+					"type": "Vector"
+				},
+				{
+					"name": "sight_rotation",
+					"type": "Rotator"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetSoundDry",
+			"description": "Sound when weapon has not bullet and try to shoot",
+			"parameters": [
+				{
+					"name": "sound_dry_asset_path",
+					"type": "SoundPath"
+				},
+				{
+					"name": "volume",
+					"type": "float",
+					"default": "1"
+				},
+				{
+					"name": "pitch",
+					"type": "float",
+					"default": "1"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetSoundLoad",
+			"description": "Sound when Loading a magazine",
+			"parameters": [
+				{
+					"name": "sound_load_asset_path",
+					"type": "SoundPath"
+				},
+				{
+					"name": "volume",
+					"type": "float",
+					"default": "1"
+				},
+				{
+					"name": "pitch",
+					"type": "float",
+					"default": "1"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetSoundUnload",
+			"description": "Sound when Unloading a magazine",
+			"parameters": [
+				{
+					"name": "sound_unload_asset_path",
+					"type": "SoundPath"
+				},
+				{
+					"name": "volume",
+					"type": "float",
+					"default": "1"
+				},
+				{
+					"name": "pitch",
+					"type": "float",
+					"default": "1"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetSoundZooming",
+			"description": "Sound when Zooming",
+			"parameters": [
+				{
+					"name": "sound_zooming_asset_path",
+					"type": "SoundPath"
+				},
+				{
+					"name": "volume",
+					"type": "float",
+					"default": "1"
+				},
+				{
+					"name": "pitch",
+					"type": "float",
+					"default": "1"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetSoundFire",
+			"description": "Sound when Shooting",
+			"parameters": [
+				{
+					"name": "sound_fire_asset_path",
+					"type": "SoundPath"
+				},
+				{
+					"name": "volume",
+					"type": "float",
+					"default": "1"
+				},
+				{
+					"name": "pitch",
+					"type": "float",
+					"default": "1"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetSoundAim",
+			"description": "Sound when Aiming",
+			"parameters": [
+				{
+					"name": "sound_aim_asset_path",
+					"type": "SoundPath"
+				},
+				{
+					"name": "volume",
+					"type": "float",
+					"default": "1"
+				},
+				{
+					"name": "pitch",
+					"type": "float",
+					"default": "1"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetSoundFireLastBullets",
+			"description": "Sound when firing with only having X remaining bullets in the magazine",
+			"description_long": "Sound when firing with only having X remaining bullets in the magazine, useful for last shot 'ping' or sound when low on bullets",
+			"parameters": [
+				{
+					"name": "sound_asset_path",
+					"type": "SoundPath"
+				},
+				{
+					"name": "remaining_bullets_count",
+					"type": "integer",
+					"default": "1",
+					"description": "The amount of remaining bullet to start playing this sound"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetSpread",
+			"description": "Base Weapon's Spread",
+			"parameters": [
+				{
+					"name": "spread",
+					"type": "float",
+					"description": "the higher the less precision - recommended value: 20"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetRecoil",
+			"description": "Base Weapon's Recoil",
+			"parameters": [
+				{
+					"name": "recoil",
+					"type": "float",
+					"description": "0 means no Recoil, default is 1"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetUsageSettings",
+			"description": "Sets if the Weapon can hold to keep firing and if it needs to release to fire",
+			"parameters": [
+				{
+					"name": "can_hold_use",
+					"type": "boolean"
+				},
+				{
+					"name": "hold_release_use",
+					"type": "boolean"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetWallbangSettings",
+			"description": "Sets how the bullet will pass through walls",
+			"parameters": [
+				{
+					"name": "max_distance",
+					"type": "integer",
+					"description": "Max distance to pass through another wall"
+				},
+				{
+					"name": "damage_multiplier",
+					"type": "float",
+					"description": "Damage given if wallbangged"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetAmmoBag",
+			"description": "Gets this Weapon's Ammo Bag",
+			"return": [
+				{
+					"name": "ammo_bag",
+					"type": "integer"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetAmmoClip",
+			"description": "Gets this Weapon's Ammo Clip",
+			"return": [
+				{
+					"name": "ammo_clip",
+					"type": "integer"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetAmmoToReload",
+			"description": "Gets the amount of ammo needed to fully reload",
+			"return": [
+				{
+					"name": "ammo_to_reload",
+					"type": "integer"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "both",
+			"name": "GetHandlingMode",
+			"return": [
+				{
+					"name": "handling_mode",
+					"type": "HandlingMode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetAnimationCharacterFire",
+			"return": [
+				{
+					"name": "animation_character_fire_path",
+					"type": "AnimationPath"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetAnimationFire",
+			"return": [
+				{
+					"name": "animation_fire_path",
+					"type": "AnimationPath"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetMagazineMesh",
+			"return": [
+				{
+					"name": "magazine_mesh",
+					"type": "StaticMeshPath"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetParticlesBulletTrail",
+			"return": [
+				{
+					"name": "particle_bullet_trail_asset_path",
+					"type": "ParticlePath"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetParticlesShells",
+			"return": [
+				{
+					"name": "particle_shells_asset_path",
+					"type": "ParticlePath"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetSoundDry",
+			"return": [
+				{
+					"name": "sound_dry_asset_path",
+					"type": "SoundPath"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetSoundLoad",
+			"return": [
+				{
+					"name": "sound_load_asset_path",
+					"type": "SoundPath"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "both",
+			"name": "GetSoundUnload",
+			"return": [
+				{
+					"name": "sound_unload_asset_path",
+					"type": "SoundPath"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "both",
+			"name": "GetSoundZooming",
+			"return": [
+				{
+					"name": "sound_zooming_asset_path",
+					"type": "SoundPath"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetSoundAim",
+			"return": [
+				{
+					"name": "sound_aim_asset_path",
+					"type": "SoundPath"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetSoundFire",
+			"return": [
+				{
+					"name": "sound_fire_asset_path",
+					"type": "SoundPath"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetCanHoldUse",
+			"description": "Gets if the weapon can be used continuously by holding the use button",
+			"return": [
+				{
+					"name": "can_hold_use",
+					"type": "boolean"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetHoldReleaseUse",
+			"description": "Gets if the weapon is triggered/fired when releasing the use button",
+			"return": [
+				{
+					"type": "boolean",
+					"name": "hold_release_use"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetBulletCount",
+			"return": [
+				{
+					"type": "integer",
+					"name": "bullet_count"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetBulletColor",
+			"return": [
+				{
+					"type": "Color",
+					"name": "bullet_color"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetCadence",
+			"return": [
+				{
+					"name": "cadence",
+					"type": "float"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetClipCapacity",
+			"return": [
+				{
+					"name": "clip",
+					"type": "integer"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetDamage",
+			"return": [
+				{
+					"name": "damage",
+					"type": "integer"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetRightHandOffset",
+			"return": [
+				{
+					"name": "right_hand_offset",
+					"type": "Vector"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetLeftHandLocation",
+			"return": [
+				{
+					"name": "left_hand_location",
+					"type": "Vector"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetLeftHandRotation",
+			"return": [
+				{
+					"name": "left_hand_rotation",
+					"type": "Rotator"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetSightLocation",
+			"return": [
+				{
+					"name": "sight_location",
+					"type": "Vector"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetSightRotation",
+			"return": [
+				{
+					"name": "sight_rotation",
+					"type": "Rotator"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetSightFOVMultiplier",
+			"return": [
+				{
+					"name": "sight_fov_multiplier",
+					"type": "float"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetSpread",
+			"return": [
+				{
+					"name": "spread",
+					"type": "float"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetRecoil",
+			"return": [
+				{
+					"name": "recoil",
+					"type": "float"
+				}
+			],
+			"efficiency": "fast"
+		}
+	],
+	"events": [
+		{
+			"authority": "both-net-authority-first",
+			"name": "Fire",
+			"description": "Triggered when Weapon fires (this will be triggered for each shot)",
+			"arguments": [
+				{
+					"name": "self",
+					"type": "Weapon"
+				},
+				{
+					"name": "shooter",
+					"type": "Character"
+				}
+			]
+		},
+		{
+			"authority": "client",
+			"name": "BulletHit",
+			"description": "Triggered when bullets hit (this will be triggered for each bullet shot)",
+			"arguments": [
+				{
+					"name": "self",
+					"type": "Weapon"
+				},
+				{
+					"name": "impact_point",
+					"type": "Vector",
+					"description": "Location in world space of the bullet hit"
+				},
+				{
+					"name": "impact_normal",
+					"type": "Vector",
+					"description": "Normal of the bullet hit in world space"
+				},
+				{
+					"name": "damage",
+					"type": "integer",
+					"description": "Damage that was applied"
+				},
+				{
+					"name": "actor_hit",
+					"type": "Actor?",
+					"description": "Actor entity that was hit, if any"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "Reload",
+			"description": "When a Weapon is reloaded, optionally by a Character",
+			"arguments": [
+				{
+					"name": "self",
+					"type": "Weapon"
+				},
+				{
+					"name": "character",
+					"type": "Character"
+				},
+				{
+					"name": "ammo_to_reload",
+					"type": "integer"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "AmmoClipChange",
+			"description": "When the Ammo Clip is changed, by reloading or manually setting through scripting",
+			"arguments": [
+				{
+					"name": "self",
+					"type": "Weapon"
+				},
+				{
+					"name": "old_ammo_clip",
+					"type": "integer"
+				},
+				{
+					"name": "new_ammo_clip",
+					"type": "integer"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "AmmoBagChange",
+			"description": "When the Ammo Bag is changed, by reloading or manually setting through scripting",
+			"arguments": [
+				{
+					"name": "self",
+					"type": "Weapon"
+				},
+				{
+					"name": "old_ammo_bag",
+					"type": "integer"
+				},
+				{
+					"name": "new_ammo_bag",
+					"type": "integer"
+				}
+			]
+		}
+	]
+}

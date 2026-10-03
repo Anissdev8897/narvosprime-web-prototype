@@ -1,0 +1,493 @@
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+					"type": "boolean",
+					"name": "gravity_enabled",
+					"default": "true"
+				},
+				{
+					"type": "SpawnMode",
+					"name": "spawn_mode",
+					"default": "SpawnMode.Immediate",
+					"description": "Pass <code>SpawnMode.AfterConstructor</code> or <code>SpawnMode.Manual</code> to avoid immediately sending the entity to clients and improve performance when you want to configure it by setting several configs. Must call <code>FinishSpawn()</code> after all"
+				}
+			]
+		}
+	],
+	"functions": [
+		{
+			"authority": "authority",
+			"name": "SetMesh",
+			"description": "Changes the Character Mesh on the fly",
+			"last_compatibility_version": "1.144",
+			"parameters": [
+				{
+					"type": "SkeletalMeshPath|StaticMeshPath",
+					"name": "mesh_asset"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "authority",
+			"name": "SetPhysicsAsset",
+			"description": "Sets the Physics Asset for the Character",
+			"parameters": [
+				{
+					"type": "Other",
+					"name": "physics_asset"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "authority",
+			"name": "PlayAnimation",
+			"description": "Plays an Animation Montage on this character",
+			"parameters": [
+				{
+					"type": "AnimationPath",
+					"name": "animation_path"
+				},
+				{
+					"type": "string",
+					"name": "slot_name",
+					"default": ""
+				},
+				{
+					"type": "boolean",
+					"name": "loop_indefinitely",
+					"default": "false"
+				},
+				{
+					"type": "float",
+					"name": "blend_in_time",
+					"default": "0.25"
+				},
+				{
+					"type": "float",
+					"name": "blend_out_time",
+					"default": "0.25",
+					"description": "Pass it -1 to disable auto blend out and keep the animation running in last pose forever"
+				},
+				{
+					"type": "float",
+					"name": "play_rate",
+					"default": "1.0"
+				},
+				{
+					"type": "boolean",
+					"name": "stop_all_montages",
+					"default": "false",
+					"description": "Stops all running Montages from the same Group"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "authority",
+			"name": "SetMaxAcceleration",
+			"description": "Sets the max acceleration",
+			"parameters": [
+				{
+					"type": "integer",
+					"name": "acceleration",
+					"description": "Default is 2048"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetSpringArmSettings",
+			"description": "Sets the Spring Arm Settings of this Character",
+			"parameters": [
+				{
+					"type": "Vector",
+					"name": "relative_location",
+					"default": "Vector(0, 0, -1)",
+					"description": "Pass nil to use default as capsule height * 1.8"
+				},
+				{
+					"type": "float",
+					"name": "target_arm_length",
+					"default": "300.0"
+				},
+				{
+					"type": "Vector",
+					"name": "socket_offset",
+					"default": "Vector(0, 0, 0)"
+				},
+				{
+					"type": "boolean",
+					"name": "enable_camera_lag",
+					"default": "true"
+				},
+				{
+					"type": "float",
+					"name": "camera_lag_speed",
+					"default": "15.0"
+				},
+				{
+					"type": "float",
+					"name": "camera_lag_max_distance",
+					"default": "1.0"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "authority",
+			"name": "SetRotationSettings",
+			"description": "Sets the Rotation Settings of this Character",
+			"parameters": [
+				{
+					"type": "Rotator",
+					"name": "rotation_rate"
+				},
+				{
+					"type": "boolean",
+					"name": "use_controller_desired_rotation"
+				},
+				{
+					"type": "boolean",
+					"name": "orient_rotation_to_movement"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "authority",
+			"name": "SetSpeedSettings",
+			"description": "Sets the Speed Settings of this Character",
+			"parameters": [
+				{
+					"type": "integer",
+					"default": "600",
+					"name": "max_walk_speed"
+				},
+				{
+					"type": "integer",
+					"default": "300",
+					"name": "max_walk_speed_crouched"
+				},
+				{
+					"type": "integer",
+					"default": "600",
+					"name": "max_fly_speed"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "authority",
+			"name": "SetPawnSettings",
+			"description": "Sets the Pawn Settings of this Character",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "use_controller_rotation_pitch"
+				},
+				{
+					"type": "boolean",
+					"name": "use_controller_rotation_yaw"
+				},
+				{
+					"type": "boolean",
+					"name": "use_controller_rotation_roll"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "authority",
+			"name": "SetAirControl",
+			"description": "Sets the amount of movement control allowed when it is in air",
+			"parameters": [
+				{
+					"type": "float",
+					"name": "air_control",
+					"default": "0.2",
+					"description": "When falling, amount of lateral movement control available to the character. 0 = no control, 1 = full control at max speed of MaxWalkSpeed"
+				},
+				{
+					"type": "float",
+					"name": "boost_multiplier",
+					"default": "512",
+					"description": "When falling, multiplier applied to air_control when lateral velocity is less than boost_velocity_threshold. Setting this to zero will disable air control boosting. Final result is clamped at 1"
+				},
+				{
+					"type": "float",
+					"name": "boost_velocity_threshold",
+					"default": "25",
+					"description": "When falling, if lateral velocity magnitude is less than this value, air_control is multiplied by boost_multiplier. Setting this to zero will disable air control boosting"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "authority",
+			"name": "SetAnimationBlueprint",
+			"description": "Sets the Animation Blueprint of this Character",
+			"parameters": [
+				{
+					"type": "BlueprintPath",
+					"name": "custom_animation_blueprint"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"name": "SetAnimationBlueprintPropertyValue",
+			"description": "Sets an Animation Blueprint Property/Variable value directly",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "property_name"
+				},
+				{
+					"type": "any",
+					"name": "value"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"name": "GetAnimationBlueprintPropertyValue",
+			"description": "Gets an Animation Blueprint Property/Variable value directly",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "property_name"
+				}
+			],
+			"return": [
+				{
+					"type": "any",
+					"description": "the property value"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"name": "CallAnimationBlueprintEvent",
+			"authority": "both",
+			"return": [
+				{
+					"type": "any...",
+					"description": "the function return values"
+				}
+			],
+			"description": "Calls an Animation Blueprint Event or Function",
+			"description_long": "Calls an Animation Blueprint Event or Function<br/>Returns all Function return values on <strong>Client Side</strong>",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "event_name",
+					"description": "Event or Function name"
+				},
+				{
+					"type": "any",
+					"name": "arguments...",
+					"default": "nil",
+					"description": "Sequence of arguments to pass to the event"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"name": "BindAnimationBlueprintEventDispatcher",
+			"description": "Assigns and Binds an Animation Blueprint Event Dispatcher",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "dispatcher_name",
+					"description": "Event Dispatcher name"
+				},
+				{
+					"type": "function",
+					"name": "callback",
+					"description": "Callback function to call",
+					"function_parameters": [
+						{
+							"name": "self",
+							"type": "CharacterSimple"
+						},
+						{
+							"name": "params",
+							"type": "any..."
+						}
+					]
+				}
+			],
+			"return": [
+				{
+					"type": "function",
+					"description": "the callback itself"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"name": "UnbindAnimationBlueprintEventDispatcher",
+			"description": "Unbinds an Animation Blueprint Event Dispatcher",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "dispatcher_name",
+					"description": "Event Dispatcher name"
+				},
+				{
+					"type": "function",
+					"name": "callback",
+					"description": "Optional callback to unbind",
+					"default": "nil"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "authority",
+			"name": "SetCrouching",
+			"description": "Sets if this Character is crouching",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "is_crouching"
+				}
+			],
+			"relations": {
+				"events": [
+					"StartCrouch",
+					"EndCrouch"
+				]
+			},
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "both",
+			"name": "IsCrouching",
+			"description": "Gets if this Character is crouching",
+			"return": [
+				{
+					"type": "boolean",
+					"name": "is_crouching"
+				}
+			],
+			"efficiency": "fast"
+		}
+	],
+	"events": [
+		{
+			"authority": "client",
+			"name": "Jump",
+			"description": "Event fired when the character has just started jumping",
+            "arguments": [
+                {
+                    "type": "CharacterSimple",
+                    "name": "self",
+                    "description": "The CharacterSimple that jumped"
+                }
+            ]
+		},
+		{
+			"authority": "client",
+			"name": "StartCrouch",
+			"description": "Called when Character crouches",
+            "arguments": [
+                {
+                    "type": "CharacterSimple",
+                    "name": "self",
+                    "description": "The CharacterSimple that started crouching"
+                }
+            ]
+		},
+		{
+			"authority": "client",
+			"name": "EndCrouch",
+			"description": "Called when Character stops crouching",
+            "arguments": [
+                {
+                    "type": "CharacterSimple",
+                    "name": "self",
+                    "description": "The CharacterSimple that stopped crouching"
+                }
+            ]
+		},
+		{
+			"authority": "client",
+			"name": "Land",
+			"description": "Called upon landing when falling",
+            "arguments": [
+                {
+                    "type": "CharacterSimple",
+                    "name": "self",
+                    "description": "The CharacterSimple that landed"
+                }
+            ]
+		},
+		{
+			"authority": "client",
+			"name": "MovementModeChange",
+			"description": "Called when the Character movement mode changes",
+			"arguments": [
+                {
+                    "type": "CharacterSimple",
+                    "name": "self",
+                    "description": "The CharacterSimple that changed movement mode"
+                },
+				{
+					"type": "integer",
+					"name": "old_mode",
+					"description": "Previous movement mode"
+				},
+				{
+					"type": "integer",
+					"name": "new_mode",
+					"description": "New movement mode"
+				}
+			]
+		}
+	]
+}
+[FIN INCONNUE — la suite du fichier n'a jamais été lue dans sa dernière version]

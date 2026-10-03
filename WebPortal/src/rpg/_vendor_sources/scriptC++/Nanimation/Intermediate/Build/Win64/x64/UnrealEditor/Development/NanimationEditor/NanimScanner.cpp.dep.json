@@ -1,0 +1,32 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\source\\nanimationeditor\\private\\nanimscanner.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\aniss\\documents\\tpsmodelue57_01\\intermediate\\build\\win64\\x64\\tpsmodelue57editor\\development\\unrealed\\sharedpch.unrealed.project.valapi.valexpapi.cpp20.inclorderunreal5_6.h.pch",
+        "Includes": [
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\nanimationeditor\\definitions.nanimationeditor.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\source\\nanimationeditor\\public\\nanimscanner.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\source\\nanimation\\public\\nanimationtypes.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimation\\uht\\nanimationtypes.generated.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\source\\nanimation\\public\\nanimationset.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimation\\uht\\nanimationset.generated.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\source\\nanimationeditor\\public\\nanimationeditorlog.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\source\\nanimationeditor\\public\\nanimationeditorsettings.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimationeditor\\uht\\nanimationeditorsettings.generated.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\runtime\\assetregistry\\public\\assetregistry\\assetregistrymodule.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\runtime\\assetregistry\\public\\assetregistry\\iassetregistry.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\runtime\\coreuobject\\public\\misc\\assetregistryinterface.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\assetregistry\\uht\\iassetregistry.generated.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\runtime\\coreuobject\\public\\uobject\\savepackage.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\runtime\\core\\public\\serialization\\packagewriter.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\runtime\\core\\public\\io\\iodispatcher.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\runtime\\core\\public\\io\\iobuffer.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\runtime\\core\\public\\io\\iocontainerid.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\runtime\\core\\public\\misc\\ienginecrypto.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\runtime\\coreuobject\\public\\uobject\\objectsaveoverride.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

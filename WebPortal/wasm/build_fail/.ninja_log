@@ -1,0 +1,18 @@
+# ninja log v7
+160	10449	8070701009849715	CMakeFiles/narvos-engine.dir/src/physics/Raycast.cpp.o	9050986f5957e61e
+120	14254	8070701009449546	CMakeFiles/narvos-engine.dir/src/ecs/Registry.cpp.o	669d9fb8ee1fa631
+75	16930	8070701008987069	vendor/glm/glm/CMakeFiles/glm.dir/detail/glm.cpp.o	b97df2de3a74703c
+298	21335	8070701011214579	CMakeFiles/narvos-engine.dir/src/streaming/AssetBudgetManager.cpp.o	97294b524fc57c9c
+324	23318	8070701011485030	CMakeFiles/narvos-engine.dir/src/navigation/PathManager.cpp.o	d7479db2f5ce422c
+16931	24264	8070701177563766	vendor/glm/glm/libglm.a	ae833f46f2d20aa
+235	25931	8070701010595137	CMakeFiles/narvos-engine.dir/src/ai/AISystem.cpp.o	3ad6faeb85f83085
+246	30298	8070701010704562	CMakeFiles/narvos-engine.dir/src/combat/StatusEffects.cpp.o	cd0656b96dc7d5
+286	30897	8070701011093969	CMakeFiles/narvos-engine.dir/src/streaming/ChunkStreamingManager.cpp.o	56604f5ba638953c
+273	32205	8070701010968215	CMakeFiles/narvos-engine.dir/src/bridge/WorldCoordinator.cpp.o	ee335587e61b2de3
+222	32642	8070701010469354	CMakeFiles/narvos-engine.dir/src/ai/EQS.cpp.o	a473150c7cb25502
+339	33048	8070701011625083	CMakeFiles/narvos-engine.dir/src/physics/BVH.cpp.o	6b83dcedca20852c
+134	34510	8070701009577023	CMakeFiles/narvos-engine.dir/src/animation/Skeleton.cpp.o	f697c253cbdc4488
+210	34521	8070701010333200	CMakeFiles/narvos-engine.dir/src/physics/Vehicle.cpp.o	4e829fc018741143
+351	34623	8070701011750657	CMakeFiles/narvos-engine.dir/src/physics/TriggerSystem.cpp.o	46f1664501bf2591
+311	34648	8070701011348040	CMakeFiles/narvos-engine.dir/src/navigation/NavMesh.cpp.o	bc91d91391bc3cbb
+174	45621	8070701009984577	CMakeFiles/narvos-engine.dir/src/physics/CollisionSystem.cpp.o	d542c6e25979b3d6

@@ -1,0 +1,14 @@
+"C:/Users/aniss/Documents/TPSModelUE57_01/Plugins/Nanimation/Source/NanimationEditor/Private/Tests/NanimScannerTest.cpp"
+@"C:/Users/aniss/Documents/TPSModelUE57_01/Plugins/Nanimation/Intermediate/Build/Win64/x64/UnrealEditor/Development/NanimationEditor/NanimationEditor.Shared.rsp"
+/FI"C:/Users/aniss/Documents/TPSModelUE57_01/Intermediate/Build/Win64/x64/TPSModelUE57Editor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.InclOrderUnreal5_6.h"
+/FI"C:/Users/aniss/Documents/TPSModelUE57_01/Plugins/Nanimation/Intermediate/Build/Win64/x64/UnrealEditor/Development/NanimationEditor/Definitions.NanimationEditor.h"
+/Yu"C:/Users/aniss/Documents/TPSModelUE57_01/Intermediate/Build/Win64/x64/TPSModelUE57Editor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.InclOrderUnreal5_6.h"
+/Fp"C:/Users/aniss/Documents/TPSModelUE57_01/Intermediate/Build/Win64/x64/TPSModelUE57Editor/Development/UnrealEd/SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.InclOrderUnreal5_6.h.pch"
+/Fo"C:/Users/aniss/Documents/TPSModelUE57_01/Plugins/Nanimation/Intermediate/Build/Win64/x64/UnrealEditor/Development/NanimationEditor/NanimScannerTest.cpp.obj"
+/experimental:log "C:/Users/aniss/Documents/TPSModelUE57_01/Plugins/Nanimation/Intermediate/Build/Win64/x64/UnrealEditor/Development/NanimationEditor/NanimScannerTest.cpp.sarif"
+/sourceDependencies "C:/Users/aniss/Documents/TPSModelUE57_01/Plugins/Nanimation/Intermediate/Build/Win64/x64/UnrealEditor/Development/NanimationEditor/NanimScannerTest.cpp.dep.json"
+/nologo
+/TP
+/GR-
+/std:c++20
+/wd5054

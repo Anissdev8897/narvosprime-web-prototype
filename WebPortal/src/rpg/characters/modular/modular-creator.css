@@ -1,0 +1,703 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   modular-creator.css — Écran de création plein cadre.
+
+   Direction reprise de la maquette : HUD sombre, cadres à coins coupés, accent
+   cyan pour l'actif, magenta réservé à la catégorie Vêtements. Les cadres sont
+   dessinés au `clip-path` — pas de rayon uniforme, pas d'aspect « carte ».
+
+   Une seule règle de couleur : le cyan signale ce qui est SÉLECTIONNÉ, l'ambre
+   et le rouge signalent une compatibilité dégradée. Rien d'autre n'est coloré.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.mcr {
+  --c-bg: oklch(13% 0.02 250);
+  --c-panel: oklch(18% 0.025 250);
+  --c-panel-hi: oklch(23% 0.03 250);
+  --c-line: oklch(34% 0.05 240);
+  --c-text: oklch(93% 0.01 240);
+  --c-dim: oklch(66% 0.02 240);
+  --c-faint: oklch(48% 0.02 240);
+  --c-accent: oklch(75% 0.15 220);
+  --c-accent-soft: oklch(45% 0.09 220);
+  --c-cloth: oklch(70% 0.16 320);
+  --c-warn: oklch(78% 0.15 70);
+  --c-danger: oklch(64% 0.2 25);
+
+  --cut: 12px;
+  --fast: 130ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(ellipse at 50% 40%, oklch(22% 0.04 235 / 0.55), transparent 62%),
+    var(--c-bg);
+  color: var(--c-text);
+  font-family: system-ui, sans-serif;
+  overflow: hidden;
+}
+
+/* ── En-tête ─────────────────────────────────────────────────────────────── */
+
+.mcr__head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px solid var(--c-line);
+}
+
+.mcr__title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mcr__tabs { display: flex; gap: 0.25rem; justify-self: center; }
+
+.mcr__tab {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--c-dim);
+  padding: 0.5rem 1.4rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  transition: color var(--fast) var(--ease);
+}
+
+/* Le soulignement s'étire depuis le centre : `transform` reste sur le
+   compositeur, contrairement à une animation de largeur. */
+.mcr__tab::after {
+  content: "";
+  position: absolute;
+  inset: auto 0.6rem 0 0.6rem;
+  height: 2px;
+  background: var(--c-accent);
+  transform: scaleX(0);
+  transition: transform var(--fast) var(--ease);
+}
+
+.mcr__tab:hover { color: var(--c-text); }
+.mcr__tab[aria-selected="true"] { color: var(--c-accent); }
+.mcr__tab[aria-selected="true"]::after { transform: scaleX(1); }
+
+.mcr__actions { display: flex; gap: 0.5rem; justify-self: end; }
+
+.mcr__btn {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--c-line);
+  color: var(--c-text);
+  padding: 0.45rem 1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
+}
+
+.mcr__btn:hover { border-color: var(--c-accent); background: var(--c-panel); }
+.mcr__btn--primary { background: var(--c-accent-soft); border-color: var(--c-accent); }
+.mcr__btn--primary:hover { background: var(--c-accent); color: oklch(15% 0.02 250); }
+
+/* ── Corps ───────────────────────────────────────────────────────────────── */
+
+.mcr__body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 190px 200px minmax(0, 1fr) minmax(340px, 34%);
+  gap: 1rem;
+  padding: 1rem 1.5rem 1.25rem;
+  min-height: 0;
+}
+
+.mcr__legend {
+  margin: 0 0 0.6rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.mcr__hint { font-size: 0.75rem; color: var(--c-dim); line-height: 1.5; margin: 0; }
+
+/* ── Rail ────────────────────────────────────────────────────────────────── */
+
+.mcr__rail { display: flex; flex-direction: column; gap: 0.35rem; overflow-y: auto; min-height: 0; }
+
+.mcr__railItem {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  border-left: 3px solid transparent;
+  color: var(--c-dim);
+  padding: 0.7rem 0.8rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: left;
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+  transition: color var(--fast) var(--ease), background var(--fast) var(--ease), border-color var(--fast) var(--ease);
+}
+
+.mcr__railItem:hover { color: var(--c-text); background: var(--c-panel-hi); }
+.mcr__railItem[aria-pressed="true"] {
+  color: var(--c-accent);
+  border-color: var(--c-accent);
+  border-left-color: var(--c-accent);
+  background: color-mix(in oklch, var(--c-accent) 10%, var(--c-panel));
+}
+
+/* Les entrées de bascule de catégorie ne sont pas des emplacements : le
+   magenta les distingue pour qu'on ne les confonde pas avec une partie du corps. */
+.mcr__railItem--cat { border-left-color: var(--c-cloth); color: var(--c-cloth); }
+.mcr__railItem--cat:hover { background: color-mix(in oklch, var(--c-cloth) 12%, var(--c-panel)); color: var(--c-cloth); }
+
+.mcr__railGlyph { font-size: 1rem; width: 1.2rem; text-align: center; opacity: 0.85; }
+.mcr__railSep { height: 1px; background: var(--c-line); margin: 0.5rem 0; }
+
+/* Entrée de rail indisponible — le groupe « Modifications » existe mais ses
+   curseurs attendent le transfert des cibles MPFB2. Elle doit se LIRE comme
+   inactive : atténuée, curseur interdit, aucun effet de survol. Sans ça, un
+   clic sans réponse passerait pour un bug. */
+.mcr__railItem:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+.mcr__railItem:disabled:hover { background: none; }
+
+/* Curseur de silhouette — libellé AU-DESSUS, pas à côté : « Largeur d'épaule »
+   et « Hauteur de la taille » n'ont pas la même longueur, et un alignement
+   horizontal ferait sauter la piste d'une ligne à l'autre. */
+.mcr__slider {
+  display: block;
+  margin-bottom: 0.55rem;
+}
+.mcr__sliderLabel {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-dim, rgb(255 255 255 / 55%));
+}
+.mcr__slider input[type="range"] {
+  width: 100%;
+  accent-color: var(--c-accent, #4fc3f7);
+}
+
+/* Aperçu de l'iris — placé sous la palette, il montre la teinte APPLIQUÉE. */
+.mcr__eyePreview {
+  display: block;
+  margin-top: 0.4rem;
+  padding: 0.3rem;
+  border: 1px solid var(--c-line);
+  border-radius: 4px;
+  background: rgb(0 0 0 / 25%);
+  line-height: 0;
+  text-align: center;
+}
+
+/* ── Colonne réglages ────────────────────────────────────────────────────── */
+
+.mcr__setup { display: flex; flex-direction: column; gap: 0.9rem; overflow-y: auto; min-height: 0; }
+
+.mcr__panel {
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  padding: 0.75rem;
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+}
+
+.mcr__panelBody { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.mcr__opt {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent;
+  border: 1px solid var(--c-line);
+  color: var(--c-dim);
+  padding: 0.55rem 0.7rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color var(--fast) var(--ease), color var(--fast) var(--ease), background var(--fast) var(--ease);
+}
+
+.mcr__opt:hover:not(:disabled) { color: var(--c-text); background: var(--c-panel-hi); }
+.mcr__opt[aria-pressed="true"] { color: var(--c-accent); border-color: var(--c-accent); }
+/* Déclaré, pas encore modélisé : visible mais inerte. Le cacher ferait croire
+   que l'archétype n'existe pas. */
+.mcr__opt:disabled { opacity: 0.35; cursor: not-allowed; }
+.mcr__optGlyph { font-size: 0.9rem; opacity: 0.7; }
+
+.mcr__swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.3rem; }
+
+/* Cinq colonnes pour la palette d'iris : dix teintes en deux rangées propres. */
+.mcr__swatches--eyes { grid-template-columns: repeat(5, 1fr); }
+
+/* L'iris est ronde et cerclée — on ne la confond pas avec un teint de peau. */
+.mcr__swatch--eye {
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px oklch(13% 0.02 250 / 0.55);
+}
+
+.mcr__swatch {
+  appearance: none;
+  aspect-ratio: 1;
+  border: 1px solid var(--c-line);
+  cursor: pointer;
+  padding: 0;
+  transition: transform var(--fast) var(--ease), border-color var(--fast) var(--ease);
+}
+
+.mcr__swatch:hover { transform: scale(1.1); }
+.mcr__swatch[aria-pressed="true"] { border-color: var(--c-accent); border-width: 2px; }
+
+.mcr__picker { width: 100%; height: 1.6rem; margin-top: 0.4rem; background: none; border: 1px solid var(--c-line); cursor: pointer; }
+
+/* ── Scène ───────────────────────────────────────────────────────────────── */
+
+.mcr__stage { position: relative; min-height: 0; min-width: 0; }
+.mcr__stage > :first-child { position: absolute; inset: 0; }
+
+.mcr__stageHint {
+  position: absolute;
+  bottom: 0.5rem; left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 0.6875rem;
+  color: var(--c-faint);
+  letter-spacing: 0.08em;
+  pointer-events: none;
+}
+
+/* ── Sélections ──────────────────────────────────────────────────────────── */
+
+.mcr__picks { display: flex; flex-direction: column; gap: 0.6rem; overflow-y: auto; min-height: 0; }
+
+.mcr__big {
+  background: var(--c-panel);
+  border: 1px solid var(--c-accent-soft);
+  padding: 0.75rem;
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+}
+
+.mcr__bigHead {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  margin-bottom: 0.6rem;
+}
+
+.mcr__bigGlyph { font-size: 1rem; opacity: 0.85; }
+.mcr__bigRow { display: flex; align-items: center; gap: 0.5rem; }
+.mcr__thumbs { display: flex; gap: 0.4rem; flex: 1; min-width: 0; }
+.mcr__thumbs--sm { gap: 0.25rem; }
+
+.mcr__nav {
+  appearance: none;
+  flex: none;
+  width: 2.2rem; height: 2.2rem;
+  display: grid; place-items: center;
+  background: transparent;
+  border: 1px solid var(--c-line);
+  border-radius: 50%;
+  color: var(--c-dim);
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: color var(--fast) var(--ease), border-color var(--fast) var(--ease), transform var(--fast) var(--ease);
+}
+
+.mcr__nav:hover { color: var(--c-accent); border-color: var(--c-accent); }
+.mcr__nav:active { transform: scale(0.9); }
+.mcr__nav--sm { width: 1.7rem; height: 1.7rem; font-size: 0.6rem; }
+
+.mcr__thumb {
+  appearance: none;
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  aspect-ratio: 3 / 4;
+  background: var(--c-panel-hi);
+  border: 1px solid var(--c-line);
+  color: var(--c-dim);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.2rem;
+  transition: border-color var(--fast) var(--ease), transform var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+
+.mcr__thumb:hover { border-color: var(--c-accent-soft); color: var(--c-text); transform: translateY(-2px); }
+.mcr__thumb[aria-pressed="true"] { border-color: var(--c-accent); border-width: 2px; color: var(--c-accent); }
+
+.mcr__thumbArt { font-size: 1.5rem; line-height: 1; opacity: 0.8; }
+.mcr__thumbArt[data-empty] { opacity: 0.35; }
+
+/* La vignette occupe toute la tuile ; `contain` garde les proportions du rendu
+   (une tête reste une tête, une jambe n'est pas écrasée). */
+.mcr__thumbImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.82;
+  transition: opacity var(--fast) var(--ease);
+}
+
+.mcr__thumb:hover .mcr__thumbImg,
+.mcr__thumb[aria-pressed="true"] .mcr__thumbImg { opacity: 1; }
+
+/* L'étiquette de pack passe AU-DESSUS de l'image, sur un fond dégradé pour
+   rester lisible quelle que soit la silhouette. */
+.mcr__thumb .mcr__thumbTag {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 0.5rem 0.2rem 0.15rem;
+  background: linear-gradient(transparent, oklch(13% 0.02 250 / 0.9));
+}
+
+.mcr__thumbTag {
+  font-size: 0.5625rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-faint);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Pastille d'alerte : discrète sur la vignette, le détail est dans l'en-tête. */
+.mcr__thumbFlag {
+  position: absolute;
+  top: 3px; right: 3px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+.mcr__thumbFlag--warn { background: var(--c-warn); }
+.mcr__thumbFlag--danger { background: var(--c-danger); }
+
+/* Pastille de genre — coin OPPOSÉ à la pastille d'alerte (haut-droit), sinon
+   les deux se superposeraient sur une pièce à la fois genrée et incompatible. */
+.mcr__thumbSex {
+  position: absolute;
+  top: 3px; left: 3px;
+  min-width: 13px;
+  padding: 0 2px;
+  font-size: 10px;
+  line-height: 13px;
+  text-align: center;
+  border-radius: 3px;
+  background: rgb(0 0 0 / 55%);
+  pointer-events: none;
+}
+.mcr__thumbSex--male { color: #6ec6ff; }
+.mcr__thumbSex--female { color: #ff8fc4; }
+/* Unisexe : volontairement terne. La couleur signale une CONTRAINTE de genre ;
+   une pièce portée par tous n'en est pas une. */
+.mcr__thumbSex--unisex { color: rgb(255 255 255 / 45%); }
+
+.mcr__flag {
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+  padding: 0.05rem 0.35rem;
+  border: 1px solid currentColor;
+  margin-left: auto;
+}
+.mcr__flag--warn { color: var(--c-warn); }
+.mcr__flag--danger { color: var(--c-danger); }
+
+.mcr__count {
+  margin: 0.5rem 0 0;
+  text-align: center;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.16em;
+  color: var(--c-dim);
+}
+
+.mcr__countName {
+  display: block;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--c-faint);
+  margin-top: 0.15rem;
+}
+
+.mcr__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  padding: 0.4rem 0.5rem;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.mcr__rowHead {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--c-dim);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  flex: none;
+  width: 9.5rem;
+  text-align: left;
+}
+
+.mcr__rowHead:hover { color: var(--c-accent); }
+.mcr__row .mcr__thumb { aspect-ratio: 1; }
+.mcr__row .mcr__thumbTag { display: none; }
+
+/* ── Focus visible partout ───────────────────────────────────────────────── */
+
+.mcr :focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+
+/* ── Écrans étroits ──────────────────────────────────────────────────────── */
+
+@media (max-width: 1280px) {
+  .mcr__body { grid-template-columns: 160px 180px minmax(0, 1fr); grid-template-rows: 1fr auto; }
+  .mcr__picks { grid-column: 1 / -1; max-height: 38vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mcr *, .mcr *::after { transition-duration: 1ms !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LES TROIS ONGLETS — Corps · Création · Marchand
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.mcr__tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-left: 1.5rem;
+}
+
+.mcr__tab {
+  padding: 0.5rem 1.1rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: 2px solid transparent;
+  color: var(--c-dim);
+  font: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--fast) var(--ease), border-color var(--fast) var(--ease);
+}
+
+.mcr__tab:hover { color: var(--c-text); }
+
+/* Le cyan garde son seul sens : ce qui est SÉLECTIONNÉ. */
+.mcr__tab[aria-pressed="true"] {
+  color: var(--c-accent);
+  border-bottom-color: var(--c-accent);
+}
+
+/* Chaque onglet monte un jeu de colonnes différent — d'où une grille par
+   onglet plutôt qu'une grille unique dont des colonnes resteraient vides. */
+.mcr__body--corps    { grid-template-columns: 260px minmax(0, 1fr); }
+.mcr__body--creation { grid-template-columns: 190px minmax(0, 1fr) minmax(340px, 34%); }
+.mcr__body--marchand { grid-template-columns: minmax(0, 1fr); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Marchand — rail, recherche, grille de vignettes
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.mcr__merchant {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 1rem;
+  min-height: 0;
+}
+
+.mcr__merchantMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 0;
+}
+
+.mcr__merchantBar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mcr__search {
+  flex: 1;
+  padding: 0.55rem 0.85rem;
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  color: var(--c-text);
+  font: inherit;
+  font-size: 0.85rem;
+  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+}
+
+.mcr__search::placeholder { color: var(--c-faint); }
+.mcr__search:focus { outline: none; border-color: var(--c-accent); }
+
+.mcr__merchantCount {
+  font-size: 0.75rem;
+  color: var(--c-dim);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Le défilement est PORTÉ PAR CE BLOC et non par la page : le rail et la barre
+   de recherche doivent rester en place quand on parcourt des centaines de
+   pièces. */
+.mcr__merchantScroll {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-right: 0.35rem;
+}
+
+.mcr__pack { display: flex; flex-direction: column; }
+
+.mcr__packCount {
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  background: var(--c-panel-hi);
+  color: var(--c-dim);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+/* `auto-fill` et non `auto-fit` : avec trois pièces dans un pack, `auto-fit`
+   les étirerait sur toute la largeur et les vignettes changeraient de taille
+   d'un pack à l'autre. */
+.mcr__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 128px));
+  gap: 0.6rem;
+}
+
+.mcr__detail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.7rem 0.9rem;
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  border-left: 2px solid var(--c-accent);
+  font-size: 0.78rem;
+  color: var(--c-dim);
+}
+
+.mcr__detail strong { color: var(--c-text); font-size: 0.9rem; }
+
+/* La vignette du Marchand porte un vrai libellé, pas une étiquette de pack :
+   dans une grille groupée PAR pack, répéter le pack sur chaque case serait du
+   bruit — c'est le nom de la pièce qu'on cherche. */
+.mcr__merchant .mcr__thumbTag {
+  white-space: normal;
+  line-height: 1.2;
+  font-size: 0.62rem;
+}
+
+/* ── Morphologie fine ────────────────────────────────────────────────────────
+   Accordéon par région : une seule dépliée à la fois. Ce n'est pas un choix
+   esthétique — les 22 packs pèsent ~5 Mo et ne sont téléchargés qu'à
+   l'ouverture d'une section. */
+.mcr__morphs { display: flex; flex-direction: column; gap: 2px; }
+
+.mcr__morphGroup { border: 1px solid #1e3a4a; border-radius: 4px; overflow: hidden; }
+.mcr__morphGroup.is-open { border-color: #2b6b8f; }
+
+.mcr__morphHead {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 7px 10px; background: #0d1b24; border: 0; cursor: pointer;
+  color: #9fd3ee; font: inherit; font-size: 11px; letter-spacing: .06em;
+  text-transform: uppercase; text-align: left;
+}
+.mcr__morphHead:hover { background: #12242f; }
+.mcr__morphHead > span:first-child { flex: 1; }
+
+/* Compteur de réglages : une région repliée doit dire qu'elle a été modifiée. */
+.mcr__morphCount {
+  min-width: 18px; padding: 1px 5px; border-radius: 9px;
+  background: #2b6b8f; color: #eaf6ff; font-size: 10px; text-align: center;
+}
+
+.mcr__morphBody { padding: 6px 10px 10px; background: #08131a; }
+
+.mcr__morphRow {
+  display: grid; grid-template-columns: 1fr 96px 34px;
+  align-items: center; gap: 8px; padding: 3px 0;
+}
+.mcr__morphLabel {
+  font-size: 11px; color: #b9d6e6;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.mcr__morphLabel em { color: #57a8cd; font-style: normal; }
+.mcr__morphRow input[type="range"] { width: 100%; accent-color: #3fa9dd; }
+/* Tabulaire : sans ça, la colonne tremble à chaque chiffre qui change. */
+.mcr__morphValue {
+  font-size: 10px; color: #6f93a6; text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.mcr__morphReset {
+  margin-top: 8px; padding: 4px 9px; background: transparent;
+  border: 1px solid #2b6b8f; border-radius: 3px; color: #7fc2e4;
+  font: inherit; font-size: 10px; cursor: pointer;
+}
+.mcr__morphReset:hover { background: #12242f; }
+
+/* ── Coiffures ───────────────────────────────────────────────────────────────
+   Uniquement de vraies coupes : ni casque, ni bandana, ni barbe (cf.
+   `hairCatalog`, dont la liste est écrite à la main pour cette raison). */
+.mcr__hairs { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.mcr__hair {
+  padding: 6px 11px; background: #0d1b24;
+  border: 1px solid #1e3a4a; border-radius: 4px;
+  color: #9fd3ee; font: inherit; font-size: 11px; cursor: pointer;
+}
+.mcr__hair:hover { background: #12242f; border-color: #2b6b8f; }
+.mcr__hair[aria-pressed="true"] {
+  background: #123246; border-color: #3fa9dd; color: #eaf6ff;
+}

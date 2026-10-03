@@ -1,0 +1,52 @@
+{
+ "_ceci_n_est_pas_un_manifeste": "Recense ce qui reste a importer. Ce n'est pas une liste de fichiers : les chemins ne sont pas resolus.",
+ "constat": "Huit packs d'animaux sont des packs FBX. Leurs GLB ne portent que le maillage : 0 image, 0 texture, 0 animation (verifie en lisant le chunk JSON de chaque GLB). Les textures sont en PNG a cote, les animations en FBX.",
+ "a_changer": [
+  "narvos-manifeste-brut.mjs, fonction collecter() — c'est LA que le filtre d'extension bloque le .fbx. C'est le seul endroit a changer.",
+  "⚠ CORRECTION DU 2026-09-06 : une version anterieure de ce fichier demandait de modifier adk-import-narvos.py:100. C'ETAIT FAUX, et verifie depuis dans le source. Cette ligne est dans `collecter()`, que le mode manifeste n'appelle JAMAIS : ligne 125, il fait `fichiers = [e[\"fichier\"] for e in donnees[\"fichiers\"]]`, sans filtre d'extension. Un manifeste peut donc DEJA porter des .fbx, sans toucher au Python. Suivre l'ancienne instruction revenait a modifier le mauvais fichier pour un probleme inexistant.",
+  "⚠ NON MESURE : qu'Interchange lise le FBX EN COMMANDLET sur cette installation. Le piege connu du depot concerne l'EXPORT FBX d'un SkeletalMesh, qui tue le processus (MeshMergeUtilities exige un MeshObject de rendu). L'import est un autre chemin de code. A verifier avant de planifier quoi que ce soit dessus."
+ ],
+ "packs": {
+  "creatures/Bear": {
+   "fbx": 100,
+   "png": 9,
+   "glb_coquilles": 9
+  },
+  "creatures/Wolf": {
+   "fbx": 90,
+   "png": 8,
+   "glb_coquilles": 8
+  },
+  "creatures/Deer": {
+   "fbx": 83,
+   "png": 8,
+   "glb_coquilles": 9
+  },
+  "creatures/Buffalo": {
+   "fbx": 82,
+   "png": 10,
+   "glb_coquilles": 14
+  },
+  "creatures/Raccoon": {
+   "fbx": 91,
+   "png": 8,
+   "glb_coquilles": 9
+  },
+  "creatures/Rat": {
+   "fbx": 89,
+   "png": 9,
+   "glb_coquilles": 8
+  },
+  "creatures/Fox": {
+   "fbx": 87,
+   "png": 8,
+   "glb_coquilles": 8
+  },
+  "creatures/Spider": {
+   "fbx": 81,
+   "png": 8,
+   "glb_coquilles": 9
+  }
+ },
+ "racine": "D:/mes_projet/narvosprime-web-prototype/WebPortal/public/models"
+}

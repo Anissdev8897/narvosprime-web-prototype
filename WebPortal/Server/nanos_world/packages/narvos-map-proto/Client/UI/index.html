@@ -1,0 +1,953 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<!--
+			Les trois familles du canvas, et seulement elles : Orbitron pour les
+			titres, Rajdhani pour les libellés, Share Tech Mono pour toute valeur
+			chiffrée. Une quatrième famille casserait la règle des trois rôles.
+		-->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&amp;family=Rajdhani:wght@500;600;700&amp;family=Share+Tech+Mono&amp;display=swap">
+
+		<link rel="stylesheet" href="hud.css">
+		<link rel="stylesheet" href="style.css">
+		<!-- Props, invocations et réglages : modèle rail + liste dense, distinct
+		     de l'inventaire. Chargé après style.css dont il consomme les jetons. -->
+		<link rel="stylesheet" href="ateliers.css">
+		<!-- Jeu d'icônes vectorielles (Lucide, GÉNÉRÉ par narvos-icones-ui.mjs) :
+		     `Icone(nom)`. En premier, tous les scripts qui suivent s'en servent. -->
+		<script src="icones.js"></script>
+		<script src="index.js"></script>
+		<script src="ateliers.js"></script>
+		<!-- Établi d'assemblage : son style et sa logique sont des fichiers
+		     dédiés, chargés après ceux qu'ils réutilisent. -->
+		<link rel="stylesheet" href="assemblage.css">
+		<script src="assemblage.js"></script>
+		<!-- Pont MetaHuman : même principe, un style et une logique dédiés,
+		     chargés après les jetons (style.css) et le socle (index.js). -->
+		<!-- Points de téléportation : invite de passage et panneau d'édition,
+		     chargés après ateliers.js dont ils réutilisent `Message`. -->
+		<link rel="stylesheet" href="teleports.css">
+		<script src="teleports.js"></script>
+		<link rel="stylesheet" href="editionpnj.css">
+		<script src="editionpnj.js"></script>
+		<link rel="stylesheet" href="interface.css">
+		<script src="interface.js"></script>
+		<!-- Échanges : dialogue des PNJ et boutique des marchands. -->
+		<link rel="stylesheet" href="echanges.css">
+		<script src="echanges.js"></script>
+		<!-- Communications : téléphone (carte, messages, contacts) et clavier de
+		     la porte à code. Après ateliers.js (`Message`, `DessinerRadarDans`). -->
+		<link rel="stylesheet" href="communications.css">
+		<script src="communications.js"></script>
+		<!-- Personnage > Compétences, Talents ; niveau et XP du HUD. Après
+		     index.js (`ETAT`, `$`) et ateliers.js (`Message`, `Lua`). -->
+		<link rel="stylesheet" href="competences.css">
+		<script src="competences.js"></script>
+		<!-- Inventaire (maquette « Inventaire NARVOS ») : après index.js (`ETAT`,
+		     `$`), ateliers.js (`Message`) et competences.js (`PROGRESSION`). -->
+		<!-- L'éditeur d'apparence du Meta Customization System, PARTAGÉ avec l'écran
+		     de création : l'inventaire l'affiche dans son onglet APPARENCE. -->
+		<link rel="stylesheet" href="mcs-editeur.css">
+		<script src="mcs-editeur.js"></script>
+		<link rel="stylesheet" href="inventaire.css">
+		<script src="inventaire.js"></script>
+		<!-- Panneau de mort et bouton RÉAPPARAÎTRE (Server/Reapparition.lua). -->
+		<link rel="stylesheet" href="mort.css">
+		<script src="mort.js"></script>
+		<!-- Zaaps : invite d'activation (Server/Zaaps.lua). Après teleports.css,
+		     dont il reprend la boîte `.tp-invite`, et ateliers.js (`Message`). -->
+		<script src="zaaps.js"></script>
+	</head>
+
+	<!--
+		Les deux panneaux vivent dans la même page et le même WebUI. En ouvrir un
+		par panneau lancerait deux processus CEF pour deux div qui ne se
+		chevauchent jamais.
+
+		`hidden` par défaut : le HUD est chargé dès la connexion, mais rien ne
+		doit s'afficher tant que le joueur n'a pas appuyé sur I ou F10.
+	-->
+	<body>
+		<!--
+			══ COUCHE HUD ══════════════════════════════════════════════════════
+			Toujours visible, jamais cliquable. La doctrine du canvas :
+			« Le HUD ne contient jamais de curseur, de scroll ni de navigation. »
+			Tout ce qui se clique est dans la couche WebUI, plus bas.
+		-->
+		<div id="hud">
+			<div id="viseur" data-viseur="croix" hidden>
+				<i></i><i></i><i></i><i></i><i></i>
+			</div>
+
+			<!--
+				── Retour de mêlée ─────────────────────────────────────────
+				Au centre de l'écran, là où le joueur regarde au moment du
+				coup. Quatre signaux, quatre formes distinctes, rien de
+				cliquable :
+
+				· parade — un chevron du côté d'où vient le coup annoncé,
+				  visible exactement le temps de la fenêtre de contre ;
+				· impact — un croisillon bref quand NOTRE coup part ;
+				· combo  — les paliers de l'enchaînement et les dégâts ;
+				· contre — l'annonce de la riposte, avec son multiplicateur.
+
+				Tout est masqué par défaut : un signal qui resterait après
+				son information mentirait sur l'état du combat.
+			-->
+			<div class="hud-zone hud-zone--centre">
+				<div id="melee">
+					<div id="melee-parade" data-dir="">
+						<i class="parade-front"></i><i class="parade-right"></i><i
+						class="parade-back"></i><i class="parade-left"></i>
+					</div>
+					<div id="melee-impact"><i></i><i></i><i></i><i></i></div>
+					<div id="melee-contre"><span class="contre-nom">CONTRE</span><span
+						class="contre-mult" id="contre-mult"></span></div>
+					<div id="melee-combo">
+						<ol id="combo-paliers"><li></li><li></li><li></li></ol>
+						<span id="combo-degats"></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Vitalité, en bas à gauche : la zone que le canvas lui assigne. -->
+			<div class="hud-zone hud-zone--bas-gauche" data-zone="vitalite">
+				<div class="hud-panneau">
+					<div class="hud-titre" id="hud-classe">—</div>
+
+					<div class="hud-jauge hud-jauge--vie" id="jauge-vie">
+						<div class="hud-jauge-ligne">
+							<span class="hud-jauge-nom">VIE</span>
+							<span class="hud-jauge-valeur" id="vie-valeur">— / —</span>
+						</div>
+						<div class="hud-barre"><span id="vie-barre" style="width:100%"></span></div>
+					</div>
+
+					<div class="hud-jauge hud-jauge--armure">
+						<div class="hud-jauge-ligne">
+							<span class="hud-jauge-nom">ARMURE</span>
+							<span class="hud-jauge-valeur" id="armure-valeur">— / —</span>
+						</div>
+						<div class="hud-barre"><span id="armure-barre" style="width:100%"></span></div>
+					</div>
+
+					<!-- Niveau et XP : masqué tant que le serveur n'a rien envoyé. -->
+					<div class="hud-jauge hud-jauge--xp" id="hud-xp" hidden>
+						<div class="hud-jauge-ligne">
+							<span class="hud-jauge-nom">NIV. <b id="hud-niveau">—</b></span>
+							<span class="hud-jauge-valeur" id="hud-xp-valeur">—</span>
+						</div>
+						<div class="hud-barre hud-barre--fine"><span id="hud-xp-barre" style="width:0%"></span></div>
+					</div>
+				</div>
+			</div>
+
+			<!--
+				Barre de pouvoirs, en bas au centre. Quatre emplacements fixes :
+				c'est `Commandes.ACTIONS` (sort_1..sort_4) qui en fixe le nombre,
+				et `Sorts.EMPLACEMENTS` côté logique. Les trois doivent bouger
+				ensemble, sinon une touche pointe dans le vide.
+
+				Masquée tant que le serveur n'a rien poussé — une barre de quatre
+				cases vides au démarrage laisserait croire à un chargement raté.
+			-->
+			<div class="hud-zone hud-zone--bas-centre" data-zone="sorts">
+				<div class="hud-sorts" id="hud-sorts" hidden>
+					<ol class="sorts" id="sorts-liste"></ol>
+					<div class="hud-jauge hud-jauge--mana">
+						<div class="hud-barre"><span id="mana-barre" style="width:100%"></span></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Messages courts : erreur de sort, conflit de touche, prop posé. -->
+			<div class="hud-zone hud-zone--haut-centre" data-zone="messages">
+				<div class="hud-message" id="hud-message" hidden></div>
+				<div class="tp-invite" id="tp-invite" hidden role="status" aria-live="polite"></div>
+				<div class="tp-invite" id="marchand-invite" hidden role="status" aria-live="polite"></div>
+				<div class="tp-invite" id="digicode-invite" hidden role="status" aria-live="polite"></div>
+				<div class="tp-invite" id="zaap-invite" hidden role="status" aria-live="polite"></div>
+			</div>
+
+			<!--
+				Boussole (demande B1) : une règle graduée qui défile avec la
+				caméra ; la direction la plus proche est écrite en grand au
+				centre. Convention du radar : N en haut de la carte = -Y.
+			-->
+			<div class="hud-zone hud-zone--boussole" data-zone="boussole">
+				<div class="hud-boussole" id="hud-boussole" aria-hidden="true">
+					<div class="boussole-regle" id="boussole-regle"></div>
+					<span class="boussole-cap" id="boussole-cap">N</span>
+				</div>
+			</div>
+
+			<!-- Mini-carte du HUD (déplaçable) : le même dessin que le radar. -->
+			<div class="hud-zone hud-zone--carte" data-zone="carte" hidden>
+				<div class="hud-carte">
+					<canvas id="hud-carte-canvas" width="180" height="180"></canvas>
+				</div>
+			</div>
+
+			<!-- Arme et munitions, en bas à droite. Masqué tant que rien n'est tenu. -->
+			<div class="hud-zone hud-zone--bas-droite" data-zone="arme">
+				<div class="hud-panneau hud-arme" id="hud-arme" hidden>
+					<div class="hud-arme-nom" id="arme-nom">—</div>
+					<div class="hud-munitions">
+						<span class="chargeur" id="arme-chargeur">0</span><span
+						class="sep">/</span><span class="reserve" id="arme-reserve">0</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- ══ COUCHE WEBUI ═══════════════════════════════════════════════════ -->
+		<div id="voile" hidden></div>
+
+		<!-- ── Inventaire (touche I) ─────────────────────────────────────── -->
+		<!--
+			La maquette « Inventaire NARVOS » (Telegram Desktop/Inventaire NARVOS.dc) :
+			onglets, emplacements autour du personnage, statistiques, grille filtrable,
+			fiche et actions. Données : le sac RÉEL (Logic/InventaireVue.lua) ; logique
+			de page : inventaire.js ; style : inventaire.css.
+		-->
+		<section id="inventaire" class="inv" hidden>
+			<header class="inv-barre">
+				<div class="inv-marque"><i class="inv-losange"></i><span>NARVOS</span></div>
+				<nav class="inv-onglets" id="inv-onglets" aria-label="Catégories"></nav>
+				<div class="inv-espace"></div>
+				<div class="inv-credits"><small>CRÉDITS</small><b id="inv-credits">0</b></div>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+
+			<aside class="inv-perso">
+				<div class="inv-bloc-titre"><span>PERSONNAGE · EMPLACEMENTS</span><span id="inv-niveau"></span></div>
+				<div class="inv-poupee">
+					<div class="inv-silhouette"><img class="inv-apercu" id="inv-apercu" alt="" hidden><i class="inv-losange" id="inv-apercu-attente"></i></div>
+					<ol class="inv-slots" id="inv-slots"></ol>
+				</div>
+				<div class="inv-bloc-titre"><span>STATISTIQUES</span><span id="inv-charge"></span></div>
+				<div class="inv-stats" id="inv-stats"></div>
+			</aside>
+
+			<main class="inv-sac">
+				<div class="inv-filtres">
+					<label class="inv-recherche"><i></i><input id="inv-recherche" type="text" placeholder="Rechercher un objet…" autocomplete="off"></label>
+					<div class="inv-tris" id="inv-tris"></div>
+				</div>
+				<div class="inv-raretes" id="inv-raretes"></div>
+				<div class="inv-grille" id="inv-grille"></div>
+				<footer class="inv-pied">
+					<span id="inv-capacite">0 / 0 EMPLACEMENTS</span>
+					<div class="inv-jauge"><span id="inv-jauge"></span></div>
+				</footer>
+			</main>
+
+			<aside class="inv-detail" id="inv-detail"></aside>
+			<!-- Onglet APPARENCE : l'éditeur du Meta Customization System (inventaire.js). -->
+			<section class="inv-apparence" id="inv-apparence" hidden aria-label="Apparence du personnage"></section>
+			<div class="inv-toasts" id="inv-toasts"></div>
+		</section>
+
+		<section id="atelier" class="panneau" hidden>
+			<header>
+				<h1 id="atelier-titre">Atelier</h1>
+			</header>
+			<ul id="atelier-liste" class="liste"></ul>
+		</section>
+
+		<section id="gisement" class="panneau" hidden>
+			<header>
+				<h1 id="gisement-titre">Ressource</h1>
+			</header>
+			<p id="gisement-texte" class="vide"></p>
+			<button id="gisement-bouton" class="btn">Récolter</button>
+		</section>
+
+		<!-- ── Radar (mini-carte, touche à lier) ───────────────────────────────── -->
+		<section id="radar" class="panneau" hidden>
+			<header>
+				<h1>Radar</h1>
+				<span class="capacite">PNJ, animaux, ressources, portails</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+			<div class="radar-cadre">
+				<canvas id="radar-canvas" width="240" height="240"></canvas>
+			</div>
+			<p class="vide" id="radar-info">Position inconnue</p>
+		</section>
+
+		<!--
+			── Pause (Echap) ────────────────────────────────────────────────
+
+			⚠ REMPLACE le menu d'echap de nanos, il ne s'y ajoute pas. Le Lua
+			consomme la touche (`Input.Subscribe("KeyPress")` -> `return false`,
+			clause relevee dans l'API). Sans ca les deux menus se superposaient.
+
+			Pas de bouton « fermer » en haut a droite ici, contrairement aux
+			autres panneaux : « Reprendre » EST le bouton de fermeture, et en
+			mettre deux ferait douter de ce que fait le premier.
+		-->
+		<section id="pause" class="panneau panneau--pause" hidden>
+			<header class="pause-tete">
+				<p class="pause-sur">Partie en cours</p>
+				<h1 class="pause-titre">NARVOS</h1>
+			</header>
+
+			<ol class="pause-actions">
+				<li>
+					<button class="pause-action pause-action--premiere" data-pause="reprendre">
+						<span class="pause-libelle">Reprendre</span>
+						<span class="pause-touche">Echap</span>
+					</button>
+				</li>
+				<li>
+					<button class="pause-action" data-pause="parametres">
+						<span class="pause-libelle">Parametres</span>
+						<span class="pause-note" id="pause-niveau">—</span>
+					</button>
+				</li>
+				<!--
+					── Jouabilité ─────────────────────────────────────────────
+					Auto-loot, auto-marche et tout réglage de jeu à venir : le
+					panneau rend le REGISTRE envoyé par le serveur, rien n'est
+					écrit ici — un paramètre ajouté demain apparaît seul.
+				-->
+				<li>
+					<button class="pause-action" data-pause="jouabilite">
+						<span class="pause-libelle">Jouabilite</span>
+						<span class="pause-note">auto-loot, auto-marche…</span>
+					</button>
+				</li>
+				<!--
+					⚠ Commandes est ICI et pas seulement sur sa propre touche.
+					C'est le seul ecran ou le joueur peut recuperer une touche
+					qu'il a perdue — et si la touche perdue est justement celle
+					qui l'ouvre, l'ecran devient inatteignable. Echap ne se perd
+					pas : le Lua le consomme sans passer par une liaison
+					reconfigurable. C'est donc le seul chemin qui tient toujours.
+				-->
+				<li>
+					<button class="pause-action" data-pause="commandes">
+						<span class="pause-libelle">Commandes</span>
+						<span class="pause-note">touches &amp; raccourcis</span>
+					</button>
+				</li>
+				<li>
+					<button class="pause-action" data-pause="interface">
+						<span class="pause-libelle">Interface</span>
+						<span class="pause-note">disposition du HUD, boussole</span>
+					</button>
+				</li>
+			</ol>
+
+			<!-- Mis a part, et plus bas : c'est la seule action irreversible du
+			     menu. La regle du projet sur les filets s'applique — celui-ci
+			     SEPARE deux natures d'action, il va donc d'un bord a l'autre. -->
+			<div class="pause-sortie">
+				<button class="pause-action pause-action--sortie" data-pause="quitter">
+					<span class="pause-libelle">Quitter la partie</span>
+					<span class="pause-note">retour au menu nanos</span>
+				</button>
+			</div>
+		</section>
+
+		<!--
+			── Graphismes ───────────────────────────────────────────────────
+
+			Les trois niveaux viennent de `Narvos.Graphismes.PourInterface` :
+			libelles, ordre, resumes ET chiffres. Rien n'est ecrit ici — une
+			liste recopiee finit toujours par diverger de sa source.
+		-->
+		<section id="graphismes" class="panneau" hidden>
+			<header>
+				<h1>Graphismes</h1>
+				<span class="capacite" id="gfx-actuel">—</span>
+				<!-- ⚠ `data-pause` et PAS `data-fermer` : ce panneau est un
+				     sous-menu de la pause, il y remonte au lieu de tout fermer. -->
+				<button class="fermer" data-pause="retour">RETOUR</button>
+			</header>
+
+			<ul id="gfx-liste" class="gfx-liste"></ul>
+
+			<p class="gfx-pied">
+				Resolution, antialiasing et qualite des textures se reglent dans
+				les parametres de nanos&nbsp;: le moteur ne les expose pas au jeu.
+			</p>
+			</section>
+
+			<!--
+			── Jouabilité ───────────────────────────────────────────────────
+
+			Le panneau rend le REGISTRE poussé par le serveur (`Narvos:Jouabilite`) :
+			toggles, choix, sélections multiples, groupes — rien n'est écrit ici.
+			Ajouter un paramètre demain n'exige AUCUNE retouche de cette section.
+			-->
+			<section id="jouabilite" class="panneau" hidden>
+			<header>
+				<h1>Jouabilité</h1>
+				<span class="capacite">réglages de jeu</span>
+				<!-- ⚠ `data-pause` et PAS `data-fermer` : ce panneau est un
+				     sous-menu de la pause, il y remonte au lieu de tout fermer. -->
+				<button class="fermer" data-pause="retour">RETOUR</button>
+			</header>
+
+			<ul id="jouabilite-liste" class="jouabilite-liste"></ul>
+
+			<footer class="barre-action">
+				<span class="selection" id="jouabilite-etat"></span>
+				<button class="action action--fantome" data-jouabilite-reset>Tout réinitialiser</button>
+			</footer>
+			</section>
+
+			<!--
+			── Fouille ──────────────────────────────────────────────────────
+
+			Ouvert PAR LE SERVEUR (`Narvos:Fouille`), jamais à la demande : la liste
+			est celle du cadavre le plus proche, calculée côté serveur. Chaque geste
+			(prendre, tout prendre) repart au serveur, qui revalide le sac.
+			-->
+			<section id="fouille" class="panneau panneau--etroit" hidden>
+			<header>
+				<h1>Cadavre</h1>
+				<span class="capacite" id="fouille-poids">—</span>
+				<button class="fermer" data-fouille-fermer>ESC</button>
+			</header>
+
+			<ul id="fouille-liste" class="fouille-liste"></ul>
+
+			<footer class="barre-action">
+				<span class="selection" id="fouille-etat"></span>
+				<button class="action" data-fouille-tout>Tout prendre</button>
+			</footer>
+			</section>
+
+		<!-- ── Personnage (touche F10) ───────────────────────────────────── -->
+		<!--
+			Personnage (F10) et Compétences (F5) : UN panneau, quatre onglets.
+			Le bandeau du haut porte ce qui compte partout — le niveau en très
+			grand, l'XP sur toute la largeur, les points de talent. Tout est
+			calculé par le serveur (Server/Progression.lua) : la page n'a aucune
+			courbe d'XP ni aucune règle de talent.
+		-->
+		<section id="personnage" class="panneau panneau--large" hidden>
+			<header>
+				<h1>Personnage</h1>
+				<span class="capacite" id="perso-identite">—</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+
+			<div class="perso-bandeau">
+				<div class="perso-niveau">
+					<span class="perso-etiquette">Niveau</span>
+					<b id="perso-niveau">—</b>
+				</div>
+				<div class="perso-xp">
+					<div class="perso-xp-barre"><span id="perso-xp-plein" style="width:0%"></span></div>
+					<div class="perso-xp-ligne">
+						<span id="perso-xp">— XP</span>
+						<span id="perso-xp-total"></span>
+					</div>
+				</div>
+				<div class="perso-points" id="perso-points-bloc">
+					<b id="perso-points">0</b>
+					<span>point(s) de talent</span>
+				</div>
+			</div>
+
+			<nav class="perso-onglets" role="tablist">
+				<button type="button" role="tab" data-onglet="competences" aria-selected="true">Compétences</button>
+				<button type="button" role="tab" data-onglet="talents" aria-selected="false">Talents</button>
+				<button type="button" role="tab" data-onglet="classe" aria-selected="false">Classe</button>
+				<button type="button" role="tab" data-onglet="metiers" aria-selected="false">Métiers</button>
+			</nav>
+
+			<div class="perso-page" data-page="competences">
+				<dl class="perso-stats" id="perso-stats"></dl>
+				<ol class="competences" id="competences"></ol>
+			</div>
+
+			<div class="perso-page" data-page="talents" hidden>
+				<div class="talents-entete">
+					<p id="talents-regle">—</p>
+					<button type="button" class="talents-reinit" id="talents-reinit">Tout rembourser</button>
+				</div>
+				<div class="talents" id="talents"></div>
+			</div>
+
+			<div class="perso-page" data-page="classe" hidden>
+				<ul id="classes" class="classes"></ul>
+			</div>
+
+			<!--
+				METIERS — la progression portee du prototype web.
+
+				Une LISTE, pas une grille de cartes : six lignes se lisent de haut
+				en bas, et c'est la barre qui porte l'information.
+			-->
+			<div class="perso-page" data-page="metiers" hidden>
+				<ul id="metiers" class="metiers"></ul>
+			</div>
+		</section>
+
+		<!--
+			── Props ────────────────────────────────────────────────────────
+			Rail de catégories à gauche, liste à droite. Volontairement PAS une
+			grille de cartes uniformes : 449 entrées en cartes donnent un mur
+			indifférencié où l'œil n'a nulle part où se poser. Une liste dense
+			avec un rail se parcourt, se filtre, et laisse la place au compteur.
+		-->
+		<section id="props" class="panneau panneau--large" hidden>
+			<header>
+				<h1>Props</h1>
+				<span class="capacite" id="props-compteur">0 / 0 posés</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+
+			<div class="atelier">
+				<nav class="rail" id="props-rail" aria-label="Catégories de props"></nav>
+
+				<div class="atelier-corps">
+					<input id="props-recherche" class="recherche" type="search"
+						placeholder="Filtrer — nom du prop" autocomplete="off">
+					<ul id="props-liste" class="liste-dense"></ul>
+				</div>
+			</div>
+
+			<footer class="barre-action">
+				<span class="selection" id="props-selection">Aucun prop sélectionné</span>
+				<span class="indice" id="props-indice"></span>
+				<button class="action action--fantome" data-props-vider>Tout retirer</button>
+			</footer>
+		</section>
+
+		<!-- ── PNJ et monstres ─────────────────────────────────────────────── -->
+		<!--
+			── Armes (O) — MENU DE TEST ─────────────────────────────────────
+			Meme forme que le menu de PNJ : un rail de categories, une liste,
+			un clic donne l'arme. Il existe pour ESSAYER les armes du pack de
+			base avant que le butin et les marchands ne les distribuent, et
+			sera retire a ce moment-la. Le serveur revalide tout : la page
+			n'emet qu'un identifiant.
+		-->
+		<section id="armes" class="panneau panneau--large" hidden>
+			<header>
+				<h1>Armes</h1>
+				<span class="capacite" id="armes-compteur">— armes</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+
+			<div class="atelier">
+				<nav class="rail" id="armes-rail" aria-label="Categories"></nav>
+
+				<div class="atelier-corps">
+					<input id="armes-recherche" class="recherche" type="search"
+						placeholder="Filtrer — nom de l'arme" autocomplete="off">
+					<ul id="armes-liste" class="liste-dense"></ul>
+				</div>
+			</div>
+
+			<footer class="barre-action">
+				<span class="selection" id="armes-selection">Cliquer une arme pour la prendre en main</span>
+				<button class="action action--fantome" data-armes-lacher>Lacher l'arme</button>
+			</footer>
+		</section>
+
+		<!--
+			VEHICULES (V) — faire apparaitre une voiture du pack.
+
+			Pas de rail de categories : douze modeles cuits, une seule liste se
+			parcourt d'un coup d'oeil, et un rail a une seule entree est un
+			ornement. Pas de recherche non plus, pour la meme raison.
+
+			La page AFFICHE, le serveur DECIDE : elle n'emet qu'un identifiant,
+			et la garde (commandes_dev ou administrateur) vit cote serveur — la
+			meme que pour la commande /vehicule.
+		-->
+		<section id="vehicules" class="panneau" hidden>
+			<header>
+				<h1>Véhicules</h1>
+				<span class="capacite" id="vehicules-compteur">— modèles</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+
+			<label>Catégorie <select id="vehicules-filtre">
+				<option value="tous">Tous les véhicules</option>
+				<option value="route">Voitures et motos</option>
+				<option value="vaisseaux">Vaisseaux</option>
+			</select></label>
+			<ul id="vehicules-liste" class="liste-dense"></ul>
+
+			<footer class="barre-action">
+				<span class="selection" id="vehicules-selection">Cliquer un modèle pour le faire apparaître</span>
+			</footer>
+		</section>
+
+		<section id="spawn" class="panneau panneau--large" hidden>
+			<header>
+				<h1>PNJ &amp; monstres</h1>
+				<span class="capacite" id="spawn-compteur">0 / 0 invoqués</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+
+			<div class="atelier">
+				<nav class="rail" id="spawn-rail" aria-label="Rôles"></nav>
+
+				<div class="atelier-corps">
+					<input id="spawn-recherche" class="recherche" type="search"
+						placeholder="Filtrer — nom du PNJ" autocomplete="off">
+					<ul id="spawn-liste" class="liste-dense"></ul>
+				</div>
+			</div>
+
+			<footer class="barre-action">
+				<label class="spawn-niveau" for="spawn-niveau">
+					<span>Niveau du prochain PNJ</span>
+					<input id="spawn-niveau" type="number" min="1" max="50" step="1" value="1" inputmode="numeric">
+				</label>
+				<span class="selection" id="spawn-selection">Choisir un niveau puis cliquer une entrée</span>
+				<button class="action" data-spawn-enregistrer>Enregistrer le peuplement</button>
+				<button class="action action--fantome" data-spawn-retirer>Retirer le dernier</button>
+				<button class="action action--fantome" data-spawn-vider>Tout retirer</button>
+			</footer>
+		</section>
+
+		<!--
+			── Garde-robe et tailleur (G) ───────────────────────────────────
+			Un seul écran pour les deux gestes, parce qu'ils s'enchaînent :
+			on achète pour essayer. Deux panneaux séparés auraient obligé à
+			faire l'aller-retour après chaque achat.
+
+			Le rail liste les SLOTS et non des catégories de marchandise : le
+			joueur cherche « quoi mettre sur mon torse », pas « quels articles
+			existent ». Un slot qui n'a rien à proposer disparaît du rail.
+		-->
+		<section id="garde-robe" class="panneau panneau--large" hidden>
+			<header>
+				<h1>Garde-robe</h1>
+				<span class="capacite" id="gr-credits">— crédits</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+
+			<div class="atelier">
+				<nav class="rail" id="gr-rail" aria-label="Emplacements"></nav>
+
+				<div class="atelier-corps">
+					<input id="gr-recherche" class="recherche" type="search"
+						placeholder="Filtrer — nom de la pièce" autocomplete="off">
+					<ul id="gr-liste" class="liste-dense"></ul>
+				</div>
+			</div>
+
+			<footer class="barre-action">
+				<span class="selection" id="gr-etat">Cliquer une pièce pour l'acheter ou la porter</span>
+				<button class="action action--fantome" data-gr-devetir>Tout retirer</button>
+			</footer>
+		</section>
+
+		<!--
+			── Paramètres → Commandes (Échap) ───────────────────────────────
+			Une seule colonne, mais des lignes de hauteurs inégales groupées par
+			catégorie : la structure vient du contenu, pas d'une grille imposée.
+		-->
+		<section id="commandes" class="panneau panneau--large" hidden>
+			<header>
+				<h1>Paramètres</h1>
+				<span class="capacite">Commandes</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+
+			<p class="consigne" id="commandes-consigne">
+				Cliquer une touche puis appuyer sur la nouvelle.
+				Lettres, chiffres et <b>F1</b>–<b>F12</b>.
+				<b>W</b> <b>A</b> <b>S</b> <b>D</b> servent au déplacement.
+			</p>
+
+			<div id="commandes-corps" class="reglages"></div>
+
+			<footer class="barre-action">
+				<span class="selection" id="commandes-etat"></span>
+				<button class="action action--fantome" data-commandes-reset>Tout réinitialiser</button>
+			</footer>
+		</section>
+
+		<!--
+			── Roue d'objets (TAB) ─────────────────────────────────────────
+			Cycle propre, HORS PANNEAUX : éphémère, elle s'ouvre, on choisit,
+			elle se referme — pas de voile, pas de header, pas de bouton ESC.
+			Cinq emplacements en arc au centre-bas, là où le regard est déjà ;
+			l'assignation vit dans un panneau latéral séparé par un filet
+			pleine hauteur. Masquée par défaut : la page est chargée en
+			permanence, et rien ne doit s'afficher sans TAB.
+		-->
+		<!--
+			── Établi d'assemblage (proximité) ────────────────────────────
+			Le joueur POSE les pièces slot par slot (carrosserie, portes,
+			moteur, roues…), il ne clique pas « fabriquer ». Ouvert par le
+			serveur quand le joueur entre dans la zone de l'établi — pas de
+			touche, comme le craft.
+
+			Deux états, jamais mélangés : le CHOIX du plan (aucun assemblage
+			en cours) et L'ASSEMBLAGE lui-même (slots à gauche, sac à droite).
+			La page ne décide rien : le serveur pousse l'état complet (plans,
+			session, sac avec uids, et pour chaque slot les piles qu'il
+			accepterait), chaque clic n'émet qu'une intention de chaînes.
+		-->
+		<section id="assemblage" class="panneau panneau--large" hidden>
+			<header>
+				<h1 id="assemblage-titre">Établi d'assemblage</h1>
+				<span class="capacite" id="assemblage-avancement">—</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+
+			<!-- Choix du plan : seulement sans assemblage en cours. -->
+			<div id="assemblage-choix" hidden>
+				<ul id="assemblage-plans" class="liste-dense"></ul>
+				<p id="assemblage-aucun-plan" class="vide" hidden>
+					Aucun plan disponible : le catalogue des plans n'est pas encore
+					livré à l'établi. L'établi fonctionne — il n'a simplement rien
+					à proposer pour l'instant.
+				</p>
+			</div>
+
+			<!-- L'assemblage en cours : slots du plan, sac filtré. -->
+			<div id="assemblage-en-cours" hidden>
+				<div class="assemblage-corps">
+					<ol id="assemblage-slots" class="assemblage-slots"></ol>
+
+					<div class="assemblage-cote">
+						<p class="consigne" id="assemblage-consigne">
+							Choisir un emplacement, puis cliquer une pièce du sac
+							pour la poser. Les pièces grisées ne conviennent pas à
+							cet emplacement.
+						</p>
+						<ul id="assemblage-pieces" class="liste-dense"></ul>
+					</div>
+				</div>
+
+				<footer class="barre-action">
+					<span class="selection" id="assemblage-manquants">—</span>
+					<button class="action action--fantome" data-assemblage-abandonner>Abandonner</button>
+					<button class="action" id="assemblage-finaliser" data-assemblage-finaliser disabled>Finaliser</button>
+				</footer>
+			</div>
+
+			<!-- Le résultat, honnêtement : un objet dans le sac, pas une promesse. -->
+			<p class="assemblage-resultat" id="assemblage-resultat" hidden></p>
+			<p class="assemblage-refus" id="assemblage-refus" hidden></p>
+		</section>
+
+		<!--
+			── Le pont MetaHuman (panneau « metahumain ») : RETIRÉ le 2026-09-14.
+			L'apparence se règle dans l'inventaire, onglet APPARENCE.
+		-->
+
+		<!--
+			POINTS DE TÉLÉPORTATION — édition (Server/Teleports.lua). La liste des
+			points à gauche, le point choisi et ses gestes à droite. Ouvert par F6
+			ou /tp. La page ne décide rien : chaque geste part au serveur, qui répond
+			par la liste à jour et une ligne ; un joueur sans droit ne voit que le
+			verrou.
+		-->
+		<section id="teleports" class="panneau panneau--large panneau--tp" hidden aria-labelledby="tp-titre-panneau">
+			<header>
+				<h1 id="tp-titre-panneau">Points de TP</h1>
+				<span class="capacite" id="tp-compte">—</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+			<p class="tp-verrou" id="tp-verrou" hidden>Réservé aux administrateurs.</p>
+			<div class="tp-corps" id="tp-corps">
+				<ol class="tp-liste" id="tp-liste" aria-label="Points de téléportation"></ol>
+				<div class="tp-cote" id="tp-cote"></div>
+			</div>
+			<footer class="barre-action">
+				<span class="selection tp-message" id="tp-message" role="status" aria-live="polite"></span>
+			</footer>
+		</section>
+
+		<!--
+			INTERFACE — Échap > Interface (interface.js, Logic/Disposition.lua).
+			Une barre d'outils, pas une fenêtre : le HUD doit rester visible pour
+			qu'on le déplace. Le voile s'efface pendant l'édition.
+		-->
+		<section id="interface" class="panneau panneau--interface" hidden aria-labelledby="ui-titre">
+			<header>
+				<h1 id="ui-titre">Interface</h1>
+				<span class="capacite">glisser un élément pour le déplacer</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+			<div class="ui-corps" id="ui-options"></div>
+			<footer class="barre-action">
+				<button class="action" type="button" id="ui-defaut">Disposition par défaut</button>
+				<button class="action" type="button" data-pause="retour">Retour</button>
+				<span class="selection" id="ui-etat" role="status" aria-live="polite"></span>
+			</footer>
+		</section>
+
+		<!--
+			ÉDITION DES PNJ — /editionpnj (Server/EditionPnj.lua, editionpnj.js).
+			Repères radar (couleur, taille, visibilité par PNJ, rôle, sorte, animal)
+			et diagnostic TEXTURE de chaque PNJ lu dans le pack cuit.
+		-->
+		<section id="editionpnj" class="panneau panneau--large panneau--ep" hidden aria-labelledby="ep-titre">
+			<header>
+				<h1 id="ep-titre">Édition des PNJ</h1>
+				<span class="capacite" id="ep-bilan">—</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+			<p class="ep-verrou" id="ep-verrou" hidden>Lecture seule — les réglages sont réservés aux administrateurs.</p>
+			<div class="ep-corps" id="ep-corps"></div>
+			<footer class="barre-action">
+				<span class="selection ep-message" id="ep-message" role="status" aria-live="polite"></span>
+			</footer>
+		</section>
+
+		<!--
+			DIALOGUE — la parole d'un PNJ (Server/Index.lua, Logic/Dialogue.lua).
+			Étroit, centré sur ce qui se dit : l'orateur en petites capitales, sa
+			réplique en grand, les réponses numérotées (touches 1 à 9). Les choix
+			arrivent DÉJÀ filtrés par le serveur ; la page renvoie un indice.
+		-->
+		<section id="dialogue" class="panneau panneau--dialogue" hidden aria-labelledby="dlg-orateur">
+			<header>
+				<h1 id="dlg-orateur">—</h1>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+			<p class="dlg-texte" id="dlg-texte"></p>
+			<ol class="dlg-choix" id="dlg-choix" aria-label="Réponses"></ol>
+		</section>
+
+		<!--
+			BOUTIQUE — acheter et vendre chez le marchand proche. Deux colonnes
+			INÉGALES : ce qui est en vente, ce que le sac contient. Le serveur tranche
+			prix, solde et proximité ; la page n'émet qu'un identifiant et une
+			quantité, et attend sa réponse.
+		-->
+		<section id="boutique" class="panneau panneau--large panneau--bq" hidden aria-labelledby="bq-titre">
+			<header>
+				<h1 id="bq-titre">Boutique</h1>
+				<span class="capacite" id="bq-credits">— cr</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+			<div class="bq-corps">
+				<div class="bq-colonne">
+					<h2 class="bq-sous-titre" id="bq-soustitre">En vente</h2>
+					<ul class="bq-liste" id="bq-stock" aria-labelledby="bq-soustitre"></ul>
+				</div>
+				<div class="bq-colonne bq-colonne--vente">
+					<h2 class="bq-sous-titre" id="bq-sac-titre">Votre sac</h2>
+					<ul class="bq-liste" id="bq-sac" aria-labelledby="bq-sac-titre"></ul>
+				</div>
+			</div>
+			<footer class="barre-action">
+				<span class="selection bq-message" id="bq-message" role="status" aria-live="polite"></span>
+			</footer>
+		</section>
+
+		<!--
+			TÉLÉPHONE — le smartphone (Server/Communications.lua). Étroit et haut,
+			à la proportion de l'objet. Les applications, leur ordre et leurs
+			libellés viennent du SERVEUR (Logic/Telephone.APPLICATIONS) ; la page
+			n'a qu'une vue par application. La carte redessine les données du
+			radar ; les messages sont de session ; un contact s'écrit par son
+			IDENTIFIANT de joueur, jamais par un nom tapé.
+		-->
+		<section id="telephone" class="panneau panneau--tel" hidden aria-labelledby="tel-titre">
+			<!--
+				L'OBJET (demande B8) : un smartphone tenu en main. Barre d'état en
+				haut (heure locale, réseau), îlot central, dock d'applications en
+				bas, barre d'accueil qui range le téléphone. Le personnage le sort
+				de sa poche au même moment (Server/Communications.lua).
+			-->
+			<header class="tel-statut">
+				<span class="tel-heure" id="tel-heure">--:--</span>
+				<span class="tel-ilot" aria-hidden="true"></span>
+				<span class="tel-reseau">
+					<span class="capacite" id="tel-radio"></span>
+					<i class="tel-barres" aria-hidden="true"><b></b><b></b><b></b><b></b></i>
+					<i class="tel-batterie" aria-hidden="true"></i>
+				</span>
+				<h1 id="tel-titre" class="tel-titre-cache">Téléphone</h1>
+				<button class="fermer tel-fermer" data-fermer>ESC</button>
+			</header>
+			<div class="tel-vue" id="tel-vue-carte" data-tel-vue="carte" hidden>
+				<canvas class="tel-carte" id="tel-carte-canvas" width="300" height="300"></canvas>
+				<p class="tel-note" id="tel-carte-info">Position inconnue</p>
+			</div>
+			<div class="tel-vue" id="tel-vue-messages" data-tel-vue="messages" hidden>
+				<ol class="tel-fil" id="tel-fil" aria-label="Messages reçus"></ol>
+			</div>
+			<div class="tel-vue" id="tel-vue-contacts" data-tel-vue="contacts" hidden>
+				<ul class="tel-contacts" id="tel-contacts" aria-label="Joueurs connectés"></ul>
+				<form class="tel-composer" id="tel-composer" hidden>
+					<p class="tel-a" id="tel-a">—</p>
+					<textarea class="tel-texte" id="tel-texte" rows="3" aria-labelledby="tel-a"></textarea>
+					<div class="tel-composer-pied">
+						<span class="tel-compte" id="tel-compte">0</span>
+						<button type="submit" class="action" id="tel-envoyer">Envoyer</button>
+					</div>
+				</form>
+			</div>
+			<footer class="barre-action tel-pied">
+				<span class="selection tel-message" id="tel-message" role="status" aria-live="polite"></span>
+			</footer>
+			<nav class="tel-apps" id="tel-apps" aria-label="Applications"></nav>
+			<button type="button" class="tel-accueil" data-fermer aria-label="Ranger le téléphone"></button>
+		</section>
+
+		<!--
+			DIGICODE — le clavier d'une porte à code (Server/Digicode.lua). Trois
+			usages : essayer un code, choisir celui d'une porte qu'on pose, le
+			changer. Les chiffres sont MASQUÉS à l'écran ; le code part au serveur,
+			qui seul connaît l'empreinte, les essais et le blocage.
+		-->
+		<section id="digicode" class="panneau panneau--dc" hidden aria-labelledby="dc-titre">
+			<header>
+				<h1 id="dc-titre">Porte à code</h1>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+			<p class="dc-aide" id="dc-aide"></p>
+			<div class="dc-ecran" id="dc-ecran" aria-live="polite">
+				<span class="dc-points" id="dc-points"></span>
+				<span class="dc-longueur" id="dc-longueur"></span>
+			</div>
+			<div class="dc-clavier" role="group" aria-label="Clavier">
+				<button type="button" class="dc-touche" data-dc-touche="1">1</button>
+				<button type="button" class="dc-touche" data-dc-touche="2">2</button>
+				<button type="button" class="dc-touche" data-dc-touche="3">3</button>
+				<button type="button" class="dc-touche" data-dc-touche="4">4</button>
+				<button type="button" class="dc-touche" data-dc-touche="5">5</button>
+				<button type="button" class="dc-touche" data-dc-touche="6">6</button>
+				<button type="button" class="dc-touche" data-dc-touche="7">7</button>
+				<button type="button" class="dc-touche" data-dc-touche="8">8</button>
+				<button type="button" class="dc-touche" data-dc-touche="9">9</button>
+				<button type="button" class="dc-touche dc-touche--effacer" data-dc-touche="effacer" aria-label="Effacer">⌫</button>
+				<button type="button" class="dc-touche" data-dc-touche="0">0</button>
+				<button type="button" class="dc-touche dc-touche--valider" data-dc-touche="valider" id="dc-valider" aria-label="Valider">OK</button>
+			</div>
+			<footer class="barre-action">
+				<span class="selection dc-message" id="dc-message" role="status" aria-live="polite"></span>
+			</footer>
+		</section>
+
+		<section id="roue" hidden>
+			<div class="roue-scene">
+				<ol class="roue-arc" id="roue-arc"></ol>
+
+				<aside class="roue-assignation" id="roue-assignation" hidden>
+					<h2>Assigner — emplacement <span id="roue-cible">1</span></h2>
+					<ul id="roue-eligibles" class="roue-eligibles"></ul>
+					<p class="roue-vide" id="roue-aucun-eligible" hidden>
+						Rien d'assignable dans le sac : il faut une arme ayant une
+						correspondance réelle, ou un consommable avec un effet.
+					</p>
+				</aside>
+			</div>
+
+			<p class="roue-aide">Clic : utiliser · + : assigner · × : retirer · Echap : fermer</p>
+			<p class="roue-refus" id="roue-refus" hidden></p>
+		</section>
+	</body>
+</html>

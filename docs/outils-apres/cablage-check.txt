@@ -1,0 +1,10 @@
+91 fichier(s) Lua · 65 module(s) câblé(s) dans Shared/Index.lua
+14 autre(s) assignation(s) Narvos.* (exécutants serveur)
+
+[1. tout ce qui est lu est câblé]
+  OK        les 66 modules lus sont tous câblés
+
+[2. chaque champ accédé existe dans le module câblé]
+  OK        les 109 champs accédés existent tous
+
+Câblage complet et cohérent.

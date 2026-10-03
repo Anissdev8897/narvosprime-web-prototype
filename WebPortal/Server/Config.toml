@@ -1,0 +1,85 @@
+# discover configurations
+[discover]
+    # server name
+    name =                   "NARVOS PRIME - dev local"
+    # server description (max 200 characters)
+    description =            ""
+    # language (country code)
+    language =               "global"
+    # server IP - we recommend leaving it 0.0.0.0 for default
+    ip =                     "0.0.0.0"
+    # server port (TCP and UDP)
+    port =                   7777
+    # query port (UDP)
+    query_port =             7778
+    # announce server in the master server list
+    announce =               false
+    # true if should run as dedicated server or false to run as P2P - dedicated server requires port forwarding and provides the fastest connection - P2P will provide a fake IP to be used to connect but connection can be slower as it uses Steam Datagram Relay service
+    dedicated_server =       true
+
+# general configurations
+[general]
+    # max players
+    max_players =            64
+    # leave it blank for no password
+    password =               ""
+    # nanos world server authentication token
+    token =                  ""
+    # banned nanos account IDs
+    banned_ids = [
+
+    ]
+
+# game configurations
+[game]
+    # default startup map
+    map =                    "narvos-map-proto"
+    # game-mode package to load (set the main game-mode package to load - you can load only one 'game-mode' package type at once)
+    game_mode =              ""
+    # packages list (set the packages you want to load)
+    packages = [
+                             "narvos",
+    ]
+    # asset packs list (additionally loads the asset packs you define here)
+    assets = [
+                             "narvos",
+    ]
+    # loading-screen package to load (the loading screen will be displayed when players join your server)
+    loading_screen =         ""
+
+# custom settings values
+# those values can be accessed through Server.GetCustomSettings() method from any package
+[custom_settings]
+    # my_setting_example_01 = "value"
+    # my_setting_example_02 = 123
+    # Administrateurs du serveur, par STEAM ID — jamais par pseudo (n'importe qui
+    # peut s'appeler « Hanibes »). Lu par Server/Session.lua via Narvos.Droits.
+    # ⚠ scripts/nanos-deploy-server.mjs COPIE ce fichier sur celui du serveur
+    # Steam : une valeur absente ICI disparaît au prochain déploiement.
+    admins_steam = [
+        "76561198254124189"
+    ]
+
+# debug configurations
+[debug]
+    # log Level - (1) normal, (2) debug or (3) verbose
+    log_level =              1
+    # if to use async or sync logs (async provides better performance, disabling async logs can help debugging crashes)
+    async_log =              true
+    # enables performance profiling logs for debugging
+    profiling =              false
+
+# optimization configurations
+[optimization]
+    # server max tick rate in Hz (ticks per second) (15 - 120) - higher is more responsive but uses more CPU - 30 Hz = 33ms per tick (default and recommended) - use with caution
+    max_tick_rate =          30
+    # max sync rate in Hz (syncs per second) (1 - 30) - controls the location/rotation/velocity actors synchronization rate from and to players - naturally limited by the tick rate
+    max_sync_rate =          30
+    # max network send rate per client in KB/s (128 - 16384) - recommended setting to the lowest needed value as higher rates may negatively impact the server performance when having players with bad connections - this only affects Dedicated Servers as P2P is naturally limited to 1024 KB/s by Steam Datagram Relay service
+    max_send_rate =          512
+    # max file transfer rate per client in KB/s (128 - max_send_rate) - limits file transfer bandwidth for each connected player - this will be limited by 'max_send_rate' setting
+    max_file_transfer_rate = 512
+    # compression level to use in some networking operations (0 - 9) - (0) disables it, (1) is the fastest and already provides a good compression, (9) is the slowest but has the highest compression ratio
+    compression =            1
+    # distance optimization level to improve network usage by reducing sync from distant actors (0 - 9) - (0) disables it, (4) is a good middle term, (9) is the most aggressive
+    distance_optimization =  4

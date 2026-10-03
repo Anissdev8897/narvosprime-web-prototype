@@ -1,0 +1,29 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0.0",
+	"FriendlyName": "Nanimation — Deterministic Animation Variants",
+	"Description": "Modular, data-driven animation variant system for Unreal Engine 5.8. Scans the Content folder, classifies animations by naming convention, groups variants per action, and picks one via a weighted ShuffleBag (seed-replicated for multiplayer). Skeleton-agnostic. Includes an AnimGraph node with Direction/Stance filtering, an editor scanner with CSV export, and a hybrid network model (~20 bytes per pick via seed replay).",
+	"Category": "Animation",
+	"CreatedBy": "hanibes",
+	"CreatedByURL": "https://github.com/hanibes",
+	"DocsURL": "https://github.com/hanibes/Nanimation/wiki",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/hanibes/Nanimation/issues",
+	"EngineVersion": "5.8.0",
+	"CanContainContent": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "Nanimation",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "NanimationEditor",
+			"Type": "UncookedOnly",
+			"LoadingPhase": "PreDefault"
+		}
+	],
+	"Plugins": []
+}

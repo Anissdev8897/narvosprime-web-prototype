@@ -1,0 +1,1 @@
+export { VoiceSystem } from './VoiceSystem';

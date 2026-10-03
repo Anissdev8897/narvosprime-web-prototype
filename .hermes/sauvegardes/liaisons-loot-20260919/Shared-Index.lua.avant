@@ -1,0 +1,572 @@
+-- Point d'entrée partagé du package NARVOS.
+-- Les catalogues sont générés depuis le runtime TS : voir
+-- scripts/narvos-catalogs-to-lua.mjs dans le dépôt web.
+--
+-- ══════════════════════════════════════════════════════════════════════════════
+-- ⚠ CE FICHIER EST LE SEUL CÂBLAGE. UN MODULE ABSENT ICI N'EXISTE PAS.
+--
+-- Le 2026-09-08, premier lancement réel du serveur sur `Map_Narvos`. Il est mort
+-- à la ligne 55 de `narvos-map-proto/Server/Index.lua` :
+--
+--   ERROR  Lua Error on loading file 'narvos-map-proto/Server/Index.lua':
+--          :55: attempt to index a nil value (field 'Mondes')
+--
+-- `Catalogs/Mondes.lua` existait depuis le 6 septembre. Il n'était simplement
+-- pas câblé ici. Le script serveur s'est arrêté à cette ligne — et
+-- `Player.Subscribe("Spawn")`, ligne 460, n'a JAMAIS été enregistré.
+--
+-- Conséquences observées en jeu, toutes issues de cette seule ligne :
+--   · l'écran de création ne s'ouvrait pas (aucune session ouverte)
+--   · le joueur apparaissait au milieu du vide (spawn par défaut de nanos)
+--   · aucun ciel, aucune atmosphère (`Ciel.Appliquer` jamais atteint)
+--   · aucun peuplement, aucune île posée (`Peuplement` jamais chargé)
+--   · aucun menu après le spawn (la session n'existait pas)
+--
+-- Un audit a montré que `Mondes` n'était pas seul : **35 modules étaient lus et
+-- aucun n'était câblé.** Le serveur allait mourir au premier qu'il touchait ;
+-- ça s'est joué sur `Mondes` parce qu'il tombait le plus tôt dans le fichier.
+--
+-- ⚠ POURQUOI AUCUN HARNAIS NE L'A VU. Les harnais chargent les modules EN
+-- DIRECT (`readFileSync` du fichier, puis `doString`). Ils prouvent que le code
+-- est juste ; ils ne prouvent pas qu'il est BRANCHÉ. Plus de 2 700 assertions
+-- vertes, et le serveur mourait à la ligne 55.
+--
+-- Le garde-fou qui couvre ça : `node scripts/lua-harness/cablage-check.mjs`. Il
+-- confronte chaque `Narvos.X` LU dans le dépôt à ce fichier, et chaque champ
+-- `Narvos.X.Y` accédé à ce que le module exporte réellement.
+-- ══════════════════════════════════════════════════════════════════════════════
+
+---@class Narvos
+Narvos = Narvos or {}
+
+-- ══════════════════════════════════════════════════════════════════════════════
+-- CATALOGUES — données pures, aucune dépendance entre eux
+-- ══════════════════════════════════════════════════════════════════════════════
+
+Narvos.Classes = Package.Require("Catalogs/Classes.lua")
+Narvos.Elements = Package.Require("Catalogs/Elements.lua")
+Narvos.Spells = Package.Require("Catalogs/Spells.lua")
+Narvos.Loot = Package.Require("Catalogs/Loot.lua")
+Narvos.Items = Package.Require("Catalogs/Items.lua")
+Narvos.Npc = Package.Require("Catalogs/Npc.lua")
+Narvos.Merchants = Package.Require("Catalogs/Merchants.lua")
+Narvos.Vehicles = Package.Require("Catalogs/Vehicles.lua")
+Narvos.VaisseauxCatalogue = Package.Require("Catalogs/Vaisseaux.lua")
+Narvos.Stats = Package.Require("Catalogs/Stats.lua")
+Narvos.Talents = Package.Require("Catalogs/Talents.lua")
+-- Niveaux des PNJ par zone et XP de victoire (npc/npcLeveling.ts, GÉNÉRÉ).
+-- Lu par `Logic/Progression.lua`, câblé plus bas avec les talents.
+Narvos.NiveauxPnj = Package.Require("Catalogs/NiveauxPnj.lua")
+
+-- Catalogue + logique réputation & compétences (porté lot 8).
+Narvos.Reputations = Package.Require("Catalogs/Reputations.lua")
+Narvos.Archetypes = Package.Require("Catalogs/Archetypes.lua")
+
+-- Archétypes JOUEUR (data, port lot 9) — distinct de Narvos.Archetypes (archétypes de COMPÉTENCES).
+Narvos.ArchetypesJoueur = Package.Require("Catalogs/ArchetypesJoueur.lua")
+
+-- Arènes (data, généré lot 9).
+Narvos.Arenes = Package.Require("Catalogs/Arenes.lua")
+
+-- ── Les mondes : LE catalogue qui a fait tomber le serveur ────────────────────
+--
+-- Il porte `LIAISONS` (les portails, avec position, rayon, label, teinte),
+-- `CENTRES`, `RAYON_MONDE`, `Trouver`, `ParDimension`. Sept endroits le lisent,
+-- dont `Server/Index.lua:55` qui en tire le point d'arrivée de la Forge, et
+-- `Logic/Ciel.lua` qui en tire le ciel de chaque monde.
+--
+-- ⚠ Il doit venir AVANT `Voyage` et `Ciel`. Les deux savent se replier sur un
+-- `Package.Require` direct, mais ce repli créerait une SECONDE table : deux
+-- catalogues distincts pour la même donnée, et une modification de l'un
+-- invisible depuis l'autre.
+Narvos.Mondes = Package.Require("Catalogs/Mondes.lua")
+
+-- ── Identité et apparence du personnage ──────────────────────────────────────
+--
+-- `Morphs` (le corps morphable), `Modular` (les pièces de tenue), `Factions`
+-- (les trois factions et leurs classes de jeu). `Session.lua` lit les trois pour
+-- construire les options de l'écran de création : sans eux, l'écran n'a rien à
+-- afficher — c'est le second blocage après `Mondes`.
+Narvos.Morphs = Package.Require("Catalogs/Morphs.lua")
+Narvos.Modular = Package.Require("Catalogs/Modular.lua")
+-- Le mesh de chaque station de craft. GENERE : une station dont la cle n est pas
+-- declaree garde le cube, et le catalogue le dit (`cuit = false`). Sans lui, les
+-- 4 ateliers resteraient des `SM_Cube` ecrits en dur dans Server/Index.lua.
+Narvos.Ateliers = Package.Require("Catalogs/Ateliers.lua")
+Narvos.Factions = Package.Require("Catalogs/Factions.lua")
+
+-- ── Contenu de jeu ────────────────────────────────────────────────────────────
+Narvos.Emotes = Package.Require("Catalogs/Emotes.lua")
+Narvos.Gisements = Package.Require("Catalogs/Gisements.lua")
+Narvos.Recettes = Package.Require("Catalogs/Recettes.lua")
+
+-- Plans d'assemblage (véhicules, armes, objets) — GÉNÉRÉ par
+-- scripts/narvos-plans-to-lua.mjs depuis Recettes + VOITURES_NANOS + Items,
+-- chaque plan passé sous Assemblage.ValiderPlan avant écriture. Consommé par
+-- le chantier C (WebUI d'assemblage) via Narvos.Assemblage.
+Narvos.Plans = Package.Require("Catalogs/Plans.lua")
+Narvos.Props = Package.Require("Catalogs/Props.lua")
+Narvos.PropsNarvos = Package.Require("Catalogs/PropsNarvos.lua")
+Narvos.Spawnables = Package.Require("Catalogs/Spawnables.lua")
+-- Points de PNJ places depuis le jeu. Contrairement aux catalogues generes,
+-- celui-ci est reecrit par `/exporter pnj` et conserve le niveau de chaque point.
+Narvos.PeuplementCatalogue = Package.Require("Catalogs/Peuplement.lua")
+Narvos.Vfx = Package.Require("Catalogs/Vfx.lua")
+
+-- ⚠ DEUX NOMS DIFFÉRENTS POUR DEUX CHOSES DIFFÉRENTES, et il faut s'y tenir :
+--   `Narvos.AnimNoms`   = le CATALOGUE (Catalogs/Animations.lua), qui porte NOMS
+--   `Narvos.Animations` = la LOGIQUE   (Logic/Animations.lua),   Grouper/Resume
+-- Les intervertir donne un `nil` silencieux : `Resume` sur un catalogue vaut nil,
+-- et `nil(...)` lève seulement quand la ligne est atteinte, jamais au chargement.
+Narvos.AnimNoms = Package.Require("Catalogs/Animations.lua")
+-- Gestes PROPRES à une famille de PNJ (attaques, réactions par côté, cri), par
+-- CHEMIN — GÉNÉRÉ par narvos-gestes-to-lua.mjs. Une famille absente garde les
+-- gestes génériques : lu par Server/Ia.lua et Server/Combat.lua.
+Narvos.Gestes = Package.Require("Catalogs/Gestes.lua")
+
+-- Widgets UMG achetés (MetaCustom, DGGUI, démos Mutable…). ⚠ ÉCRIT À LA MAIN,
+-- jamais régénéré : il transpose docs/UI_UMG_CONTRAT.md, mesuré sur les
+-- .uasset. Aucun `narvos::X` n'y figure : aucun UserWidget n'est déclaré dans
+-- Assets.toml (mesuré le 2026-09-08) — chaque entrée porte un champ `etat`.
+Narvos.Widgets = Package.Require("Catalogs/Widgets.lua")
+
+-- Même précaution pour les quêtes et les dialogues : catalogue et logique
+-- portent des noms distincts parce qu'ils coexistent.
+Narvos.QuetesCatalog = Package.Require("Catalogs/Quetes.lua")
+Narvos.DialoguesCatalog = Package.Require("Catalogs/Dialogues.lua")
+
+-- ⚠ `Map_forge_map.lua`, et pas `Map_Orbital` ni `Map_tower_map`. Les trois
+-- exportent `NOM` ; seul celui-ci vaut `"forge_map"`, ce que `/mapz` cherche
+-- pour décaler la Forge en hauteur.
+Narvos.MapForge = Package.Require("Catalogs/Map_forge_map.lua")
+
+-- ══════════════════════════════════════════════════════════════════════════════
+-- LOGIQUE — portée depuis le TS, écrite à la main, PAS générée.
+-- Ne pas la perdre en régénérant les catalogues.
+-- ══════════════════════════════════════════════════════════════════════════════
+
+Narvos.LootLogic = Package.Require("Logic/Loot.lua")
+Narvos.Inventory = Package.Require("Logic/Inventory.lua")
+Narvos.CharacterBuilder = Package.Require("Logic/Character.lua")
+
+-- Boutique des marchands. APRÈS `Inventory` : elle la capture au chargement
+-- (avec repli), comme Craft et Recolte capturent leurs catalogues.
+Narvos.Boutique = Package.Require("Logic/Boutique.lua")
+
+Narvos.Reputation = Package.Require("Logic/Reputation.lua")
+Narvos.Competences = Package.Require("Logic/Competences.lua")
+Narvos.Competences.Configurer(Narvos.Classes, Narvos.Archetypes, Narvos.Elements)
+
+-- Compagnons (port lot 9).
+Narvos.Animaux = Package.Require("Logic/Animaux.lua")
+
+-- Chat + générateur de cartes (port lot 9).
+Narvos.Chat = Package.Require("Logic/Chat.lua")
+Narvos.GenerateurCartes = Package.Require("Logic/GenerateurCartes.lua")
+
+-- ── Comptes et personnages ────────────────────────────────────────────────────
+--
+-- ⚠ `Crypto` AVANT `Comptes` : `Logic/Comptes.lua` capture
+-- `(Narvos and Narvos.Crypto) or Package.Require("Logic/Crypto.lua")` à son
+-- chargement. Le repli fonctionne, mais fabriquerait une seconde instance —
+-- et le hachage d'un mot de passe ne doit avoir qu'UNE implémentation vivante.
+Narvos.Crypto = Package.Require("Logic/Crypto.lua")
+Narvos.Comptes = Package.Require("Logic/Comptes.lua")
+Narvos.Roster = Package.Require("Logic/Roster.lua")
+
+-- ── Touches et raccourcis ─────────────────────────────────────────────────────
+--
+-- ⚠ `Emotes` (catalogue, plus haut) AVANT `Raccourcis` : même motif de repli.
+Narvos.Raccourcis = Package.Require("Logic/Raccourcis.lua")
+Narvos.Commandes = Package.Require("Logic/Commandes.lua")
+
+-- ── Jouabilité et fouille des cadavres (2026-09-19) ──────────────────────────
+-- `Jouabilite` est le REGISTRE des réglages (auto-loot, auto-loot avancé,
+-- auto-marche…) : ajouter un paramètre = une entrée dans sa table, rien
+-- d'autre à retoucher. `Fouille` est le modèle du cadavre fouillable ; son
+-- exécutant vit dans narvos-map-proto (Server/Fouille.lua). Tous deux purs,
+-- prouvés par scripts/lua-harness (jouabilite.mjs, fouille.mjs).
+Narvos.Jouabilite = Package.Require("Logic/Jouabilite.lua")
+Narvos.Fouille = Package.Require("Logic/Fouille.lua")
+
+-- Roue d'objets (TAB). APRÈS `Items` et `Inventory` (tous deux plus haut) :
+-- elle les capture au chargement avec repli, même discipline que `Boutique`.
+Narvos.Roue = Package.Require("Logic/Roue.lua")
+
+-- La vue de l'inventaire (onglets, emplacements, fiche) calculée depuis le sac
+-- réel. APRÈS `Inventory`, qu'elle lit (2026-09-14, maquette « Inventaire NARVOS »).
+-- Les rendus 3D des assets de base livrés avec le client (GÉNÉRÉ par
+-- scripts/narvos-vignettes-to-lua.mjs) : la vignette d'un objet d'inventaire.
+Narvos.Vignettes = Package.Require("Catalogs/Vignettes.lua")
+Narvos.InventaireVue = Package.Require("Logic/InventaireVue.lua")
+Narvos.InventaireVue.Configurer({ inventaire = Narvos.Inventory, vignettes = Narvos.Vignettes })
+
+-- ── Création de personnage ────────────────────────────────────────────────────
+--
+-- `Creation` fournit les classes et valide un `class_id` reçu du client.
+-- `Apparence` et `Macros` portent les curseurs de silhouette et de couleurs,
+-- `Vestiaire` la garde-robe. `Session.lua` lit les quatre pour bâtir l'écran.
+Narvos.Creation = Package.Require("Logic/CharacterCreation.lua")
+Narvos.Apparence = Package.Require("Logic/Apparence.lua")
+Narvos.Macros = Package.Require("Logic/Macros.lua")
+Narvos.Vestiaire = Package.Require("Logic/Vestiaire.lua")
+
+-- ── Combat ────────────────────────────────────────────────────────────────────
+--
+-- ⚠ `Classes` et `Items` d'abord (déjà en tête) : `Logic/Combat.lua` les
+-- capture au chargement, avec repli.
+Narvos.Weapons = Package.Require("Logic/Weapons.lua")
+-- Les armes du pack de base, GENEREES depuis le package officiel. Le require
+-- puis `Configurer` : sans le second, le catalogue existe et le menu ne le
+-- voit pas — le piege Audio/Sons du 2026-09-10.
+Narvos.ArmesBase = Package.Require("Catalogs/ArmesBase.lua")
+Narvos.Weapons.Configurer(Narvos.ArmesBase)
+
+-- ── LES ARMES DEVIENNENT DES OBJETS DE SAC ───────────────────────────────────
+--
+-- ⚠ ICI, ET PAS PLUS HAUT. Ce module a besoin des DEUX catalogues : `Items`
+-- (ligne 50) et `ArmesBase` (juste au-dessus). L'appeler avant ce point le
+-- ferait travailler sur un nil, en silence — il rendrait 0 et les armes
+-- resteraient hors du sac.
+--
+-- Mesure du 2026-09-12 : 24 armes spawnables, 81 objets de sac, ZERO identifiant
+-- commun. Une arme posee au sol n'existait pas comme objet — c'est ce qui
+-- empechait Hanibes de la ramasser.
+Narvos.ArmesInventaire = Package.Require("Logic/ArmesInventaire.lua")
+Narvos.Ramassage = Package.Require("Logic/Ramassage.lua")
+do
+    local ajoutees, deja = Narvos.ArmesInventaire.Integrer()
+    ajoutees = ajoutees + Narvos.ArmesInventaire.IntegrerCatalogue(Narvos.Weapons, Narvos.Items.ITEM_DB, Narvos.Roue)
+    Console.Log(string.format(
+        "[NARVOS] armes stockables : %d ajoutee(s) au sac, %d deja presente(s)",
+        ajoutees, deja))
+end
+Narvos.Combat = Package.Require("Logic/Combat.lua")
+-- Mains nues : poings latéralisés et coups de pied (port de unarmedStrikes.ts).
+-- Pur, sans dépendance au chargement : l'exécutant (Server/Frappes.lua) lui
+-- passe les noms d'animations cuites.
+Narvos.Frappes = Package.Require("Logic/Frappes.lua")
+Narvos.Animations = Package.Require("Logic/Animations.lua")
+Narvos.Ia = Package.Require("Logic/Ia.lua")
+
+-- Les ICÔNES des sorts (une image de leur effet web, GÉNÉRÉ par
+-- scripts/narvos-sorts-vfx.mjs) : lues par `Logic/Sorts.lua` au chargement.
+-- Les effets EN JEU sont des particules 3D du pack (`Catalogs/Vfx.lua`).
+Narvos.SortsVfx = Package.Require("Catalogs/SortsVfx.lua")
+
+-- ⚠ `Vfx` et `SortsVfx` d'abord : `Logic/Sorts.lua` les capture au chargement.
+Narvos.Sorts = Package.Require("Logic/Sorts.lua")
+
+-- ── Métiers ───────────────────────────────────────────────────────────────────
+--
+-- ⚠ `Gisements` d'abord (déjà en tête) : `Logic/Recolte.lua` le lit, et son
+-- en-tête dit explicitement « dans Shared/Index.lua, `Narvos.Gisements` est
+-- posé par le chargeur ».
+Narvos.Craft = Package.Require("Logic/Craft.lua")
+Narvos.Recolte = Package.Require("Logic/Recolte.lua")
+
+-- ── LES METIERS (2026-09-12) ─────────────────────────────────────────────────
+-- Porte depuis le prototype web, ou le systeme existait deja et n'avait jamais
+-- traverse vers nanos. `Metiers` est le CATALOGUE (genere depuis
+-- professionCatalog.ts), `MetiersLogique` la progression (portee a la main,
+-- prouvee par scripts/lua-harness/metiers.mjs contre le TS execute).
+-- Places APRES Recolte et Craft : ce sont eux qui font gagner l'XP.
+Narvos.Metiers = Package.Require("Catalogs/Metiers.lua")
+Narvos.MetiersLogique = Package.Require("Logic/Metiers.lua")
+
+-- ── HYPER INVENTORY V2 : SES DONNEES DANS NOS CATALOGUES (2026-09-12) ────────
+-- 210 objets et 104 recettes, exportes des DataTables du pack puis generes
+-- (scripts/narvos-hyper-to-lua.mjs). Ses Blueprints de logique ne sont PAS
+-- portes : notre inventaire, notre craft et notre WebUI existent deja.
+--
+-- ⚠ ICI, APRES Items (l.50), Recettes (l.97) ET les armes : l'integration AJOUTE
+-- sans jamais ecraser, et une recette n'entre que si tous ses ingredients sont
+-- au catalogue. Appelee plus haut, elle verrait un catalogue incomplet et
+-- refuserait des recettes pourtant faisables.
+Narvos.ObjetsHyper = Package.Require("Catalogs/ObjetsHyper.lua")
+Narvos.ObjetsHyperLogique = Package.Require("Logic/ObjetsHyper.lua")
+do
+    local b = Narvos.ObjetsHyperLogique.Integrer()
+    if (b.erreur) then
+        Console.Error("[HYPER] integration impossible : " .. tostring(b.erreur))
+    else
+        Console.Log(string.format(
+            "[HYPER] %d objet(s) et %d recette(s) ajoutes (%d/%d deja presents, %d recette(s) refusee(s))",
+            b.objets, b.recettes, b.objets_deja, b.recettes_deja, b.recettes_refusees))
+    end
+end
+
+-- ── INVENTORYSYSTEMPRO : SES DONNEES, PAR LE MEME CHEMIN (2026-09-13) ─────────
+-- 53 objets et 12 recettes exportes des Data Assets du pack (session d'editeur du
+-- lot 3, scripts/adk-exporter-isp.py) puis generes (narvos-isp-to-lua.mjs). APRES
+-- Hyper : un objet deja present — NARVOS ou Hyper — l'emporte.
+Narvos.ObjetsIsp = Package.Require("Catalogs/ObjetsIsp.lua")
+do
+    local b = Narvos.ObjetsHyperLogique.IntegrerPack(Narvos.ObjetsIsp)
+    if (b.erreur) then
+        Console.Error("[ISP] integration impossible : " .. tostring(b.erreur))
+    else
+        Console.Log(string.format(
+            "[ISP] %d objet(s) et %d recette(s) ajoutes (%d/%d deja presents, %d recette(s) refusee(s))",
+            b.objets, b.recettes, b.objets_deja, b.recettes_deja, b.recettes_refusees))
+    end
+end
+
+-- ── ARMES DE MÊLÉE DES OBJETS (2026-09-15) ────────────────────────────────────
+-- APRÈS Hyper et ISP : `Integrer` itère ITEM_DB, qui porte maintenant leurs épées,
+-- dagues, lances et bâtons. Chaque objet de mêlée tenable équipe SON mesh avec les
+-- gestes de sa famille (Server/Combat.lua) ; une arme à feu n'est jamais écrasée.
+Narvos.Melee = Package.Require("Logic/Melee.lua")
+do
+    local n, familles = Narvos.Melee.Integrer(Narvos.Items.ITEM_DB, Narvos.Roue)
+    local detail = {}
+    for _, f in ipairs(Narvos.Melee.ORDRE) do
+        if (familles[f]) then detail[#detail + 1] = f .. "=" .. familles[f] end
+    end
+    Console.Log(("[MELEE] %d arme(s) de melee equipables : %s"):format(n, table.concat(detail, ", ")))
+end
+
+-- Butin des ennemis : APRES toutes les integrations d'objets. Le module ne
+-- fabrique aucun identifiant ephemere ; chaque recompense existe dans ITEM_DB et
+-- survit donc a la sauvegarde/reconnexion. Il aligne aussi les anciens alias de
+-- rarete sur les cinq paliers visibles dans l'inventaire.
+Narvos.ButinEnnemi = Package.Require("Logic/ButinEnnemi.lua")
+do
+    local b = Narvos.ButinEnnemi.Configurer(Narvos.Items.ITEM_DB)
+    Console.Log(("[BUTIN] %d objet(s) persistants : normal=%d, commun=%d, rare=%d, epique=%d, legendaire=%d")
+        :format(b.total or 0, b.normal or 0, b.common or 0, b.rare or 0, b.epic or 0, b.legendary or 0))
+end
+
+-- ── POSE MANUELLE DES ENTITÉS DE JEU (2026-09-19) ─────────────────────────────
+-- Les six gisements et les quatre ateliers doivent pouvoir être FAIRE APPARAÎTRE
+-- et POSÉS à la main depuis le menu de props (demande de Hanibes) — aujourd'hui
+-- le serveur les pose seul sur un cercle fixe (`Server/Index.lua:PoserGisements`).
+-- Les meshes sont déjà dans le catalogue de props cuit ; ce qui manquait, c'est
+-- de savoir QUE poser et QUOI enregistrer pour que l'entité soit VIVANTE
+-- (déclencheur, clé d'instance, ligne de persistance).
+-- `Logic/PoseRecolte.lua` est PUR et le dit ; `Server/Props.lua` exécutera.
+-- ⚠ Intégré avec les DEUX catalogues RÉELS : un mesh recuit change de clé, et une
+-- liste recopiée ici mentirait au premier cook (`pose-recolte.mjs` le vérifie
+-- contre `Assets.toml`).
+Narvos.PoseRecolte = Package.Require("Logic/PoseRecolte.lua")
+do
+    -- `Integrer` REMPLIT `Narvos.PoseRecolte.ENTREES` (le champ vit dans le
+    -- module : `cablage-check.mjs` refuse un champ cree de l'exterieur).
+    local entrees = Narvos.PoseRecolte.Integrer(Narvos.Gisements, Narvos.Ateliers)
+    local cubes = 0
+    for _, e in ipairs(entrees) do
+        if (not e.cuit) then cubes = cubes + 1 end
+    end
+    Console.Log(("[POSE] %d entite(s) posable(s) a la main, %d en cube de repli (mesh non cuit)")
+        :format(#entrees, cubes))
+end
+
+-- Assemblage pièce par pièce (véhicules, armes, objets — UN SEUL modèle
+-- paramétré par le plan). APRÈS `Inventory` (déjà en tête) : il le capture au
+-- chargement, avec repli, même discipline que `Boutique`. Reçoit sa base par
+-- `UtiliserBase` après `Comptes.Ouvrir`, comme `Agriculture` — la table
+-- `assemblages` est créée dans Comptes.Ouvrir.
+Narvos.Assemblage = Package.Require("Logic/Assemblage.lua")
+
+-- Radar : projection pure, portée de `src/rpg/runtime/radar/projection.ts` et
+-- prouvée contre lui par `lua-harness/radar.mjs`. Il est resté sur le disque
+-- sans être câblé — donc inutilisable — pendant que le handler radar du serveur
+-- refaisait le filtrage à la main, dans la mauvaise unité et sur le mauvais plan.
+Narvos.Radar = Package.Require("Logic/Radar.lua")
+-- Disposition du HUD (zones déplaçables, options) et boussole : pur, lu par le
+-- CLIENT (Client/Index.lua) qui persiste la disposition de son écran.
+Narvos.Disposition = Package.Require("Logic/Disposition.lua")
+
+-- ── Quêtes et dialogues ───────────────────────────────────────────────────────
+Narvos.Quetes = Package.Require("Logic/Quetes.lua")
+Narvos.Dialogue = Package.Require("Logic/Dialogue.lua")
+
+-- ── Mondes : chargement, voyage, ciel ─────────────────────────────────────────
+--
+-- ⚠ `Mondes` d'abord (plus haut) : `Voyage` et `Ciel` le capturent au
+-- chargement, avec repli.
+Narvos.MapLoader = Package.Require("Logic/MapLoader.lua")
+Narvos.Voyage = Package.Require("Logic/Voyage.lua")
+
+-- Choix du point d'apparition, après la création du personnage. APRÈS `Voyage`,
+-- dont il délègue entièrement la question « ce monde est-il praticable » — y
+-- compris le drapeau `cuit`, qui écarte un monde absent du pack.
+Narvos.Depart = Package.Require("Logic/Depart.lua")
+
+-- Retour en jeu d'un joueur mort (point d'arrivée du monde, 50 % PV, 30 % mana).
+-- Règles pures ; exécutant : narvos-map-proto/Server/Reapparition.lua.
+Narvos.Reapparition = Package.Require("Logic/Reapparition.lua")
+
+Narvos.Ciel = Package.Require("Logic/Ciel.lua")
+
+-- Qualité graphique — trois niveaux. Module PUR, consommé par le CLIENT
+-- (`narvos-map-proto/Client/Index.lua`). Il vit ici, dans `Shared/`, et pas dans
+-- le package client, parce que le serveur en a besoin lui aussi : c'est lui qui
+-- valide le niveau qu'un joueur annonce avant de le renvoyer aux autres.
+Narvos.Graphismes = Package.Require("Logic/Graphismes.lua")
+
+-- Quel widget UMG pour quel écran, et quelles données lui envoyer.
+-- ⚠ `Widgets` d'abord (plus haut) : WidgetsLogic le capture au chargement,
+-- avec repli. Module PUR : il ne spawne rien — `Widget(...)` est [client],
+-- part du propriétaire.
+Narvos.WidgetsLogic = Package.Require("Logic/WidgetsLogic.lua")
+
+-- ── Logique de jeu pure (mission 2026-09-10, §3.B) ────────────────────────────
+--
+-- Quatre modules SANS dépendance de chargement : aucun ne capture un autre
+-- module Narvos, aucun ne nomme un asset (les clés visuelles sont vides tant
+-- que rien n'est cuit). `Agriculture` reçoit sa base par `UtiliserBase` dans
+-- `narvos-map-proto/Server/Index.lua`, après `Comptes.Ouvrir` — même discipline
+-- que `Roue`.
+Narvos.Menottes = Package.Require("Logic/Menottes.lua")
+
+-- Les trois objets de `a_trier/` branchés le 2026-09-13 (talkie-walkie,
+-- smartphone, digicode). `TexteChat` AVANT `Radio` et `Telephone`, qui le
+-- capturent au chargement. Modules PURS : les exécutants vivent dans
+-- `narvos-map-proto/Server/` (Communications.lua pour /radio et le téléphone,
+-- Digicode.lua pour la porte).
+Narvos.TexteChat = Package.Require("Logic/TexteChat.lua")
+Narvos.Radio = Package.Require("Logic/Radio.lua")
+Narvos.Telephone = Package.Require("Logic/Telephone.lua")
+Narvos.Digicode = Package.Require("Logic/Digicode.lua")
+-- Leurs meshes (et ceux de la porte), choisis par CHEMIN dans Assets.toml —
+-- catalogue GÉNÉRÉ par narvos-objets-divers-to-lua.mjs. Un objet pas encore
+-- cuit y est absent : les exécutants marchent sans le geste visuel.
+Narvos.ObjetsDivers = Package.Require("Catalogs/ObjetsDivers.lua")
+-- La minimap Ako : widget, bornes, proxies — GÉNÉRÉ par narvos-minimap-to-lua.mjs,
+-- lu par narvos-map-proto/Client/Minimap.lua. `PRETE = false` tant qu'une pièce
+-- n'est pas déclarée : le client ne pose rien et le radar WebUI reste la carte.
+Narvos.Minimap = Package.Require("Catalogs/Minimap.lua")
+
+Narvos.Cameras = Package.Require("Logic/Cameras.lua")
+Narvos.Agriculture = Package.Require("Logic/Agriculture.lua")
+Narvos.OsVehicules = Package.Require("Logic/OsVehicules.lua")
+
+-- Les 12 voitures City_Traffic_Pro cuites. APRÈS `Vehicles` (catalogue, plus
+-- haut) et `OsVehicules` : il les capture tous deux au chargement, avec repli.
+-- Module PUR (donnée + résolution des roues) — la classe `VehicleWheeled` et
+-- le spawn vivent dans `narvos-map-proto/Server/Voitures.lua`.
+Narvos.Voitures = Package.Require("Logic/Voitures.lua")
+
+-- `Zones` décide QUI édite OÙ. Pur : il reçoit une liste de zones et un
+-- contexte, il rend une décision — c'est `narvos-map-proto/Server/Props.lua` qui
+-- lui fournit les deux. Il doit être câblé AVANT tout module qui pose du décor,
+-- sinon `Narvos.Zones` vaut nil au moment de la garde et l'édition s'ouvrirait à
+-- tous, en silence — le mode d'échec exact du 2026-09-08, où un seul module non
+-- câblé avait tué six systèmes.
+Narvos.Zones = Package.Require("Logic/Zones.lua")
+-- Qui est administrateur : l'identifiant Steam, lu dans la config SERVEUR. Pur ;
+-- `Server/Session.lua` l'applique aux trois voies de connexion.
+Narvos.Droits = Package.Require("Logic/Droits.lua")
+
+-- ⚠ LE CATALOGUE PASSE PAR ICI, ET PAS PAR UN REQUIRE DEPUIS L'AUTRE PACKAGE.
+-- `Package.Require` résout dans le package COURANT : un
+-- `Package.Require("Catalogs/Zones.lua")` écrit dans `narvos-map-proto` irait
+-- chercher `narvos-map-proto/Catalogs/Zones.lua`, qui n'existe pas. C'est la
+-- raison pour laquelle aucun fichier de `narvos-map-proto` ne require quoi que
+-- ce soit d'ici — tout transite par la table `Narvos` exportée.
+Narvos.ZonesCatalogue = Package.Require("Catalogs/Zones.lua")
+
+-- ══════════════════════════════════════════════════════════════════════════════
+-- ORPHELINS RÉCUPÉRÉS — 2026-09-10
+--
+-- Six fichiers étaient écrits, deux avaient même leur harnais vert, et AUCUN
+-- n'était câblé : ils n'existaient pas en jeu. `cablage-check.mjs` ne pouvait
+-- pas les voir — il confronte chaque `Narvos.X` LU à son assignation, or un
+-- module que personne ne lit ET qui n'est pas câblé n'apparaît d'aucun côté de
+-- la comparaison.
+--
+-- Le contrôle qui ferme ce trou : `node scripts/lua-harness/modules-orphelins-check.mjs`.
+--
+-- ⚠ Câbler ne veut pas dire UTILISER. Ces modules deviennent joignables ; leur
+-- gameplay reste à brancher. Voir le skill `narvos-lua` §0 : écrit → câblé →
+-- appelé, et seuls les deux derniers pas se voient.
+-- ══════════════════════════════════════════════════════════════════════════════
+
+-- Décor exporté depuis l'éditeur. ⚠ `MapLoader.PoserPatches` existe et n'est
+-- appelée par PERSONNE ; `PoserVegetation`, elle, N'EXISTE PAS (ce commentaire
+-- l'affirmait jusqu'à l'audit du 2026-09-11). Les catalogues sont joignables, les
+-- poseurs restent à brancher — et ils visent l'ancien décor GLB (question Q7 de
+-- .hermes/AUDIT_SYSTEMES_2026-09-11.md : peut-être à retirer plutôt qu'à poser).
+Narvos.Patches = Package.Require("Catalogs/Patches.lua")
+Narvos.Vegetation = Package.Require("Catalogs/Vegetation.lua")
+
+-- Sons AVANT Audio : `Audio.Configurer(catalogue)` le capture, et l'appel se
+-- fait juste en dessous. Sans lui, `Audio` tourne sur un catalogue nil et rend
+-- toujours le même pas de course, sans erreur.
+Narvos.Sons = Package.Require("Catalogs/Sons.lua")
+
+-- `Pas` est GÉNÉRÉ (`scripts/narvos-pas-to-lua.mjs`) : il porte les 490 CLÉS
+-- d'échantillon lues dans le pack cuit, rangées par catégorie et par allure.
+-- `Sons` porte les RÈGLES (nom de matériau → catégorie) et les sons d'événement.
+-- Les deux sont nécessaires et ne se remplacent pas : `Sons.PAS_COMPTE` dit
+-- combien, `Pas.PAR_CATEGORIE` dit lesquels — et `Sound()` veut une clé.
+Narvos.Pas = Package.Require("Catalogs/Pas.lua")
+
+Narvos.Audio = Package.Require("Logic/Audio.lua")
+Narvos.Audio.Configurer(Narvos.Sons, Narvos.Pas)
+
+-- ⚠ `Narvos.TalentsLogic`, PAS `Narvos.Talents` : ce dernier est le CATALOGUE
+-- (`Catalogs/Talents.lua`, câblé plus haut). Deux fichiers portent le même nom
+-- dans deux dossiers — les confondre donnerait un `nil` silencieux, comme pour
+-- `AnimNoms`/`Animations`. Même convention que `Narvos.LootLogic`.
+Narvos.TalentsLogic = Package.Require("Logic/Talents.lua")
+Narvos.TalentsLogic.Configurer(Narvos.Talents)
+
+-- Niveau et XP du PERSONNAGE, statistiques dérivées, vue de l'arbre de talents
+-- (2026-09-13, menu Compétences). APRÈS TalentsLogic, dont il rejoue les règles.
+-- Exécutant : narvos-map-proto/Server/Progression.lua.
+Narvos.Progression = Package.Require("Logic/Progression.lua")
+Narvos.Progression.Configurer({
+    stats = Narvos.Stats,
+    niveaux_pnj = Narvos.NiveauxPnj,
+    classes = Narvos.Classes,
+    talents = Narvos.Talents,
+    talents_logique = Narvos.TalentsLogic,
+})
+
+-- Compagnons. ⚠ DEUX fichiers, deux rôles, deux noms :
+--   · `Narvos.Animaux`          = Logic/Animaux.lua  — l'ÉTAT (adoption, XP) ;
+--   · `Narvos.AnimauxCatalogue` = Catalogs/Animaux.lua — les ESPÈCES (généré).
+-- Les confondre donnerait un `nil` silencieux, comme `Talents`/`TalentsLogic`.
+Narvos.AnimauxCatalogue = Package.Require("Catalogs/Animaux.lua")
+
+-- Pont MetaHuman (Meta Customization System). ⚠ DEUX fichiers, deux noms :
+--   · `Narvos.MetaHumainCatalogue` = Catalogs/MetaHumain.lua — les PIÈCES (généré
+--     par scripts/narvos-metahumain-to-lua.mjs) ;
+--   · `Narvos.MetaHumain`          = Logic/MetaHumain.lua    — les RÈGLES de tenue.
+-- Configurer AVANT tout emploi : sans catalogue, la logique refuse tout en le disant.
+Narvos.MetaHumainCatalogue = Package.Require("Catalogs/MetaHumain.lua")
+Narvos.MetaHumain = Package.Require("Logic/MetaHumain.lua")
+Narvos.MetaHumain.Configurer(Narvos.MetaHumainCatalogue)
+
+-- Personnalisation COMPLETE du Meta Customization System (+ MetaWardrobe), 2026-09-13.
+-- ⚠ DEUX fichiers, deux noms :
+--   · `Narvos.MetaCustom`      = Catalogs/MetaCustom.lua — options et curseurs (GENERE par
+--     scripts/narvos-metacustom-to-lua.mjs) ;
+--   · `Narvos.MetaCustomLogic` = Logic/MetaCustom.lua    — normalisation, encodage, appels
+--     aux fonctions Narvos* des Blueprints BP_NarvosMH_M/F.
+Narvos.MetaCustom = Package.Require("Catalogs/MetaCustom.lua")
+Narvos.MetaCustomLogic = Package.Require("Logic/MetaCustom.lua")
+Narvos.MetaCustomLogic.Configurer(Narvos.MetaCustom)
+
+-- Points de téléportation (toutes maps). ⚠ DEUX fichiers, deux noms :
+--   · `Narvos.TeleportsCatalogue` = Catalogs/Teleports.lua — les POINTS (écrits par
+--     le jeu via Server/Export.lua ET par l'éditeur Unreal, scripts/adk-menu-narvos.py) ;
+--   · `Narvos.Teleports`          = Logic/Teleports.lua    — les RÈGLES, pures.
+Narvos.TeleportsCatalogue = Package.Require("Catalogs/Teleports.lua")
+Narvos.Teleports = Package.Require("Logic/Teleports.lua")
+
+-- Zaaps : points de sauvegarde, dernier activé = point de réapparition (D4,
+-- 2026-09-15). APRÈS Teleports, dont `Logic/Zaaps.lua` appelle les règles de liste.
+-- ⚠ DEUX fichiers, deux noms :
+--   · `Narvos.ZaapsCatalogue` = Catalogs/Zaaps.lua — les ZAAPS (écrits par le jeu, /zaap) ;
+--   · `Narvos.Zaaps`          = Logic/Zaaps.lua    — les RÈGLES, pures.
+Narvos.ZaapsCatalogue = Package.Require("Catalogs/Zaaps.lua")
+Narvos.Zaaps = Package.Require("Logic/Zaaps.lua")
+
+-- Simulation d'univers vivant (port pur de `worldSim.ts`). Aucun exécutant à ce
+-- jour : câblé et testé, il ne tourne pas encore.
+Narvos.WorldSim = Package.Require("Logic/WorldSim.lua")
+
+Package.Export("Narvos", Narvos)

@@ -1,0 +1,823 @@
+[TROU — ligne jamais lue dans les transcriptions]
+	"name": "Player",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+			"name": "GetBySteamID",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+					"name": "steam_id",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+					"name": "player"
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+			"name": "Ban",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+					"name": "reason",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+			"name": "Connect",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+					"name": "IP",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+					"name": "password",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+			"name": "Kick",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+					"name": "reason",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+			"name": "Possess",
+			"description": "Makes a Player to possess and control a Pawn (Character)",
+			"parameters": [
+				{
+					"name": "new_pawn",
+					"type": "Pawn"
+				},
+				{
+					"name": "blend_time",
+					"type": "float",
+					"default": "0"
+				},
+				{
+					"name": "exp",
+					"type": "float",
+					"default": "0"
+				}
+			],
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "both",
+			"name": "StartCameraFade",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+					"name": "from_alpha",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+					"name": "to_alpha",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+					"name": "duration",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+					"name": "to_color",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+					"name": "in_fade_amount",
+					"type": "float",
+					"description": "Range [0..1], where 0 is fully transparent and 1 is fully opaque solid color."
+				},
+				{
+					"name": "color",
+					"type": "Color"
+				},
+				{
+					"name": "in_fade_audio",
+					"type": "boolean"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "StopCameraFade",
+			"description": "Stops camera fading.",
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetCameraLocation",
+			"description": "Sets the Player's Camera Location (only works if not possessing any Character)",
+			"parameters": [
+				{
+					"name": "location",
+					"type": "Vector"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetCameraRotation",
+			"description": "Sets the Player's Camera Rotation",
+			"parameters": [
+				{
+					"name": "rotation",
+					"type": "Rotator"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "TranslateCameraTo",
+			"description": "Smoothly moves the Player's Camera Location (only works if not possessing any Character)",
+			"parameters": [
+				{
+					"name": "location",
+					"type": "Vector"
+				},
+				{
+					"name": "time",
+					"type": "float"
+				},
+				{
+					"name": "exp",
+					"type": "float",
+					"default": "0",
+					"description": "Exponential used to smooth interp, use 0 for linear movement"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "RotateCameraTo",
+			"description": "Smoothly moves the Player's Camera Rotation",
+			"parameters": [
+				{
+					"name": "rotation",
+					"type": "Rotator"
+				},
+				{
+					"name": "time",
+					"type": "float"
+				},
+				{
+					"name": "exp",
+					"type": "float",
+					"default": "0",
+					"description": "Exponential used to smooth interp, use 0 for linear movement"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetCameraSocketOffset",
+			"description": "Sets the Player's Camera Socket Offset (Spring Arm Offset)",
+			"parameters": [
+				{
+					"name": "socket_offset",
+					"type": "Vector"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetCameraArmLength",
+			"description": "Sets the Player's Camera Arm Length (Spring Arm length)",
+			"parameters": [
+				{
+					"name": "length",
+					"type": "float"
+				},
+				{
+					"name": "force",
+					"type": "boolean",
+					"description": "Whether to bypass interpolation and set the target to its value directly",
+					"default": "false"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetCameraFOV",
+			"description": "Sets the Player's Camera FOV (if not possessing a Character)",
+			"parameters": [
+				{
+					"name": "fov",
+					"type": "float",
+					"default": "90",
+					"description": "Value must be between 5 and 170. Pass empty to reset to default."
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetCameraSpeedSettings",
+			"description": "Sets the Player's Camera Speed Settings (if not possessing a Character)",
+			"parameters": [
+				{
+					"name": "max_speed",
+					"type": "float",
+					"default": "1200",
+					"description": "Maximum velocity magnitude allowed"
+				},
+				{
+					"name": "acceleration",
+					"type": "float",
+					"default": "4000",
+					"description": "Acceleration applied by input (rate of change of velocity)"
+				},
+				{
+					"name": "deceleration",
+					"type": "float",
+					"default": "4000",
+					"description": "Deceleration applied when there is no input (rate of change of velocity)"
+				},
+				{
+					"name": "turning_boost",
+					"type": "float",
+					"default": "8",
+					"description": "Setting affecting extra force applied when changing direction, making turns have less drift and become more responsive. Velocity magnitude is not allowed to increase, that only happens due to normal acceleration. It may decrease with large direction changes. Larger values apply extra force to reach the target direction more quickly, while a zero value disables any extra turn force."
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "AttachCameraTo",
+			"description": "Attaches the Player`s Camera to an Actor",
+			"parameters": [
+				{
+					"name": "actor",
+					"type": "Actor"
+				},
+				{
+					"name": "socket_offset",
+					"type": "Vector",
+					"default": "Vector(0, 0, 0)"
+				},
+				{
+					"name": "blend_speed",
+					"type": "float",
+					"default": "0.0"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "ResetCamera",
+			"description": "Resets the Camera to default state (Unspectate and Detaches)",
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "Spectate",
+			"description": "Spectates other Player",
+			"parameters": [
+				{
+					"name": "player",
+					"type": "Player"
+				},
+				{
+					"name": "blend_speed",
+					"type": "float",
+					"default": "0"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetName",
+			"description": "Sets the player's name",
+			"parameters": [
+				{
+					"name": "player_name",
+					"type": "string"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetVOIPGlobalChannelSetting",
+			"description": "Sets the VOIP setting for a specific global channel",
+			"parameters": [
+				{
+					"name": "channel",
+					"type": "integer",
+					"description": "0-63"
+				},
+				{
+					"name": "setting",
+					"type": "VOIPSetting"
+				}
+			],
+			"relations": {
+				"functions": [
+					"SetVOIPGlobalAllChannelsSetting",
+					"GetVOIPListeningChannels",
+					"GetVOIPSpeakingChannels"
+				],
+				"events": [
+					"VOIPGlobalChannelSettingChange"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetVOIPGlobalAllChannelsSetting",
+			"description": "Sets the VOIP setting for all global channels",
+			"parameters": [
+				{
+					"name": "setting",
+					"type": "VOIPSetting"
+				}
+			],
+			"relations": {
+				"functions": [
+					"SetVOIPGlobalChannelSetting",
+					"GetVOIPListeningChannels",
+					"GetVOIPSpeakingChannels"
+				],
+				"events": [
+					"VOIPGlobalChannelSettingChange"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetVOIPLocalSetting",
+			"description": "Sets the VOIP setting for the local/proximity",
+			"parameters": [
+				{
+					"name": "setting",
+					"type": "VOIPSetting"
+				}
+			],
+			"relations": {
+				"functions": [
+					"SetVOIPLocalMaxDistance",
+					"SetVOIPLocalVolume"
+				],
+				"events": [
+					"VOIPLocalSettingChange"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetVOIPLocalMaxDistance",
+			"description": "Sets the local/proximity VOIP max distance. This also affects networking usage",
+			"parameters": [
+				{
+					"name": "max_distance",
+					"type": "integer",
+					"description": "Falloff Distance. Default is 3600"
+				}
+			],
+			"relations": {
+				"functions": [
+					"SetVOIPLocalSetting",
+					"SetVOIPLocalVolume"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetVOIPLocalVolume",
+			"description": "Sets the local/proximity VOIP input/output volume. It only affects the local/proximity channel",
+			"parameters": [
+				{
+					"name": "volume",
+					"type": "float"
+				}
+			],
+			"relations": {
+				"functions": [
+					"SetVOIPLocalSetting",
+					"SetVOIPLocalMaxDistance"
+				],
+				"events": [
+					"VOIPLocalSettingChange"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetVOIPGlobalVolume",
+			"description": "Sets the global VOIP volume. It only affects the global channels",
+			"parameters": [
+				{
+					"name": "volume",
+					"type": "float"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetVOIPGlobalHighPassFilter",
+			"description": "Sets the global VOIP high-pass filter threshold frequency",
+			"description_long": "Sets the global VOIP high-pass filter threshold frequency. Set it to 0 to disable it",
+			"parameters": [
+				{
+					"name": "threshold",
+					"type": "integer"
+				}
+			],
+			"relations": {
+				"functions": [
+					"SetVOIPGlobalLowPassFilter"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetVOIPGlobalLowPassFilter",
+			"description": "Sets the global VOIP low-pass filter threshold frequency",
+			"description_long": "Sets the global VOIP low-pass filter threshold frequency. Set it to 0 to disable it",
+			"parameters": [
+				{
+					"name": "threshold",
+					"type": "integer"
+				}
+			],
+			"relations": {
+				"functions": [
+					"SetVOIPGlobalHighPassFilter"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetVOIPMuted",
+			"description": "Mutes or unmutes VOIP for this player",
+			"parameters": [
+				{
+					"name": "is_muted",
+					"type": "boolean"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "IsVOIPMuted",
+			"description": "Returns whether VOIP is muted for this player",
+			"return": [
+				{
+					"type": "boolean"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "UnPossess",
+			"description": "Release the Player from the Character",
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetSteamID",
+			"return": [
+				{
+					"type": "string",
+					"name": "steam_id"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetAccountID",
+			"return": [
+				{
+					"type": "string",
+					"name": "account_id"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetAccountName",
+			"return": [
+				{
+					"type": "string",
+					"name": "account_name"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetAccountIconURL",
+			"description": "Return a URL which can be used through WebUI and Widgets to display the Player's Steam Avatar (64x64)",
+			"return": [
+				{
+					"type": "string",
+					"name": "account_icon_url"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "GetCameraLocation",
+			"return": [
+				{
+					"type": "Vector",
+					"name": "location"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "GetCameraArmLength",
+			"parameters": [
+				{
+					"name": "return_base",
+					"type": "boolean",
+					"default": "false",
+					"description": "Whether to return the current (false) or base (true) value. The base is the same value set by SetCameraArmLength(). Use base if you want to get the original value set by SetCameraArmLength() and not the current (interpolated) value."
+				}
+			],
+			"return": [
+				{
+					"type": "float",
+					"name": "length"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "GetCameraRotation",
+			"return": [
+				{
+					"type": "Rotator",
+					"name": "rotation"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetControlledCharacter",
+			"return": [
+				{
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+			"name": "Possess",
+			"description": "Triggered when Player starts controlling a Pawn (Character)",
+			"arguments": [
+				{
+					"name": "self",
+					"type": "Player"
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+			"name": "Ready",
+			"description": "Triggered when Player is ready (the client fully joined, loaded the map and all entities and is ready to play)",
+[FIN INCONNUE — la suite du fichier n'a jamais été lue dans sa dernière version]

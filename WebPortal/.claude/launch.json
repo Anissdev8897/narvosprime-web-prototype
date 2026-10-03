@@ -1,0 +1,29 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "vite-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3005
+    },
+    {
+      "name": "wasm-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev:wasm"],
+      "port": 3005
+    },
+    {
+      "name": "go",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "go"],
+      "port": 3005
+    },
+    {
+      "name": "proto-serve",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "proto:serve"],
+      "port": 3006
+    }
+  ]
+}

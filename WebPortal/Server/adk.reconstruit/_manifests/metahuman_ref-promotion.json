@@ -1,0 +1,7 @@
+{
+  "note": "Racines de la fermeture Metahuman_Ref (2026-09-13). Passe 1 : un homme (MCSGavin), une femme (FCSBase/Hana), les Blueprints MetaHuman STANDARDS du pack. Consomme par scripts/adk-copier-hyper.mjs --racine Metahuman_Customization_System --cible MetaCustom --seulement Metahuman_Ref/.",
+  "racines": [
+    "/Game/Metahuman_Customization_System/Metahuman_Ref/MCSGavin/BP_MCSGavin",
+    "/Game/Metahuman_Customization_System/Metahuman_Ref/FCSBase/BP_Hana"
+  ]
+}

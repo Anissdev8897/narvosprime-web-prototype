@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NarvosPrime — Prototypes</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        margin: 0;
+        padding: 48px 24px;
+        line-height: 1.6;
+      }
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 20px;
+        letter-spacing: 0.28em;
+        font-weight: 900;
+        margin: 0 0 4px;
+      }
+      .sous {
+        color: #94a3b8;
+        font-size: 13px;
+        margin: 0 0 32px;
+      }
+      a.carte {
+        display: block;
+        padding: 16px 18px;
+        margin-bottom: 12px;
+        border: 1px solid #1e293b;
+        border-radius: 8px;
+        background: #111c33;
+        color: inherit;
+        text-decoration: none;
+        transition: border-color 120ms ease, transform 120ms ease;
+      }
+      a.carte:hover {
+        border-color: #38bdf8;
+        transform: translateX(2px);
+      }
+      .titre {
+        font-weight: 700;
+      }
+      .desc {
+        color: #94a3b8;
+        font-size: 13px;
+      }
+      code {
+        background: #0b1220;
+        border: 1px solid #1e293b;
+        border-radius: 4px;
+        padding: 1px 6px;
+        font-size: 12px;
+      }
+      .note {
+        margin-top: 32px;
+        padding-top: 16px;
+        border-top: 1px solid #1e293b;
+        color: #94a3b8;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>PROTOTYPES</h1>
+      <p class="sous">
+        Bancs d'essai isolés. Une fonctionnalité y est mise au point avant
+        d'entrer dans le jeu — voir <code>docs/ARCHITECTURE_PROTOTYPES.md</code>.
+      </p>
+
+      <a class="carte" href="/Prototype/Proto_charactere/">
+        <div class="titre">🧍 Créateur de personnage</div>
+        <div class="desc">
+          Anatomie modulaire, genres, proportions, teintes.
+          <code>npm run proto:charactere</code>
+        </div>
+      </a>
+
+      <a class="carte" href="/Prototype/Proto_editeur/">
+        <div class="titre">🗺️ Éditeur de monde</div>
+        <div class="desc">
+          Palette, gizmo, terrain, splines, calques.
+          <code>npm run proto:editeur</code>
+        </div>
+      </a>
+
+      <a class="carte" href="/Prototype/Proto_combat/">
+        <div class="titre">⚔️ Combat</div>
+        <div class="desc">
+          Scène vide + personnage animé. Enchaînements et fenêtres de combo.
+          <code>npm run proto:combat</code>
+        </div>
+      </a>
+
+      <p class="note">
+        Le banc d'animation du jeu (<code>src/rpg/sandbox/</code>) n'est pas ici :
+        il s'ouvre depuis le jeu avec <strong>F8</strong>, hors partie.
+        <br />
+        Ces pages sont servies <strong>en dev uniquement</strong> — aucune n'est
+        dans le build de production.
+      </p>
+    </main>
+  </body>
+</html>

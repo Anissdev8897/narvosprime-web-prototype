@@ -1,0 +1,367 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   Personnage > Compétences et Talents ; niveau et XP du HUD.
+
+   Hiérarchie : le NIVEAU en très grand (Orbitron 900), l'XP sur toute la largeur
+   sous lui, les points de talent à droite — et qui ne s'allument que s'il y en a
+   à dépenser. Les pouvoirs sont une liste éditoriale : la touche en gros à
+   gauche, le texte au centre, les chiffres alignés à droite. Pas de grille de
+   cartes identiques.
+
+   ⚠ Les seuls filets SÉPARENT (bandeau / onglets / contenu) ou vont au bord.
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Bandeau ───────────────────────────────────────────────────────────────── */
+
+.perso-bandeau {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	gap: 26px;
+	padding: 16px 24px 18px;
+	border-bottom: 1px solid var(--bord);
+}
+
+.perso-niveau {
+	display: flex;
+	flex-direction: column;
+	line-height: 1;
+}
+.perso-etiquette {
+	font: 700 10px Rajdhani, sans-serif;
+	letter-spacing: .24em;
+	text-transform: uppercase;
+	color: var(--texte-faible);
+	margin-bottom: 4px;
+}
+.perso-niveau b {
+	font: 900 54px Orbitron, sans-serif;
+	color: var(--accent-fort);
+	font-variant-numeric: tabular-nums;
+	min-width: 2ch;
+}
+
+.perso-xp-barre {
+	height: 6px;
+	background: rgba(255, 255, 255, .06);
+	overflow: hidden;
+}
+.perso-xp-barre span {
+	display: block;
+	height: 100%;
+	background: linear-gradient(90deg, #2a8fa3, var(--accent) 60%, var(--accent-fort));
+	transition: width .3s ease-out;
+}
+.perso-xp-ligne {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 7px;
+	font: 400 13px "Share Tech Mono", monospace;
+	color: var(--texte);
+}
+#perso-xp-total { color: var(--texte-faible); font-size: 11px; }
+
+.perso-points {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	line-height: 1.05;
+	color: var(--texte-faible);
+}
+.perso-points b {
+	font: 700 30px "Share Tech Mono", monospace;
+	color: var(--texte-faible);
+}
+.perso-points span {
+	font: 600 10px Rajdhani, sans-serif;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+}
+/* Allumé seulement quand il y a de quoi dépenser : l'information, pas un décor. */
+.perso-points[data-dispo="oui"] b,
+.perso-points[data-dispo="oui"] span { color: var(--legendary); }
+
+/* ── Onglets ───────────────────────────────────────────────────────────────── */
+
+.perso-onglets {
+	display: flex;
+	gap: 2px;
+	padding: 0 18px;
+	border-bottom: 1px solid var(--bord);
+}
+.perso-onglets button {
+	background: none;
+	border: 0;
+	border-bottom: 2px solid transparent;
+	margin-bottom: -1px;
+	padding: 10px 14px 9px;
+	font: 700 12px Rajdhani, sans-serif;
+	letter-spacing: .16em;
+	text-transform: uppercase;
+	color: var(--texte-faible);
+	cursor: pointer;
+	transition: color .12s, border-color .12s;
+}
+.perso-onglets button:hover { color: var(--texte); }
+.perso-onglets button[aria-selected="true"] {
+	color: var(--accent-fort);
+	border-bottom-color: var(--accent);
+}
+
+.perso-page {
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+}
+.perso-page[data-page="classe"] .classes { padding-top: 16px; }
+.perso-page[data-page="metiers"] .metiers { padding-top: 14px; }
+
+/* ── Statistiques ──────────────────────────────────────────────────────────── */
+
+.perso-stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px 26px;
+	padding: 14px 24px 12px;
+	margin: 0;
+	border-bottom: 1px solid var(--bord);
+}
+.perso-stat { display: flex; align-items: baseline; gap: 8px; }
+.perso-stat dt {
+	font: 700 10px Rajdhani, sans-serif;
+	letter-spacing: .16em;
+	text-transform: uppercase;
+	color: var(--texte-faible);
+}
+.perso-stat dd {
+	margin: 0;
+	font: 400 15px "Share Tech Mono", monospace;
+	color: var(--texte);
+}
+
+/* ── Pouvoirs ──────────────────────────────────────────────────────────────── */
+
+.competences {
+	list-style: none;
+	margin: 0;
+	padding: 6px 18px 18px;
+}
+
+.competence {
+	display: grid;
+	grid-template-columns: 56px 1fr auto;
+	gap: 18px;
+	align-items: start;
+	padding: 14px 6px;
+	border-bottom: 1px solid rgba(30, 45, 58, .6);
+}
+.competence:last-child { border-bottom: 0; }
+
+/* La tuile : l'image du sort (ses propres VFX) sur fond sombre, la touche en
+   pastille dans l'angle. Le cadre prend la couleur de l'élément. */
+.competence-tuile {
+	position: relative;
+	width: 56px;
+	height: 56px;
+	border: 1px solid var(--teinte, var(--accent));
+	background: radial-gradient(circle at 50% 45%, rgba(255, 255, 255, .07), rgba(6, 9, 13, .9) 70%);
+	overflow: hidden;
+}
+.competence-vignette {
+	position: absolute;
+	inset: 3px;
+	width: calc(100% - 6px);
+	height: calc(100% - 6px);
+	object-fit: contain;
+	pointer-events: none;
+}
+.competence-touche {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	min-width: 18px;
+	padding: 2px 4px;
+	font: 400 11px/1 "Share Tech Mono", monospace;
+	text-align: center;
+	color: var(--texte);
+	background: rgba(6, 9, 13, .85);
+	border-top: 1px solid var(--teinte, var(--accent));
+	border-left: 1px solid var(--teinte, var(--accent));
+}
+/* Sans image, la touche occupe la tuile, comme avant. */
+.competence-tuile:not(:has(img)) .competence-touche {
+	inset: 0;
+	display: grid;
+	place-items: center;
+	font-size: 22px;
+	color: var(--teinte, var(--accent));
+	background: none;
+	border: 0;
+}
+
+/* ── Icônes vectorielles (icones.js) ───────────────────────────────────────── */
+
+.ico {
+	width: 1em;
+	height: 1em;
+	flex: none;
+	vertical-align: -.14em;
+}
+.stat-ico { width: 12px; height: 12px; margin-right: 5px; color: var(--accent); opacity: .8; }
+.branche-ico { width: 16px; height: 16px; margin-right: 8px; vertical-align: -3px; }
+.talent-ico { width: 13px; height: 13px; margin-right: 6px; color: var(--teinte, var(--accent)); vertical-align: -2px; }
+.verrou-ico { width: 10px; height: 10px; margin-right: 4px; vertical-align: -1px; }
+.bouton-ico { width: 11px; height: 11px; margin-right: 6px; vertical-align: -2px; }
+.niveau-ico { width: 9px; height: 9px; margin-right: 4px; vertical-align: -1px; color: var(--accent); }
+.metier-nom .metier-ico { width: 14px; height: 14px; margin-right: 8px; color: var(--teinte, var(--accent)); vertical-align: -2px; }
+.talent-gestes button .ico { width: 13px; height: 13px; }
+
+.competence-titre { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.competence-nom {
+	font: 700 17px Rajdhani, sans-serif;
+	letter-spacing: .04em;
+	color: var(--texte);
+}
+.competence-meta {
+	font: 600 10px Rajdhani, sans-serif;
+	letter-spacing: .16em;
+	text-transform: uppercase;
+	color: var(--teinte, var(--texte-faible));
+}
+.competence-desc {
+	margin-top: 4px;
+	font-size: 12px;
+	line-height: 1.5;
+	color: var(--texte-faible);
+}
+
+.competence-chiffres {
+	display: grid;
+	grid-template-columns: repeat(2, auto);
+	gap: 4px 18px;
+	margin: 0;
+	text-align: right;
+}
+.competence-chiffres div { display: flex; justify-content: flex-end; align-items: baseline; gap: 8px; }
+.competence-chiffres dt {
+	font: 700 9px Rajdhani, sans-serif;
+	letter-spacing: .16em;
+	text-transform: uppercase;
+	color: var(--texte-faible);
+}
+.competence-chiffres dd {
+	margin: 0;
+	font: 400 14px "Share Tech Mono", monospace;
+	color: var(--texte);
+	min-width: 4ch;
+}
+.competence--vide { display: block; color: var(--texte-faible); padding: 24px 6px; }
+
+/* ── Talents ───────────────────────────────────────────────────────────────── */
+
+.talents-entete {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 12px 24px;
+	border-bottom: 1px solid var(--bord);
+}
+.talents-entete p {
+	flex: 1;
+	font: 400 12px "Share Tech Mono", monospace;
+	color: var(--texte-faible);
+}
+.talents-reinit {
+	background: none;
+	border: 1px solid var(--bord);
+	color: var(--texte-faible);
+	font: 700 10px Rajdhani, sans-serif;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	padding: 5px 11px;
+	cursor: pointer;
+}
+.talents-reinit:hover:not(:disabled) { color: var(--legendary); border-color: var(--legendary); }
+.talents-reinit:disabled { opacity: .35; cursor: default; }
+
+.talents {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 0;
+	padding: 0 6px 14px;
+}
+
+.talent-branche {
+	padding: 12px 12px 0;
+	border-right: 1px solid rgba(30, 45, 58, .6);
+}
+.talent-branche:last-child { border-right: 0; }
+
+.talent-branche-titre {
+	font: 700 12px Rajdhani, sans-serif;
+	letter-spacing: .18em;
+	text-transform: uppercase;
+	color: var(--teinte, var(--accent));
+	padding-bottom: 8px;
+	margin-bottom: 8px;
+	border-bottom: 2px solid var(--teinte, var(--accent));
+}
+
+.talent {
+	position: relative;
+	padding: 10px 10px 36px;
+	margin-bottom: 10px;
+	background: rgba(255, 255, 255, .02);
+	border-left: 2px solid rgba(255, 255, 255, .08);
+}
+.talent[data-etat="investi"],
+.talent[data-etat="max"] { border-left-color: var(--teinte, var(--accent)); background: rgba(255, 255, 255, .04); }
+.talent[data-etat="verrouille"] { opacity: .45; }
+
+.talent-tete { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.talent-nom { font: 700 14px Rajdhani, sans-serif; color: var(--texte); }
+.talent-rang { font: 400 12px "Share Tech Mono", monospace; color: var(--texte-faible); }
+.talent[data-etat="max"] .talent-rang { color: var(--teinte, var(--accent)); }
+
+.talent-pips { display: flex; gap: 4px; margin: 6px 0 6px; }
+.talent-pips i {
+	width: 16px;
+	height: 4px;
+	background: rgba(255, 255, 255, .1);
+}
+.talent-pips i.plein { background: var(--teinte, var(--accent)); }
+
+.talent-desc { font-size: 11px; line-height: 1.45; color: var(--texte-faible); }
+.talent-effet { margin-top: 4px; font: 400 11px "Share Tech Mono", monospace; color: var(--texte); }
+
+.talent-gestes {
+	position: absolute;
+	right: 8px;
+	bottom: 8px;
+	display: flex;
+	gap: 4px;
+}
+.talent-gestes button {
+	display: grid;
+	place-items: center;
+	padding: 0;
+	width: 26px;
+	height: 22px;
+	background: none;
+	border: 1px solid var(--bord);
+	color: var(--texte);
+	font: 400 14px "Share Tech Mono", monospace;
+	line-height: 1;
+	cursor: pointer;
+	transition: color .12s, border-color .12s;
+}
+.talent-gestes .talent-plus:hover:not(:disabled) { color: var(--teinte, var(--accent)); border-color: var(--teinte, var(--accent)); }
+.talent-gestes .talent-moins:hover:not(:disabled) { color: var(--legendary); border-color: var(--legendary); }
+.talent-gestes button:disabled { opacity: .25; cursor: default; }
+
+/* ── HUD : niveau et XP ────────────────────────────────────────────────────── */
+
+.hud-jauge--xp .hud-jauge-nom { color: #d9f6ff; }
+.hud-jauge--xp .hud-jauge-nom b { font: 400 15px "Share Tech Mono", monospace; letter-spacing: 0; }
+.hud-jauge--xp .hud-jauge-valeur { font-size: 12px; color: var(--hud-faible, #8aa3b5); }
+.hud-barre--fine { height: 4px; }
+.hud-jauge--xp .hud-barre span { background: linear-gradient(90deg, #2a8fa3, var(--hud-cyan, #7fe9ff)); transition: width .3s ease-out; }

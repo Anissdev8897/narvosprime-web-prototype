@@ -1,0 +1,151 @@
+{
+	"name": "Blueprint",
+	"description": "A Blueprint Class allows spawning any Unreal Blueprint Actor in nanos world.",
+	"authority": "both",
+	"network_distribution": "enabled",
+	"inheritance": [
+		"Entity",
+		"Actor",
+		"Paintable"
+	],
+	"constructors": [
+		{
+			"name": "Default Constructor",
+			"parameters": [
+				{
+					"type": "Vector",
+					"name": "location"
+				},
+				{
+					"type": "Rotator",
+					"name": "rotation"
+				},
+				{
+					"type": "BlueprintPath",
+					"name": "blueprint_asset"
+				},
+				{
+					"type": "CollisionType",
+					"name": "collision_type",
+					"default": "CollisionType.Auto"
+				}
+			]
+		}
+	],
+	"functions": [
+		{
+			"name": "CallBlueprintEvent",
+			"return": [
+				{
+					"type": "any...",
+					"description": "the function return values"
+				}
+			],
+			"description": "Calls a Blueprint Event or Function",
+			"description_long": "Calls a Blueprint Event or Function<br/>Returns all Function return values on <strong>Client Side</strong>",
+			"authority": "both",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "event_name",
+					"description": "Event or Function name"
+				},
+				{
+					"type": "any",
+					"name": "arguments...",
+					"default": "nil",
+					"description": "Sequence of arguments to pass to the event"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"name": "BindBlueprintEventDispatcher",
+			"description": "Assigns and Binds a Blueprint Event Dispatcher",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "dispatcher_name",
+					"description": "Event Dispatcher name"
+				},
+				{
+					"type": "function",
+					"name": "callback",
+					"description": "Callback function to call",
+					"function_parameters": [
+						{
+							"name": "self",
+							"type": "Blueprint"
+						},
+						{
+							"name": "params",
+							"type": "any..."
+						}
+					]
+				}
+			],
+			"return": [
+				{
+					"type": "function",
+					"description": "the callback itself"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"name": "UnbindBlueprintEventDispatcher",
+			"description": "Unbinds a Blueprint Event Dispatcher",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "dispatcher_name",
+					"description": "Event Dispatcher name"
+				},
+				{
+					"type": "function",
+					"name": "callback",
+					"description": "Optional callback to unbind",
+					"default": "nil"
+				}
+			],
+			"efficiency": "moderate"
+		},
+		{
+			"name": "SetBlueprintPropertyValue",
+			"description": "Sets a Blueprint Property/Variable value directly",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "property_name"
+				},
+				{
+					"type": "any",
+					"name": "value"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"name": "GetBlueprintPropertyValue",
+			"description": "Gets a Blueprint Property/Variable value",
+			"authority": "client",
+			"return": [
+				{
+					"type": "any",
+					"description": "the value",
+					"name": "value"
+				}
+			],
+			"parameters": [
+				{
+					"type": "string",
+					"name": "property_name"
+				}
+			],
+			"efficiency": "slow"
+		}
+	]
+}

@@ -1,0 +1,19 @@
+Verification des catalogues
+  notre pack   : 67344 assets
+  pack de base : 2314 assets
+
+  Modular          42 references  ok
+  Modular liens    52 references  ok
+  Spawnables       56 references  ok
+  Patches           1 references  ok
+  Vegetation        4 references  ok
+  Props           449 references  ok
+  Vfx             106 references  ok
+  Emotes          166 references  ok
+  Apparence peau    2 references  ok
+  Map Orbital    1546 references  ok
+  Map forge_map   623 references  ok
+  Map tower_map  1451 references  ok
+  Widgets          45 references  ok
+
+Aucune reference morte.

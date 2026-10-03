@@ -1,0 +1,256 @@
+{
+  "genere_le": "2026-09-10",
+  "reference": "docs/MISSION_KIMI_BRANCHEMENT_2026-09-10.md §3.D — import + migration + cook des lots triés",
+  "racine": "E:/narvosprime-web-prototype",
+  "format": "Consommateur de référence : scripts/adk-import-narvos.py (NARVOS_MANIFEST) — lit donnees[\"racine\"] et donnees[\"fichiers\"][i][\"fichier\"]. Les entrées de type \"dossier\" sont des unités de STAGING/MIGRATION (à copier dans l'ADK puis à ouvrir en 5.7), pas des fichiers Interchange. Chaque chemin a été testé par os.path.exists le 2026-09-10 : 39/39 présents, 0 mort (dont 3 cartes Defender invisibles à Python avant renommage — voir renommages).",
+  "os_reference": 0,
+  "total_analyses": 17,
+  "importables": 17,
+  "ecartes_ktx2": 0,
+  "renommages": [
+    {
+      "pack": "Ridable MotorBikes",
+      "avant": "WebPortal/public/asset_game/asset_epoque_moderne/Ridable_MotorBikes_Multiplayer_Advanced_Pack_3/Ridable MotorBikes Multiplayer Advanced Pack 3/Ridable MotorBikes Multiplayer Advanced Pack - 3 Bikes - damage & animations 4.26/RidableMotorBikesMultipla",
+      "apres": "WebPortal/public/asset_game/asset_epoque_moderne/RidableMotorBikesMultipla",
+      "date": "2026-09-10",
+      "raison": "« & » dans « damage & animations » + triple imbrication → chemins jusqu'à 426 caractères, os.walk lisait 0 fichier EN SILENCE (mesuré audit LOT1). Le renommage seul ne suffisait pas (365 > 260) : le dossier projet a été REMONTÉ de trois niveaux — les trois enveloppes ne contenaient aucun fichier. Réversible par mv inverse.",
+      "preuve": "os.walk lit 1 462 fichiers après déplacement ; chemin le plus long = 250 caractères (< 260). Les trois dossiers enveloppes vides sont laissés en place (jamais de suppression)."
+    },
+    {
+      "pack": "Defender - Co-Op Top-Down Shooter",
+      "avant": "WebPortal/public/asset_game/asset_futuriste/Defender - Co-Op Top-Down Shooter - Unreal Engine/Defender - Co-Op Top-Down Shooter - Unreal Engine",
+      "apres": "WebPortal/public/asset_game/asset_futuriste/Defender/Defender",
+      "date": "2026-09-10",
+      "raison": "Découvert en validant le manifeste : le double emboîtement portait les chemins jusqu'à 326 caractères — les 3 BP_LootSecurityClearanceLvl (276 chars) étaient INVISIBLES à os.path.exists/os.walk alors que bash les voyait. Même pathologie que les motos, même cure. Réversible par mv inverse.",
+      "preuve": "os.walk lit 3 824 fichiers après renommage ; chemin le plus long = 244 caractères ; les 3 cartes + le parent existent pour Python."
+    }
+  ],
+  "exclusions_nommees": [
+    {
+      "quoi": "Maps/ + BuiltData des packs UE4",
+      "poids_mesure": "196 Mo (Orion 4.19), 104 Mo (Quarantine 4.26), 1,3 Go (motos 4.26)",
+      "raison": "BuiltData UE4 inutilisables en 5.7 ; maps de démo sans valeur pour nanos"
+    },
+    {
+      "quoi": "Movies/ d'Orion (5 .mov, 83 Mo)",
+      "raison": "écrans vidéo Media Framework, inutiles pour nanos"
+    },
+    {
+      "quoi": "Content/Developers/ et Content/Collections/ (POLYGON, motos, Quarantine, Retro Police Station)",
+      "raison": "brouillons d'éditeur"
+    },
+    {
+      "quoi": "WebPortal/public/asset_game/moteur_unity/ ENTIER (QA Police Station, 3 packs Unity, UGUI MiniMap)",
+      "raison": "prefabs, .mat, .cs, shaders Unity inexploitables ; QA Police Station = repack DesireFX, licence non prouvable, et doublon du Retro Police Station natif"
+    },
+    {
+      "quoi": "Blueprints/ des motos (PhysX Vehicles + Apex Destruction, supprimés d'UE5)",
+      "raison": "logique morte en 5.7 — la conduite sera refaite en Lua/nanos ; MESHES SEULEMENT"
+    }
+  ],
+  "fichiers": [
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/Server/adk/Content/City_Traffic_Pro",
+      "type": "dossier_uasset",
+      "verdict": "DEJA_STAGE",
+      "os": 0,
+      "pack": "City_Traffic_Pro",
+      "action": "cuire — PAS à importer : 587 .uasset déjà dans adk/Content/, comptés 0 fois dans Assets.toml (mesuré 2026-09-10). Le premier cook tranchera si VehicleWheeled accepte Car_Skeleton.",
+      "notes": "12 voitures SK + PhysicsAssets. Convention d'os Wheel_FL/FR/RL/RR — NE PAS mélanger avec Front_Left_Wheel (motos) : le mapping va dans une table de données Lua."
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/mixte_epoques/Retro Police Station Environment (Retro Police Station Police Interior Police)/Content/RetroPoliceStation",
+      "type": "dossier_uasset",
+      "verdict": "IMPORTABLE",
+      "os": 0,
+      "pack": "Retro Police Station (Leartes)",
+      "version_ue": "5.0 (+ 137 fichiers 4.22 dans Characters/)",
+      "action": "migrer 5.0 → 5.7 puis cuire",
+      "exclusions": [
+        "Content/Developers/ (hors du chemin d'entrée — brouillons bkai)",
+        "Characters/ si seuls les props comptent (reliquats 4.22 peau/yeux)"
+      ],
+      "notes": "P7 : SM_HandCuff_LOD0, cellules IronBar, ~345 props, 7 maps. ⚠ 12 Go de textures (jusqu'à 204 Mo la texture) : downsizing nécessaire pour un client shipping. 33 fichiers Textures/Building illisibles car chemins > 250 caractères — à surveiller à l'import."
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/mixte_epoques/Crystals and Crafting Environment/Meshes",
+      "type": "dossier_uasset",
+      "verdict": "IMPORTABLE",
+      "os": 0,
+      "pack": "Crystals and Crafting (= Hypernova — Crystal Keeper, /Game/Hypernova/CrystalKeeper)",
+      "version_ue": "5.2",
+      "action": "migrer 5.2 → 5.7 puis cuire — content brut, pas de .uproject"
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/mixte_epoques/Crystals and Crafting Environment/Materials",
+      "type": "dossier_uasset",
+      "verdict": "IMPORTABLE",
+      "os": 0,
+      "pack": "Crystals and Crafting",
+      "version_ue": "5.2",
+      "action": "migrer 5.2 → 5.7 puis cuire"
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/mixte_epoques/Crystals and Crafting Environment/Textures",
+      "type": "dossier_uasset",
+      "verdict": "IMPORTABLE",
+      "os": 0,
+      "pack": "Crystals and Crafting",
+      "version_ue": "5.2",
+      "action": "migrer 5.2 → 5.7 puis cuire",
+      "exclusions_pack": [
+        "Levels/ (L_Showcase_02 = 897 Mo de démo)",
+        "Demo/",
+        "Sequencer/",
+        "Landscape/"
+      ],
+      "notes": "P3 : 6 meshes cristal (Crystal_Rocks/), four SM_CrystalFurnace_02, ~50 instances MI_CrystalRock_*. Aucune variante intact/vidé : l'état se jouera en Lua par swap de matériau."
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/asset_epoque_moderne/MultiplayerHandcuffsSyste/Content/Multiplayer_Handcuff_System",
+      "type": "dossier_uasset",
+      "verdict": "IMPORTABLE",
+      "os": 0,
+      "pack": "MultiplayerHandcuffs",
+      "version_ue": "4.26 (58/58 en-têtes, .uproject étiqueté 5.1)",
+      "action": "migrer 4.26 → 5.7 puis cuire",
+      "exclusions": [
+        "Maps/ (démo)"
+      ],
+      "notes": "P7 : Handcuff/SM_Handcuff (8 Mo — densité/LODs non vérifiés) + Mannequin/Animations/AS_Handcuffed ciblant UE4_Mannequin_Skeleton = le bon squelette nanos, réutilisable tel quel. BP_Handcuff/BP_PC/UI_Arrest = spécification pour la réécriture Lua, pas des assets à exploiter en l'état."
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/asset_epoque_moderne/RidableMotorBikesMultipla/Content/RidableMotorBikes_Advanced/Meshes",
+      "type": "dossier_uasset",
+      "verdict": "A_CONVERTIR",
+      "os": 0,
+      "pack": "Ridable MotorBikes (Digital Dive)",
+      "version_ue": "4.26 (300/300)",
+      "action": "migrer 4.26 → 5.7 puis cuire — MESHES SEULEMENT",
+      "notes": "3 motos (Custom/Enduro/Naked, 39 SkeletalMesh LOD0) + variantes police des trois. Squelette partagé SKL_Bike_base : Front_Left_Wheel/Front_Right_Wheel/Front_Visible_Wheel + 3 os de suspension pour DEUX roues — mapping 2 roues à valider au premier import, à mettre dans la table de données Lua."
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/asset_epoque_moderne/RidableMotorBikesMultipla/Content/RidableMotorBikes_Advanced/Materials",
+      "type": "dossier_uasset",
+      "verdict": "A_CONVERTIR",
+      "os": 0,
+      "pack": "Ridable MotorBikes",
+      "version_ue": "4.26",
+      "action": "migrer 4.26 → 5.7 puis cuire (requis par les meshes)"
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/asset_epoque_moderne/RidableMotorBikesMultipla/Content/RidableMotorBikes_Advanced/Textures",
+      "type": "dossier_uasset",
+      "verdict": "A_CONVERTIR",
+      "os": 0,
+      "pack": "Ridable MotorBikes",
+      "version_ue": "4.26",
+      "action": "migrer 4.26 → 5.7 puis cuire (requis par les meshes)",
+      "exclusions_pack": [
+        "Maps/ (1,3 Go, BuiltData 4.26)",
+        "Blueprints/ (PhysX + Apex morts)",
+        "Developers/",
+        "Collections/",
+        "Sequences/",
+        "Tutorial/",
+        "Sound/ et Animations/ si meshes seuls"
+      ],
+      "notes": "287 uasset ~1 Go disque ; dimensions non mesurables sans import (2K/4K probables) — prévoir un downsizing après migration."
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/sources_dcc/Security Camera Vol 01/Security Camera Vol 01",
+      "type": "dossier_fbx",
+      "verdict": "A_CONVERTIR",
+      "os": 0,
+      "pack": "Security Camera Vol 01",
+      "action": "importer les 10 FBX via Interchange (ou Blender → GLB), puis downsizer",
+      "notes": "P5 : camera 01.FBX … camera 10.FBX + 90 PNG TOUS en 4096² (~6 Go VRAM brute) → downsizing 1024² obligatoire (~94 Mo). Renommer en SM_SecurityCam_01… à l'import (espaces dans les noms). Aucun rig : tourelle = séparation base/tête à monter. ⚠ AUCUN fichier de licence dans le pack — provenance à établir avant usage commercial. Le .blend (46 Mo, Body1…152) est une source DCC, pas un importable."
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/asset_futuriste/POLYGON - Sci-Fi Worlds (2)/POLYGON - Sci-Fi Worlds/Content/PolygonScifiWorlds",
+      "type": "dossier_uasset",
+      "verdict": "IMPORTABLE_SOUS_RESERVE_MIGRATION",
+      "os": 0,
+      "pack": "POLYGON Sci-Fi Worlds (Synty)",
+      "version_ue": "4.22 (1 754/1 772) + 18 × 4.25",
+      "action": "migrer 4.22 → 5.7 puis cuire",
+      "exclusions": [
+        "Content/Developers/ et Content/Collections/ (hors du chemin d'entrée — brouillons)"
+      ],
+      "notes": "P6 : SM_Prop_Hydroponic_Planter_01/02 + _Insert_01 + SM_Prop_Hydroponic_Plant_01/02/03 (3 espèces OU 3 tailles — question laissée ouverte, tranchée à l'import par lecture de bbox) + ~90 SM_Env_Plant_*. P3 : SM_Env_Floating_Crystal_01/02. Bonus : 10 moniteurs SM_Prop_Monitor_*. 0 keypad, 0 caméra dans le pack. Maps de démo légères (~10 Mo) — pas de BuiltData monstre ici."
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/asset_epoque_moderne/Quarantine Medical Tent/Content/QuarantineTent",
+      "type": "dossier_uasset",
+      "verdict": "IMPORTABLE_SOUS_RESERVE_MIGRATION",
+      "os": 0,
+      "pack": "Quarantine Medical Tent",
+      "version_ue": "4.26 (329/329)",
+      "action": "migrer 4.26 → 5.7 puis cuire",
+      "exclusions": [
+        "QuarantineTent/Maps/ (BuiltData 4.26 = 104 Mo, inutilisables en 5.7)",
+        "Content/Developers/ et Content/Collections/ (hors du chemin d'entrée)"
+      ],
+      "notes": "119 meshes médicaux de terrain (tentes ×7, lits, perfusions, HazMat, seringues…) + 12 BP props simples. Textures 540 Mo (4K probables) : un léger downsizing suffira."
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/asset_futuriste/Sci Fi Orion Mars Med Lab/Sci Fi Orion Mars Med Lab/Content/SciFiOrionMarsMedLab",
+      "type": "dossier_uasset",
+      "verdict": "IMPORTABLE_SOUS_RESERVE_MIGRATION",
+      "os": 0,
+      "pack": "Sci Fi Orion Mars Med Lab",
+      "version_ue": "4.19 (614/614) — le plus ancien, risque maximal",
+      "action": "migrer 4.19 → 5.7 puis cuire",
+      "exclusions": [
+        "SciFiOrionMarsMedLab/Maps/ (BuiltData 4.19 = 196 Mo)",
+        "SciFiOrionMarsMedLab/Movies/ (5 .mov = 83 Mo)"
+      ],
+      "notes": "P5 : Meshes/SM_VideoCamera + Blueprints/BP_Video_Camera1 (classe BP_Security_Camera_Tracking, Camera Max Yaw / Camera Pitch, SceneCapture, T_RT_SecurityCamera_A/B, BPI_Security_Alarm_Interface). Le BP 4.19 est l'asset le plus exposé du lot : s'il casse à la migration, le MESH seul suffit — le BP sert de spécification Lua. Textures jusqu'à 122 Mo (8K) : ne retenir que celles des meshes gardés."
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/asset_futuriste/Sci Fi Orion Mars Med Lab/Sci Fi Orion Mars Med Lab/Content/SciFiOrionMarsLivingQuarters",
+      "type": "dossier_uasset",
+      "verdict": "IMPORTABLE_SOUS_RESERVE_MIGRATION",
+      "os": 0,
+      "pack": "Sci Fi Orion Mars Living Quarters",
+      "version_ue": "4.19",
+      "action": "migrer 4.19 → 5.7 puis cuire",
+      "notes": "Habitat martien modulaire (murs ×20, fenêtres, toits) + Mannequin UE4 stock Epic (sans valeur ajoutée). SM_HumanMan/SM_HumanWoman2 = StaticMeshes posés, pas des personnages."
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/asset_futuriste/Defender/Defender/Content/Defender/Blueprints/Loots/SecurityClearanceCards/BP_LootSecurityClearanceLvl1.uasset",
+      "type": "fichier_uasset",
+      "verdict": "A_MIGRER",
+      "os": 0,
+      "pack": "Defender — cartes d'accréditation",
+      "action": "migrer puis cuire — spécification pour le lecteur P4 en Lua",
+      "dependance": "Defender/Defender/Content/Defender/Blueprints/Loots/BP_LootSecurityClearanceCardParent.uasset (chemin disque complet : E:/narvosprime-web-prototype/WebPortal/public/asset_game/asset_futuriste/Defender/Defender/Content/Defender/Blueprints/Loots/BP_LootSecurityClearanceCardParent.uasset) (parent des 3 cartes — à migrer avec, sinon références cassées)"
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/asset_futuriste/Defender/Defender/Content/Defender/Blueprints/Loots/SecurityClearanceCards/BP_LootSecurityClearanceLvl2.uasset",
+      "type": "fichier_uasset",
+      "verdict": "A_MIGRER",
+      "os": 0,
+      "pack": "Defender — cartes d'accréditation",
+      "action": "migrer puis cuire",
+      "dependance": "BP_LootSecurityClearanceCardParent.uasset"
+    },
+    {
+      "fichier": "E:/narvosprime-web-prototype/WebPortal/public/asset_game/asset_futuriste/Defender/Defender/Content/Defender/Blueprints/Loots/SecurityClearanceCards/BP_LootSecurityClearanceLvl3.uasset",
+      "type": "fichier_uasset",
+      "verdict": "A_MIGRER",
+      "os": 0,
+      "pack": "Defender — cartes d'accréditation",
+      "action": "migrer puis cuire",
+      "dependance": "BP_LootSecurityClearanceCardParent.uasset"
+    }
+  ],
+  "glb_prets_hors_manifeste": {
+    "note": "Les 3 GLB props sont déjà dans models/ (domaine GLB), retaillés le 2026-09-10 par scripts/narvos-resize-glb-textures.mjs. Ils s'importent par la filière GLB existante (narvos-manifeste-brut.mjs + adk-import-narvos.py), pas par ce manifeste de packs.",
+    "chemins": [
+      "E:/narvosprime-web-prototype/WebPortal/public/models/divers/walkie_talkie/sci-fi_walkie-talkie.glb (60,1 → 3,3 Mo)",
+      "E:/narvosprime-web-prototype/WebPortal/public/models/divers/keypad_door_lock/cc0_-_keypad_door_lock.glb (23,9 → 2,4 Mo)",
+      "E:/narvosprime-web-prototype/WebPortal/public/models/divers/smartphone/modern_generic_smartphone.glb (0,7 Mo — conforme, non retaillé)"
+    ]
+  }
+}

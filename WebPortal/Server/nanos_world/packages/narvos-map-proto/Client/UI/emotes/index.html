@@ -1,0 +1,109 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Les mêmes trois familles que le HUD et l'écran de création. -->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&amp;family=Rajdhani:wght@400;500;600;700&amp;family=Share+Tech+Mono&amp;display=swap">
+
+		<link rel="stylesheet" href="style.css">
+		<script src="index.js"></script>
+	</head>
+
+	<!--
+		─── STRUCTURE ─────────────────────────────────────────────────────────────
+		Trois colonnes : catégories, liste, détail. C'est la disposition d'un
+		gestionnaire de raccourcis, pas d'une grille de vignettes — parce que ce que
+		le joueur vient faire ici, c'est CHERCHER une animation dans 166, puis lui
+		poser une touche. Une grille de cartes obligerait à tout parcourir des yeux.
+
+		La fenêtre ne remplit pas l'écran : le joueur doit voir son personnage jouer
+		l'animation pendant qu'il la choisit. D'où le panneau ancré à gauche et les
+		deux tiers droits laissés au jeu.
+	-->
+	<body>
+		<div id="menu" class="menu" hidden>
+
+			<header class="tete">
+				<div>
+					<p class="surtitre">Animations</p>
+					<h1 class="titre">Répertoire</h1>
+				</div>
+				<div class="tete-droite">
+					<span class="ligne-mono" id="compte-raccourcis">— / —</span>
+					<button class="lien" id="btn-fermer" type="button">Fermer · B</button>
+				</div>
+			</header>
+
+			<div class="corps">
+
+				<!-- Colonne 1 : catégories. Une liste verticale, pas des onglets :
+				     il y en a huit, et des onglets horizontaux déborderaient. -->
+				<nav class="categories" id="categories" aria-label="Catégories"></nav>
+
+				<!-- Colonne 2 : les animations de la catégorie courante. -->
+				<section class="liste-zone">
+					<div class="recherche">
+						<input class="champ-saisie" id="in-recherche" type="text"
+						       placeholder="Filtrer…" spellcheck="false">
+					</div>
+					<div class="liste" id="liste"></div>
+					<p class="vide" id="liste-vide" hidden>Aucune animation ne correspond.</p>
+				</section>
+
+				<!-- Colonne 3 : détail de l'animation retenue. -->
+				<aside class="detail" id="detail" hidden>
+					<p class="surtitre" id="detail-categorie">—</p>
+					<h2 class="detail-nom" id="detail-nom">—</h2>
+
+					<dl class="detail-meta">
+						<div><dt>Type</dt><dd id="detail-type">—</dd></div>
+						<div><dt>Touche</dt><dd id="detail-touche">—</dd></div>
+					</dl>
+
+					<div class="rangee-actions">
+						<button class="cta" id="btn-jouer" type="button">Jouer</button>
+						<button class="lien" id="btn-apercu" type="button">Prévisualiser</button>
+						<button class="lien lien--danger" id="btn-arreter" type="button">Arrêter</button>
+					</div>
+
+					<div class="assignation">
+						<p class="bloc-titre">Raccourci</p>
+
+						<!--
+							DEUX chemins, parce que le joueur en attend deux : appuyer sur la
+							touche est immédiat, l'écrire permet d'assigner une touche qu'on
+							ne peut pas presser sans déclencher autre chose.
+						-->
+						<div class="rangee-touche">
+							<input class="champ-saisie champ-touche" id="in-touche" type="text"
+							       maxlength="3" spellcheck="false" placeholder="ex. E">
+							<button class="cta cta--petit" id="btn-capturer" type="button">Appuyer</button>
+						</div>
+
+						<div class="rangee-actions">
+							<button class="cta cta--petit" id="btn-assigner" type="button">Assigner</button>
+							<button class="lien lien--danger" id="btn-liberer" type="button" hidden>
+								Libérer
+							</button>
+						</div>
+
+						<p class="aide" id="aide-touche">
+							Lettres, chiffres et F1–F12. Les touches du jeu sont réservées.
+						</p>
+					</div>
+
+					<p class="alerte" id="erreur" hidden></p>
+				</aside>
+			</div>
+
+			<!-- Raccourcis déjà posés, toujours visibles : c'est ce que le joueur
+			     vient vérifier le plus souvent. -->
+			<footer class="pied">
+				<p class="bloc-titre">Assignés</p>
+				<ul class="assignes" id="assignes"></ul>
+			</footer>
+		</div>
+	</body>
+</html>

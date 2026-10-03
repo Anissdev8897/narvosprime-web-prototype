@@ -1,0 +1,20 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.NanimationEditor.cpp.obj": [
+			"AnimGraphNode_NanimSelect.gen.cpp.obj",
+			"NanimationEditor.init.gen.cpp.obj",
+			"NanimationEditorSettings.gen.cpp.obj",
+			"NanimEditorLibrary.gen.cpp.obj",
+			"NanimGenerateSetCommandlet.gen.cpp.obj",
+			"PerModuleInline.gen.cpp.obj",
+			"AnimGraphNode_NanimSelect.cpp.obj",
+			"NanimationEditorLog.cpp.obj",
+			"NanimationEditorModule.cpp.obj",
+			"NanimEditorLibrary.cpp.obj",
+			"NanimGenerateSetCommandlet.cpp.obj",
+			"NanimScanner.cpp.obj",
+			"NanimScannerTest.cpp.obj"
+		]
+	}
+}

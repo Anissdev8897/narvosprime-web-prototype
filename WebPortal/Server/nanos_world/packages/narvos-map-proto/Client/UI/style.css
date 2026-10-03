@@ -1,0 +1,847 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   NARVOS — panneaux de jeu.
+
+   Direction visuelle : sci-fi sobre, angulaire, sur fond sombre. Les coins
+   coupés et le liseré cyan viennent de l'identité NARVOS ; les couleurs de
+   rareté et d'élément sont celles des catalogues, pas des choix décoratifs.
+
+   ⚠ Le HUD est TOUJOURS chargé, même panneaux fermés. Tout ce qui est visible
+   par défaut se superposerait au jeu en permanence — d'où `hidden` sur les
+   panneaux et un `body` totalement transparent.
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+:root {
+	--fond:        #0b0f14;
+	--fond-carte:  #121a22;
+	--bord:        #1e2d3a;
+	--accent:      #4ec9e0;
+	--accent-fort: #7ee8fa;
+	--texte:       #d7e3ec;
+	--texte-faible:#6f8494;
+
+	/* Raretés du catalogue de loot. Ces cinq valeurs sont sémantiques :
+	   elles disent la valeur d'un objet d'un coup d'œil, sans le lire. */
+	--common:    #8b9aa7;
+	--uncommon:  #4fbf6a;
+	--rare:      #3d8bfd;
+	--epic:      #a855f7;
+	--legendary: #f0a020;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/*
+   ⚠ L'ATTRIBUT `hidden` DOIT GAGNER, TOUJOURS.
+
+   La règle navigateur `[hidden] { display: none }` a la spécificité d'un
+   sélecteur d'attribut : n'importe quelle CLASSE qui pose un `display` la bat.
+   `.panneau { display: flex }` suffisait donc à afficher les deux panneaux en
+   permanence, superposés au milieu de l'écran, alors que le JS les avait bien
+   marqués `hidden`.
+
+   Vu en jeu le 2026-09-03 : inventaire et personnage ouverts sans qu'on ait
+   touché à I ni F10. Le `!important` est ici légitime — c'est une règle de
+   plateforme qu'on rétablit, pas une préférence qu'on impose.
+*/
+[hidden] { display: none !important; }
+
+html, body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	/* Transparent : le jeu est derrière. Une couleur de fond ici masquerait
+	   tout l'écran en permanence. */
+	background: transparent;
+	font-family: "Segoe UI", "Gothic A1", system-ui, sans-serif;
+	color: var(--texte);
+	/* Le HUD ne capte la souris que sur ses panneaux : sans ça, le body
+	   invisible avalerait chaque clic destiné au jeu. */
+	pointer-events: none;
+	user-select: none;
+}
+
+/* Assombrit la scène derrière un panneau ouvert — l'œil va au panneau. */
+#voile {
+	position: fixed;
+	inset: 0;
+	background: radial-gradient(ellipse at center, rgba(3, 8, 12, .45), rgba(3, 8, 12, .78));
+	pointer-events: auto;
+}
+
+/* ── Panneau ─────────────────────────────────────────────────────────────── */
+
+.panneau {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: min(720px, 74vw);
+	max-height: 76vh;
+	display: flex;
+	flex-direction: column;
+
+	background: linear-gradient(160deg, var(--fond-carte), var(--fond));
+	border: 1px solid var(--bord);
+	/* Coins coupés en haut-gauche et bas-droite : la signature angulaire,
+	   obtenue sans image ni pseudo-élément. */
+	clip-path: polygon(22px 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%, 0 22px);
+	box-shadow: 0 24px 60px rgba(0, 0, 0, .6), inset 0 1px 0 rgba(126, 232, 250, .08);
+	pointer-events: auto;
+}
+
+.panneau header {
+	display: flex;
+	align-items: baseline;
+	gap: 16px;
+	padding: 18px 24px 14px;
+	border-bottom: 1px solid var(--bord);
+}
+
+.panneau h1 {
+	font-size: 15px;
+	font-weight: 700;
+	letter-spacing: .18em;
+	text-transform: uppercase;
+	color: var(--accent-fort);
+}
+
+/* ⚠ PAS D'ORNEMENT ICI. Un trait de 46 px partait du titre et s'arrêtait dans le
+   vide — mon commentaire prétendait qu'il « remplissait sans meubler », c'était
+   exactement l'inverse. C'est ce genre de détail qui fait « interface générée ».
+   Un filet n'a sa place que s'il SÉPARE quelque chose ou s'il va jusqu'au bord ;
+   un moignon décoratif, jamais. */
+
+.capacite {
+	margin-left: auto;
+	font-size: 12px;
+	letter-spacing: .08em;
+	color: var(--texte-faible);
+	font-variant-numeric: tabular-nums;
+}
+
+.fermer {
+	background: none;
+	border: 1px solid var(--bord);
+	color: var(--texte-faible);
+	font: inherit;
+	font-size: 10px;
+	letter-spacing: .12em;
+	padding: 3px 9px;
+	cursor: pointer;
+	transition: color .12s, border-color .12s;
+}
+.fermer:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ── Inventaire ──────────────────────────────────────────────────────────── */
+
+.liste {
+	list-style: none;
+	overflow-y: auto;
+	padding: 10px 14px 18px;
+}
+
+.objet {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 9px 12px;
+	border-left: 3px solid var(--common);
+	background: rgba(255, 255, 255, .015);
+	margin-bottom: 3px;
+	transition: background .12s;
+}
+.objet:hover { background: rgba(78, 201, 224, .07); }
+
+.objet .nom { flex: 1; font-size: 13px; }
+
+/* La quantité n'apparaît qu'au-delà de 1 : « ×1 » sur chaque ligne est du
+   bruit qui noie les vraies piles. */
+.objet .qte {
+	font-size: 12px;
+	color: var(--accent);
+	font-variant-numeric: tabular-nums;
+}
+
+.objet .rarete {
+	font-size: 10px;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+	color: var(--texte-faible);
+}
+
+.objet[data-rarete="uncommon"]  { border-left-color: var(--uncommon); }
+.objet[data-rarete="rare"]      { border-left-color: var(--rare); }
+.objet[data-rarete="epic"]      { border-left-color: var(--epic); }
+.objet[data-rarete="legendary"] { border-left-color: var(--legendary); }
+
+.vide {
+	padding: 34px 24px 40px;
+	text-align: center;
+	font-size: 13px;
+	line-height: 1.7;
+	color: var(--texte-faible);
+}
+.vide em { color: var(--accent); font-style: normal; }
+
+/* ── Classes ─────────────────────────────────────────────────────────────── */
+
+.classes {
+	list-style: none;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 10px;
+	padding: 18px;
+	overflow-y: auto;
+}
+
+.classe {
+	position: relative;
+	padding: 14px 16px 16px;
+	background: rgba(255, 255, 255, .02);
+	border: 1px solid var(--bord);
+	/* La couleur de classe arrive en variable inline depuis le catalogue :
+	   une classe ajoutée côté TS se colore ici sans toucher au CSS. */
+	border-left: 3px solid var(--teinte, var(--accent));
+	cursor: pointer;
+	transition: background .12s, border-color .12s, transform .12s;
+}
+.classe:hover {
+	background: rgba(78, 201, 224, .06);
+	border-color: var(--teinte, var(--accent));
+	transform: translateY(-1px);
+}
+
+/* La classe portée est marquée et non cliquable : la rejouer relancerait un
+   respawn pour rien. */
+.classe[aria-current="true"] {
+	background: rgba(78, 201, 224, .09);
+	cursor: default;
+}
+.classe[aria-current="true"]::after {
+	content: "actuelle";
+	position: absolute;
+	top: 12px;
+	right: 14px;
+	font-size: 9px;
+	letter-spacing: .12em;
+	text-transform: uppercase;
+	color: var(--accent);
+}
+
+/* ── Métiers ───────────────────────────────────────────────────────────────────
+   Une ligne par métier : nom, niveau, barre, XP. Pas de carte, pas de cadre —
+   la barre EST l'information, et six cadres identiques ne diraient rien de plus.
+   La teinte vient du catalogue, comme pour les classes. */
+.sous-titre {
+	margin: 4px 18px 0;
+	font-size: 10px;
+	font-weight: 600;
+	letter-spacing: .16em;
+	text-transform: uppercase;
+	color: var(--texte-faible);
+}
+
+.metiers {
+	list-style: none;
+	padding: 8px 18px 18px;
+	margin: 0;
+}
+
+.metier {
+	display: grid;
+	grid-template-columns: minmax(120px, 1fr) 90px minmax(120px, 2fr) 110px;
+	align-items: center;
+	gap: 12px;
+	padding: 7px 0;
+	font-size: 12px;
+}
+
+.metier-nom { color: var(--texte); }
+
+.metier-niveau {
+	font-variant-numeric: tabular-nums;
+	color: var(--teinte, var(--accent));
+}
+
+/* La barre : un fond discret, un plein à la teinte du métier. Pas d'animation
+   de brillance — elle bouge d'elle-même à chaque gain, ça suffit à la remarquer. */
+.metier-barre {
+	height: 4px;
+	background: rgba(255, 255, 255, .06);
+	overflow: hidden;
+}
+.metier-plein {
+	display: block;
+	height: 100%;
+	background: var(--teinte, var(--accent));
+	transition: width .25s ease-out;
+}
+
+.metier-xp {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+	color: var(--texte-faible);
+}
+
+.metier--vide {
+	display: block;
+	color: var(--texte-faible);
+}
+
+.classe .titre {
+	display: block;
+	font-size: 14px;
+	font-weight: 600;
+	margin-bottom: 3px;
+}
+
+.classe .meta {
+	display: block;
+	font-size: 11px;
+	letter-spacing: .06em;
+	text-transform: uppercase;
+	color: var(--texte-faible);
+	margin-bottom: 10px;
+}
+
+.classe .stats {
+	display: flex;
+	gap: 14px;
+	font-size: 11px;
+	color: var(--texte-faible);
+	font-variant-numeric: tabular-nums;
+}
+.classe .stats b { color: var(--texte); font-weight: 600; }
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   MENU DE PAUSE (Échap) ET GRAPHISMES
+
+   ⚠ Ce menu REMPLACE celui de nanos. Le Lua consomme la touche — ce qui est
+   dessiné ici est tout ce que le joueur a sous les yeux quand il met en pause.
+
+   Direction : pas trois boutons identiques centrés. Le titre est énorme, les
+   actions sont une liste éditoriale de poids inégal, et « Quitter » est mis à
+   part sous un filet qui va d'un bord à l'autre.
+
+   ⚠ Les seuls filets ici SÉPARENT ou vont au bord. Aucun moignon décoratif :
+   c'est le détail qui fait « interface générée ».
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+.panneau--pause {
+	/* Plus étroit et plus haut que les panneaux de données : on ne lit pas une
+	   liste, on choisit entre trois choses. */
+	width: min(420px, 62vw);
+	padding-bottom: 8px;
+}
+
+.pause-tete {
+	display: block;
+	padding: 34px 28px 20px;
+	/* Pas de bordure basse : le titre et les actions sont le MÊME bloc. Un filet
+	   ici séparerait ce qui va ensemble. */
+	border-bottom: none;
+}
+
+.pause-sur {
+	font-size: 11px;
+	letter-spacing: .26em;
+	text-transform: uppercase;
+	color: var(--texte-faible);
+	margin-bottom: 6px;
+}
+
+.pause-titre {
+	/* Le contraste d'échelle porte la hiérarchie à lui seul : rien d'autre sur
+	   cet écran n'a besoin de crier. */
+	font-size: clamp(46px, 6vw, 76px);
+	line-height: .92;
+	font-weight: 800;
+	letter-spacing: -.03em;
+	text-transform: none;
+	color: var(--texte);
+}
+
+.pause-actions {
+	list-style: none;
+	padding: 10px 0 0;
+	margin: 0;
+}
+
+.pause-action {
+	display: flex;
+	align-items: baseline;
+	gap: 14px;
+	width: 100%;
+	padding: 13px 28px 13px 28px;
+	background: none;
+	border: none;
+	border-left: 3px solid transparent;
+	color: var(--texte);
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+	transition: border-color .12s linear, background-color .12s linear, padding-left .12s ease-out;
+}
+
+/* La première action pèse plus que la seconde. Un menu où tout a le même poids
+   n'aide pas à choisir. */
+.pause-action--premiere .pause-libelle { font-size: 22px; font-weight: 650; }
+.pause-libelle { font-size: 18px; font-weight: 500; letter-spacing: .01em; }
+
+.pause-touche,
+.pause-note {
+	margin-left: auto;
+	font-size: 11px;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+	color: var(--texte-faible);
+	white-space: nowrap;
+}
+
+.pause-action:hover,
+.pause-action:focus-visible {
+	background: rgba(78, 201, 224, .06);
+	border-left-color: var(--accent);
+	padding-left: 34px;
+	outline: none;
+}
+.pause-action:hover .pause-libelle,
+.pause-action:focus-visible .pause-libelle { color: var(--accent-fort); }
+
+/* Le filet SÉPARE deux natures d'action — réversible au-dessus, irréversible
+   en dessous — et va donc d'un bord à l'autre du panneau. */
+.pause-sortie {
+	margin-top: 18px;
+	border-top: 1px solid var(--bord);
+	padding-top: 6px;
+}
+
+.pause-action--sortie .pause-libelle { font-size: 15px; color: var(--texte-faible); }
+.pause-action--sortie:hover,
+.pause-action--sortie:focus-visible {
+	background: rgba(240, 160, 32, .07);
+	border-left-color: var(--legendary);
+}
+.pause-action--sortie:hover .pause-libelle,
+.pause-action--sortie:focus-visible .pause-libelle { color: var(--legendary); }
+
+/* ── Graphismes ─────────────────────────────────────────────────────────────── */
+
+.gfx-liste {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	overflow-y: auto;
+}
+
+/* Des LIGNES, pas des cartes. Trois cartes identiques dans une grille régulière
+   est exactement le gabarit qu'on refuse. */
+.gfx-ligne + .gfx-ligne { border-top: 1px solid var(--bord); }
+
+.gfx-bouton {
+	display: block;
+	width: 100%;
+	padding: 16px 24px 17px 21px;
+	background: none;
+	border: none;
+	border-left: 3px solid transparent;
+	color: var(--texte);
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+	transition: background-color .12s linear, border-color .12s linear;
+}
+
+.gfx-bouton:hover,
+.gfx-bouton:focus-visible {
+	background: rgba(78, 201, 224, .05);
+	border-left-color: var(--bord);
+	outline: none;
+}
+
+/* L'actif se lit à la barre pleine sur toute la hauteur de la ligne, pas à une
+   coche : la barre se voit du coin de l'œil, la coche se cherche. */
+.gfx-ligne--actif .gfx-bouton {
+	border-left-color: var(--accent);
+	background: rgba(78, 201, 224, .07);
+}
+.gfx-ligne--actif .gfx-nom { color: var(--accent-fort); }
+
+.gfx-tete {
+	display: flex;
+	align-items: baseline;
+	gap: 14px;
+}
+
+.gfx-nom {
+	font-size: 19px;
+	font-weight: 650;
+	letter-spacing: .01em;
+}
+
+/* Les chiffres en chasse fixe : ce sont des mesures, elles doivent s'aligner
+   d'une ligne à l'autre pour se comparer d'un coup d'œil. */
+.gfx-chiffres {
+	margin-left: auto;
+	font-family: "Cascadia Mono", Consolas, ui-monospace, monospace;
+	font-size: 11.5px;
+	letter-spacing: .02em;
+	color: var(--texte-faible);
+	white-space: nowrap;
+}
+
+.gfx-resume {
+	display: block;
+	margin-top: 5px;
+	max-width: 56ch;
+	font-size: 12.5px;
+	line-height: 1.45;
+	color: var(--texte-faible);
+}
+
+.gfx-pied {
+	padding: 14px 24px 18px;
+	border-top: 1px solid var(--bord);
+	font-size: 11.5px;
+	line-height: 1.5;
+	color: var(--texte-faible);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   ROUE D'OBJETS (TAB)
+
+   Éphémère : cinq cases en arc au centre-bas, là où le regard est déjà. Pas un
+   panneau — pas de voile, pas de header, pas de bouton ESC : elle se referme
+   comme elle s'ouvre (TAB, Echap, clic dehors). Les liserés de rareté sont
+   ceux du catalogue, comme dans l'inventaire.
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+#roue {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	padding-bottom: 9vh;
+	background: radial-gradient(ellipse at 50% 82%, rgba(3, 8, 12, .55), rgba(3, 8, 12, .12) 62%, transparent);
+	pointer-events: auto;
+}
+
+.roue-scene {
+	display: flex;
+	align-items: flex-end;
+	gap: 22px;
+}
+
+.roue-arc {
+	list-style: none;
+	display: flex;
+	align-items: flex-end;
+	gap: 14px;
+}
+
+/* L'arc est dessiné par la hauteur, pas par une rotation : les cases restent
+   lisibles de face. */
+.roue-slot { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.roue-slot[data-rang="1"],
+.roue-slot[data-rang="5"] { transform: translateY(22px); }
+.roue-slot[data-rang="2"],
+.roue-slot[data-rang="4"] { transform: translateY(8px); }
+
+.roue-case {
+	position: relative;
+	width: 72px;
+	height: 72px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 2px;
+	background: linear-gradient(160deg, var(--fond-carte), var(--fond));
+	border: 1px solid var(--bord);
+	border-bottom: 3px solid var(--common);
+	/* Coins coupés : la signature angulaire, comme les panneaux. */
+	clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+	color: var(--texte);
+	font: inherit;
+	cursor: pointer;
+	transition: border-color .12s, background .12s;
+}
+.roue-case:hover { border-color: var(--accent); background: rgba(78, 201, 224, .08); }
+
+.roue-case[data-rarete="uncommon"]  { border-bottom-color: var(--uncommon); }
+.roue-case[data-rarete="rare"]      { border-bottom-color: var(--rare); }
+.roue-case[data-rarete="epic"]      { border-bottom-color: var(--epic); }
+.roue-case[data-rarete="legendary"] { border-bottom-color: var(--legendary); }
+
+/* Vide : grisée, sans liseré — une case qui ne promet rien. */
+.roue-case--vide { opacity: .45; border-bottom-color: var(--bord); }
+
+/* Assignée mais l'objet n'est plus dans le sac : on le VOIT avant même le
+   refus du serveur. */
+.roue-case--absente { opacity: .55; border-style: dashed; }
+
+.roue-num {
+	position: absolute;
+	top: 3px;
+	left: 7px;
+	font-size: 10px;
+	letter-spacing: .1em;
+	color: var(--texte-faible);
+	font-variant-numeric: tabular-nums;
+}
+
+.roue-icone { position: relative; display: block; width: 34px; height: 34px; }
+.roue-emoji { display: block; font-size: 26px; line-height: 34px; text-align: center; }
+.roue-img {
+	position: absolute;
+	inset: 0;
+	width: 34px;
+	height: 34px;
+	object-fit: contain;
+	image-rendering: pixelated;
+}
+
+.roue-nom {
+	max-width: 66px;
+	overflow: hidden;
+	font-size: 9px;
+	line-height: 1.15;
+	text-align: center;
+	color: var(--texte-faible);
+}
+
+.roue-outil {
+	width: 22px;
+	height: 22px;
+	background: none;
+	border: 1px solid var(--bord);
+	color: var(--texte-faible);
+	font: inherit;
+	font-size: 13px;
+	line-height: 1;
+	cursor: pointer;
+	transition: color .12s, border-color .12s;
+}
+.roue-outil:hover { color: var(--accent); border-color: var(--accent); }
+
+/* Assignation : à droite de l'arc, séparée par un filet PLEINE HAUTEUR — la
+   règle du projet : un filet SÉPARE ou va au bord, jamais de moignon. */
+.roue-assignation {
+	align-self: stretch;
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	border-left: 1px solid var(--bord);
+	padding-left: 22px;
+}
+
+.roue-assignation h2 {
+	margin-bottom: 10px;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: var(--accent-fort);
+}
+
+.roue-eligibles { list-style: none; overflow-y: auto; max-height: 300px; }
+
+.roue-eligible {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+	margin-bottom: 3px;
+	padding: 7px 10px;
+	background: rgba(255, 255, 255, .015);
+	border: none;
+	border-left: 3px solid var(--common);
+	color: var(--texte);
+	font: inherit;
+	font-size: 13px;
+	text-align: left;
+	cursor: pointer;
+	transition: background .12s;
+}
+.roue-eligible:hover { background: rgba(78, 201, 224, .07); }
+.roue-eligible[data-rarete="uncommon"]  { border-left-color: var(--uncommon); }
+.roue-eligible[data-rarete="rare"]      { border-left-color: var(--rare); }
+.roue-eligible[data-rarete="epic"]      { border-left-color: var(--epic); }
+.roue-eligible[data-rarete="legendary"] { border-left-color: var(--legendary); }
+.roue-eligible .nom { flex: 1; }
+.roue-eligible .qte { font-size: 12px; color: var(--accent); font-variant-numeric: tabular-nums; }
+.roue-eligible .roue-icone { width: 26px; height: 26px; }
+.roue-eligible .roue-emoji { font-size: 20px; line-height: 26px; }
+.roue-eligible .roue-img { width: 26px; height: 26px; }
+
+.roue-vide { font-size: 12px; line-height: 1.5; color: var(--texte-faible); }
+
+.roue-aide {
+	margin-top: 18px;
+	font-size: 11px;
+	letter-spacing: .08em;
+	color: var(--texte-faible);
+}
+
+/* Le refus : posé au-dessus de l'arc, bref, et il repart tout seul. */
+.roue-refus {
+	position: fixed;
+	left: 50%;
+	bottom: calc(9vh + 130px);
+	transform: translateX(-50%);
+	padding: 8px 18px;
+	background: rgba(11, 15, 20, .92);
+	border: 1px solid var(--legendary);
+	border-left: 3px solid var(--legendary);
+	font-size: 13px;
+	color: var(--texte);
+}
+.roue-refus.actif { animation: roue-refus-apparait .18s ease-out; }
+@keyframes roue-refus-apparait {
+	from { opacity: 0; transform: translate(-50%, 6px); }
+	to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Case activée : un éclair bref — le geste a abouti côté serveur. */
+.roue-case.actif { animation: roue-case-activee .45s ease-out; }
+@keyframes roue-case-activee {
+	0%   { border-color: var(--accent-fort); background: rgba(126, 232, 250, .18); }
+	100% { border-color: var(--bord); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Jouabilité (2026-09-19) — le panneau rend le registre envoyé par le serveur.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.jouabilite-liste {
+	list-style: none;
+	margin: 0;
+	padding: 0 0 .6rem;
+	overflow-y: auto;
+	flex: 1;
+}
+
+.joua-ligne {
+	display: flex;
+	align-items: center;
+	gap: .8rem;
+	padding: .55rem 1rem;
+	border-bottom: 1px solid var(--bord);
+}
+
+.joua-ligne--inconnu { opacity: .55; }
+
+.joua-tete {
+	display: flex;
+	flex-direction: column;
+	gap: .15rem;
+	flex: 1;
+	min-width: 0;
+}
+
+.joua-nom {
+	font-weight: 600;
+	color: var(--texte);
+}
+
+.joua-desc {
+	font-size: .78rem;
+	color: var(--texte-doux, #8b98a5);
+}
+
+.joua-groupe-titre {
+	display: flex;
+	flex-direction: column;
+	gap: .15rem;
+	padding: .8rem 1rem .35rem;
+	border-bottom: 1px solid var(--bord);
+	border-top: 1px solid var(--bord);
+	background: rgba(78, 201, 224, .06);
+}
+
+.joua-groupe-titre .joua-nom { color: var(--accent-fort); }
+
+.joua-bouton {
+	border: 1px solid var(--bord);
+	background: transparent;
+	color: var(--texte);
+	padding: .35rem .8rem;
+	cursor: pointer;
+	font: inherit;
+	min-width: 7rem;
+}
+
+.joua-bouton:hover { border-color: var(--accent); color: var(--accent); }
+
+.joua-bouton--actif {
+	border-color: var(--accent);
+	color: var(--fond);
+	background: var(--accent);
+}
+
+.joua-choix {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .35rem;
+	justify-content: flex-end;
+}
+
+.joua-option {
+	border: 1px solid var(--bord);
+	background: transparent;
+	color: var(--texte);
+	padding: .3rem .55rem;
+	cursor: pointer;
+	font: inherit;
+	font-size: .8rem;
+}
+
+.joua-option:hover { border-color: var(--accent); color: var(--accent); }
+
+.joua-option--actif {
+	border-color: var(--accent);
+	color: var(--accent);
+	background: rgba(78, 201, 224, .12);
+}
+
+.joua-reinit { white-space: nowrap; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Fouille (2026-09-19) — liste du cadavre le plus proche, poussée par le serveur.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.fouille-liste {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	overflow-y: auto;
+	flex: 1;
+}
+
+.fouille-ligne {
+	display: flex;
+	align-items: center;
+	gap: .8rem;
+	padding: .6rem 1rem;
+	border-bottom: 1px solid var(--bord);
+}
+
+.fouille-nom {
+	flex: 1;
+	font-weight: 600;
+	color: var(--texte);
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.fouille-details {
+	font-size: .8rem;
+	color: var(--texte-doux, #8b98a5);
+	white-space: nowrap;
+}
+
+.fouille-prendre { white-space: nowrap; }

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Test visuel — établi d'assemblage</title>
+<base href="file:///E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos-map-proto/Client/UI/">
+<link rel="stylesheet" href="hud.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="ateliers.css">
+<link rel="stylesheet" href="assemblage.css">
+</head>
+<body>
+<script>
+// Bouchon du pont nanos, AVANT les vrais scripts : Subscribe capturé (le
+// pilote rejoue les envois du serveur), Call enregistré sur window.APPELS.
+window.APPELS = [];
+window.Events = {
+  Subscribe: function (nom, fn) { (this._s = this._s || {})[nom] = fn; },
+  Call: function (nom) {
+    window.APPELS.push({ nom: nom, args: Array.prototype.slice.call(arguments, 1) });
+  },
+};
+</script>
+<div id="voile" hidden></div>
+<section id="assemblage" class="panneau panneau--large" hidden>
+			<header>
+				<h1 id="assemblage-titre">Établi d'assemblage</h1>
+				<span class="capacite" id="assemblage-avancement">—</span>
+				<button class="fermer" data-fermer>ESC</button>
+			</header>
+
+			<!-- Choix du plan : seulement sans assemblage en cours. -->
+			<div id="assemblage-choix" hidden>
+				<ul id="assemblage-plans" class="liste-dense"></ul>
+				<p id="assemblage-aucun-plan" class="vide" hidden>
+					Aucun plan disponible : le catalogue des plans n'est pas encore
+					livré à l'établi. L'établi fonctionne — il n'a simplement rien
+					à proposer pour l'instant.
+				</p>
+			</div>
+
+			<!-- L'assemblage en cours : slots du plan, sac filtré. -->
+			<div id="assemblage-en-cours" hidden>
+				<div class="assemblage-corps">
+					<ol id="assemblage-slots" class="assemblage-slots"></ol>
+
+					<div class="assemblage-cote">
+						<p class="consigne" id="assemblage-consigne">
+							Choisir un emplacement, puis cliquer une pièce du sac
+							pour la poser. Les pièces grisées ne conviennent pas à
+							cet emplacement.
+						</p>
+						<ul id="assemblage-pieces" class="liste-dense"></ul>
+					</div>
+				</div>
+
+				<footer class="barre-action">
+					<span class="selection" id="assemblage-manquants">—</span>
+					<button class="action action--fantome" data-assemblage-abandonner>Abandonner</button>
+					<button class="action" id="assemblage-finaliser" data-assemblage-finaliser disabled>Finaliser</button>
+				</footer>
+			</div>
+
+			<!-- Le résultat, honnêtement : un objet dans le sac, pas une promesse. -->
+			<p class="assemblage-resultat" id="assemblage-resultat" hidden></p>
+			<p class="assemblage-refus" id="assemblage-refus" hidden></p>
+		</section>
+<script src="index.js"></script>
+<script src="ateliers.js"></script>
+<script src="assemblage.js"></script>
+<script>
+// Le pilote : le serveur pousse l'état, la page ouvre le panneau — l'ordre
+// réel (l'état est tamponné côté Lua, l'ouverture le réclame).
+var etat = {"plans":{"etabli":true,"plans":[{"id":"plan_vehicule_executive_sedan","label":"Berline Exécutive","resultat":{"item_id":"vehicule_executive_sedan","nom":"Berline Exécutive","rarete":"rare","icone":"🚗","iconFile":"tex_recipes_01","quantite":1},"emplacements":[{"id":"carrosserie","label":"Carrosserie","obligatoire":true,"quantite":1},{"id":"moteur","label":"Moteur","obligatoire":true,"quantite":1},{"id":"roues","label":"Roues","obligatoire":true,"quantite":4},{"id":"plaque","label":"Plaque d'immatriculation","obligatoire":false,"quantite":1}]},{"id":"plan_vehicule_pickup","label":"Pickup","resultat":{"item_id":"vehicule_pickup","nom":"Pickup","rarete":"uncommon","icone":"🚙","iconFile":null,"quantite":1},"emplacements":[{"id":"carrosserie","label":"Carrosserie","obligatoire":true,"quantite":1},{"id":"moteur","label":"Moteur","obligatoire":true,"quantite":1},{"id":"roues","label":"Roues","obligatoire":true,"quantite":4}]},{"id":"plan_craft_plasma_blade","label":"Lame Plasma","resultat":{"item_id":"plasma_blade","nom":"Lame Plasma","rarete":"epic","icone":"⚔️","iconFile":null,"quantite":1},"emplacements":[{"id":"metal_rare","label":"Métal rare","obligatoire":true,"quantite":2},{"id":"noyau","label":"Noyau plasma","obligatoire":true,"quantite":1}]}],"sac":[{"item_id":"piece_moteur","nom":"Moteur de véhicule","rarete":"rare","icone":"🔧","iconFile":"tex_spare_parts_12","uid":"inst_moteur","quantite":1},{"item_id":"piece_roue","nom":"Roue de véhicule","rarete":"common","icone":"🛞","iconFile":"tex_strings_02","uid":"inst_roues","quantite":5},{"item_id":"piece_plaque","nom":"Plaque d'immatriculation","rarete":"common","icone":"🪪","iconFile":"tex_ingots_05","uid":"inst_plaque","quantite":1},{"item_id":"piece_moteur","nom":"Moteur de véhicule","rarete":"rare","icone":"🔧","iconFile":"tex_spare_parts_06","uid":"inst_moteur2","quantite":1},{"item_id":"consommable","nom":"Ration","rarete":"common","icone":"🥫","iconFile":null,"uid":"inst_ration","quantite":3}],"session":null},"en-cours":{"etabli":true,"plans":[{"id":"plan_vehicule_executive_sedan","label":"Berline Exécutive","resultat":{"item_id":"vehicule_executive_sedan","nom":"Berline Exécutive","rarete":"rare","icone":"🚗","iconFile":"tex_recipes_01","quantite":1},"emplacements":[{"id":"carrosserie","label":"Carrosserie","obligatoire":true,"quantite":1},{"id":"moteur","label":"Moteur","obligatoire":true,"quantite":1},{"id":"roues","label":"Roues","obligatoire":true,"quantite":4},{"id":"plaque","label":"Plaque d'immatriculation","obligatoire":false,"quantite":1}]},{"id":"plan_vehicule_pickup","label":"Pickup","resultat":{"item_id":"vehicule_pickup","nom":"Pickup","rarete":"uncommon","icone":"🚙","iconFile":null,"quantite":1},"emplacements":[{"id":"carrosserie","label":"Carrosserie","obligatoire":true,"quantite":1},{"id":"moteur","label":"Moteur","obligatoire":true,"quantite":1},{"id":"roues","label":"Roues","obligatoire":true,"quantite":4}]},{"id":"plan_craft_plasma_blade","label":"Lame Plasma","resultat":{"item_id":"plasma_blade","nom":"Lame Plasma","rarete":"epic","icone":"⚔️","iconFile":null,"quantite":1},"emplacements":[{"id":"metal_rare","label":"Métal rare","obligatoire":true,"quantite":2},{"id":"noyau","label":"Noyau plasma","obligatoire":true,"quantite":1}]}],"sac":[{"item_id":"piece_moteur","nom":"Moteur de véhicule","rarete":"rare","icone":"🔧","iconFile":"tex_spare_parts_12","uid":"inst_moteur","quantite":1},{"item_id":"piece_roue","nom":"Roue de véhicule","rarete":"common","icone":"🛞","iconFile":"tex_strings_02","uid":"inst_roues","quantite":5},{"item_id":"piece_plaque","nom":"Plaque d'immatriculation","rarete":"common","icone":"🪪","iconFile":"tex_ingots_05","uid":"inst_plaque","quantite":1},{"item_id":"piece_moteur","nom":"Moteur de véhicule","rarete":"rare","icone":"🔧","iconFile":"tex_spare_parts_06","uid":"inst_moteur2","quantite":1},{"item_id":"consommable","nom":"Ration","rarete":"common","icone":"🥫","iconFile":null,"uid":"inst_ration","quantite":3}],"session":{"plan_id":"plan_vehicule_executive_sedan","label":"Berline Exécutive","resultat":{"item_id":"vehicule_executive_sedan","nom":"Berline Exécutive","rarete":"rare","icone":"🚗","iconFile":"tex_recipes_01","quantite":1},"slots":[{"id":"carrosserie","label":"Carrosserie","obligatoire":true,"quantite":1,"pose":1,"pieces":[{"item_id":"piece_carrosserie","nom":"Carrosserie de véhicule","rarete":"rare","icone":"🚗","iconFile":"tex_container_06","quantite":1}],"accepte":[]},{"id":"moteur","label":"Moteur","obligatoire":true,"quantite":1,"pose":0,"pieces":[],"accepte":["inst_moteur","inst_moteur2"]},{"id":"roues","label":"Roues","obligatoire":true,"quantite":4,"pose":2,"pieces":[{"item_id":"piece_roue","nom":"Roue de véhicule","rarete":"common","icone":"🛞","iconFile":"tex_strings_02","quantite":2}],"accepte":[]},{"id":"plaque","label":"Plaque d'immatriculation","obligatoire":false,"quantite":1,"pose":0,"pieces":[],"accepte":[]}],"manquants":[{"id":"moteur","label":"Moteur","requis":1,"pose":0,"manque":1},{"id":"roues","label":"Roues","requis":4,"pose":2,"manque":2}],"complet":false}},"complet":{"etabli":true,"plans":[{"id":"plan_vehicule_executive_sedan","label":"Berline Exécutive","resultat":{"item_id":"vehicule_executive_sedan","nom":"Berline Exécutive","rarete":"rare","icone":"🚗","iconFile":"tex_recipes_01","quantite":1},"emplacements":[{"id":"carrosserie","label":"Carrosserie","obligatoire":true,"quantite":1},{"id":"moteur","label":"Moteur","obligatoire":true,"quantite":1},{"id":"roues","label":"Roues","obligatoire":true,"quantite":4},{"id":"plaque","label":"Plaque d'immatriculation","obligatoire":false,"quantite":1}]},{"id":"plan_vehicule_pickup","label":"Pickup","resultat":{"item_id":"vehicule_pickup","nom":"Pickup","rarete":"uncommon","icone":"🚙","iconFile":null,"quantite":1},"emplacements":[{"id":"carrosserie","label":"Carrosserie","obligatoire":true,"quantite":1},{"id":"moteur","label":"Moteur","obligatoire":true,"quantite":1},{"id":"roues","label":"Roues","obligatoire":true,"quantite":4}]},{"id":"plan_craft_plasma_blade","label":"Lame Plasma","resultat":{"item_id":"plasma_blade","nom":"Lame Plasma","rarete":"epic","icone":"⚔️","iconFile":null,"quantite":1},"emplacements":[{"id":"metal_rare","label":"Métal rare","obligatoire":true,"quantite":2},{"id":"noyau","label":"Noyau plasma","obligatoire":true,"quantite":1}]}],"sac":[{"item_id":"consommable","nom":"Ration","rarete":"common","icone":"🥫","iconFile":null,"uid":"inst_ration","quantite":3}],"session":{"plan_id":"plan_vehicule_executive_sedan","label":"Berline Exécutive","resultat":{"item_id":"vehicule_executive_sedan","nom":"Berline Exécutive","rarete":"rare","icone":"🚗","iconFile":"tex_recipes_01","quantite":1},"slots":[{"id":"carrosserie","label":"Carrosserie","obligatoire":true,"quantite":1,"pose":1,"pieces":[{"item_id":"piece_carrosserie","nom":"Carrosserie de véhicule","rarete":"rare","icone":"🚗","iconFile":"tex_container_06","quantite":1}],"accepte":[]},{"id":"moteur","label":"Moteur","obligatoire":true,"quantite":1,"pose":1,"pieces":[{"item_id":"piece_moteur","nom":"Moteur de véhicule","rarete":"rare","icone":"🔧","iconFile":"tex_spare_parts_12","quantite":1}],"accepte":[]},{"id":"roues","label":"Roues","obligatoire":true,"quantite":4,"pose":4,"pieces":[{"item_id":"piece_roue","nom":"Roue de véhicule","rarete":"common","icone":"🛞","iconFile":"tex_strings_02","quantite":4}],"accepte":[]},{"id":"plaque","label":"Plaque d'immatriculation","obligatoire":false,"quantite":1,"pose":1,"pieces":[{"item_id":"piece_plaque","nom":"Plaque d'immatriculation","rarete":"common","icone":"🪪","iconFile":"tex_ingots_05","quantite":1}],"accepte":[]}],"manquants":[],"complet":true}}};
+var cle = (location.hash || "#plans").slice(1);
+var pousse = etat[cle];
+if (!pousse) { document.title = "ETAT INCONNU : " + cle; }
+else {
+  Events._s["NarvosAssemblage"](pousse);
+  Ouvrir("assemblage");
+  Events._s["NarvosAssemblage"](pousse);
+}
+</script>
+</body>
+</html>

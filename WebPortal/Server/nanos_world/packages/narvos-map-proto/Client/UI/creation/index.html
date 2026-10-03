@@ -1,0 +1,245 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<!--
+			Les mêmes trois familles que le HUD (../index.html) : Orbitron pour les
+			titres, Rajdhani pour les libellés, Share Tech Mono pour toute valeur
+			chiffrée ou tout identifiant. C'est ce qui fait que cet écran appartient
+			au même produit et n'a pas l'air rapporté.
+		-->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&amp;family=Rajdhani:wght@400;500;600;700&amp;family=Share+Tech+Mono&amp;display=swap">
+
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="../mcs-editeur.css">
+		<script src="../mcs-editeur.js"></script>
+		<script src="index.js"></script>
+	</head>
+
+	<!--
+		─── STRUCTURE ─────────────────────────────────────────────────────────────
+		Trois écrans dans une seule page, un seul WebUI. Ils s'excluent par
+		l'attribut `hidden`, jamais par `display` en ligne : le CSS pose
+		`[hidden] { display: none !important }` parce qu'une règle de mise en page
+		(`display: grid`) l'emporterait autrement sur l'attribut, et les trois
+		écrans s'empileraient. Ce défaut a déjà été payé sur le HUD.
+
+		L'ordre du DOM est l'ordre du parcours : connexion -> sélection -> création.
+	-->
+	<body>
+
+		<!-- Trame de fond : deux grilles fines croisées. Purement décoratif, donc
+		     `aria-hidden` et hors du flux. -->
+		<div class="trame" aria-hidden="true"></div>
+		<div class="halo" aria-hidden="true"></div>
+
+		<!-- ═══ ÉCRAN 1 — CONNEXION ═══════════════════════════════════════════ -->
+		<main id="ecran-connexion" class="ecran ecran--split" hidden>
+
+			<!-- Volet gauche : l'identité du jeu. Il ne bouge pas d'un écran à
+			     l'autre, ce qui donne au parcours son ancrage. -->
+			<section class="enseigne">
+				<div class="enseigne-marque">
+					<h1 class="marque">NARVOS</h1>
+					<p class="marque-suite">PRIME</p>
+				</div>
+
+				<div class="enseigne-pied">
+					<p class="ligne-mono" id="connexion-serveur">—</p>
+					<p class="ligne-mono ligne-mono--faible">PROTOCOLE D'ACCÈS ORBITAL</p>
+				</div>
+			</section>
+
+			<!-- Volet droit : l'action. -->
+			<section class="volet">
+				<header class="volet-tete">
+					<p class="surtitre">Accès</p>
+					<h2 class="titre">Identification</h2>
+				</header>
+
+				<!-- Steam : affiché seulement si nanos nous a donné une identité. -->
+				<div class="carte carte--steam" id="bloc-steam" hidden>
+					<p class="carte-etiquette">Session reconnue</p>
+					<p class="carte-valeur" id="steam-pseudo">—</p>
+					<button class="cta" id="btn-steam" type="button">Continuer</button>
+				</div>
+
+				<form class="formulaire" id="form-connexion" autocomplete="off">
+					<label class="champ">
+						<span class="champ-label">Identifiant</span>
+						<input class="champ-saisie" id="in-identifiant" type="text"
+						       maxlength="24" spellcheck="false" autocomplete="username">
+					</label>
+
+					<label class="champ">
+						<span class="champ-label">Mot de passe</span>
+						<input class="champ-saisie" id="in-motdepasse" type="password"
+						       maxlength="128" autocomplete="current-password">
+					</label>
+
+					<p class="alerte" id="connexion-erreur" hidden></p>
+
+					<div class="rangee-actions">
+						<button class="cta" id="btn-connexion" type="submit">Se connecter</button>
+						<button class="lien" id="btn-inscription" type="button">Créer un compte</button>
+					</div>
+				</form>
+			</section>
+		</main>
+
+		<!-- ═══ ÉCRAN 2 — SÉLECTION ═══════════════════════════════════════════ -->
+		<main id="ecran-selection" class="ecran ecran--roster" hidden>
+
+			<header class="bandeau">
+				<div>
+					<p class="surtitre">Personnages</p>
+					<h2 class="titre" id="selection-pseudo">—</h2>
+				</div>
+				<p class="ligne-mono" id="selection-compte">—</p>
+			</header>
+
+			<!-- Le rail : un emplacement par personnage, plus les vides. Un roster
+			     qui montre ses emplacements libres se lit d'un coup d'œil. -->
+			<div class="rail" id="rail-persos"></div>
+
+			<!-- Détail du personnage mis en avant. `fiche--place` la borne en
+			     largeur : le reste de l'écran montre le personnage réel. -->
+			<section class="fiche fiche--place" id="fiche-perso" hidden>
+				<div class="fiche-tete">
+					<h3 class="fiche-nom" id="fiche-nom">—</h3>
+					<p class="fiche-classe" id="fiche-classe">—</p>
+				</div>
+
+				<dl class="fiche-stats">
+					<div><dt>Niveau</dt><dd id="fiche-niveau">—</dd></div>
+					<div><dt>Faction</dt><dd id="fiche-faction">—</dd></div>
+					<div><dt>Genre</dt><dd id="fiche-genre">—</dd></div>
+				</dl>
+
+				<div class="rangee-actions">
+					<button class="cta cta--large" id="btn-entrer" type="button">Entrer en jeu</button>
+					<button class="lien lien--danger" id="btn-supprimer" type="button">Supprimer</button>
+				</div>
+			</section>
+
+			<!-- Message quand le compte est neuf : le joueur DOIT créer. -->
+			<section class="vide" id="selection-vide" hidden>
+				<p class="vide-titre">Aucun personnage</p>
+				<p class="vide-texte">
+					Ce compte n'a pas encore d'occupant. Créez-en un pour rejoindre l'orbite.
+				</p>
+				<button class="cta cta--large" id="btn-creer-premier" type="button">
+					Créer un personnage
+				</button>
+			</section>
+
+			<p class="alerte" id="selection-erreur" hidden></p>
+		</main>
+
+		<!-- ═══ ÉCRAN 3 — POINT DE DÉPART ═════════════════════════════════════
+		     Entre la sélection et le jeu. Le joueur a pris son personnage ; il
+		     choisit maintenant OÙ il apparaît.
+
+		     La carte est dessinée depuis les coordonnées RÉELLES envoyées par le
+		     serveur (`departs[].position`), pas depuis une disposition écrite à
+		     la main : les cinq mondes de surface sont réellement alignés et
+		     l'orbital réellement à l'écart. Un schéma inventé mentirait sur la
+		     géographie que le joueur va parcourir. -->
+		<main id="ecran-depart" class="ecran ecran--depart" hidden>
+
+			<header class="bandeau">
+				<div>
+					<p class="surtitre">Point de départ</p>
+					<h2 class="titre" id="depart-perso">—</h2>
+				</div>
+				<p class="ligne-mono" id="depart-compte">—</p>
+			</header>
+
+			<!-- La carte. Le SVG est rempli par le JS ; sans donnée il reste vide
+			     plutôt que d'afficher un fond décoratif qui ne veut rien dire. -->
+			<div class="carte-depart">
+				<svg id="depart-carte" viewBox="0 0 1000 320" preserveAspectRatio="xMidYMid meet"
+				     role="group" aria-label="Carte des mondes accessibles"></svg>
+			</div>
+
+			<!-- Détail du monde survolé ou choisi. Même forme que `fiche-perso` :
+			     le joueur vient de la sélection, il retrouve la même lecture. -->
+			<section class="fiche fiche--place" id="depart-fiche">
+				<div class="fiche-tete">
+					<h3 class="fiche-nom" id="depart-nom">—</h3>
+					<p class="fiche-classe" id="depart-via">—</p>
+				</div>
+
+				<p class="vide-texte" id="depart-description">—</p>
+
+				<div class="rangee-actions">
+					<button class="cta cta--large" id="btn-depart-valider" type="button">
+						Apparaître ici
+					</button>
+				</div>
+			</section>
+
+			<p class="alerte" id="depart-erreur" hidden></p>
+		</main>
+
+		<!-- ═══ ÉCRAN 4 — CRÉATION ════════════════════════════════════════════ -->
+		<main id="ecran-creation" class="ecran ecran--creation" hidden>
+
+			<header class="bandeau">
+				<div>
+					<p class="surtitre">Nouveau personnage</p>
+					<h2 class="titre" id="creation-titre">Choisissez une faction</h2>
+				</div>
+				<button class="lien" id="btn-retour" type="button">Retour</button>
+			</header>
+
+			<!-- Fil d'étapes. Il montre où on en est ET ce qui reste : un joueur qui
+			     ne voit pas la fin d'un formulaire l'abandonne. -->
+			<nav class="etapes" id="etapes" aria-label="Étapes de création"></nav>
+
+			<div class="creation-corps">
+
+				<!-- Colonne des choix. Son contenu change selon l'étape. -->
+				<section class="choix" id="creation-choix"></section>
+
+				<!--
+					LA SCÈNE. Elle ne contient rien et c'est voulu : le personnage en
+					cours de composition est un vrai Character spawné dans le monde
+					(Server/Session.lua), et la caméra du joueur est cadrée dessus.
+					Cette colonne RÉSERVE l'espace où il apparaît — sans elle, la grille
+					de pièces s'étalerait par-dessus le modèle qu'on habille.
+				-->
+				<div class="scene" aria-hidden="true">
+					<span class="scene-mention">Aperçu en direct</span>
+				</div>
+
+				<!-- Colonne de synthèse : toujours visible, toujours à jour. C'est
+				     elle qui rend le formulaire lisible plutôt que long. -->
+				<aside class="synthese">
+					<p class="surtitre">Fiche</p>
+
+					<dl class="synthese-liste">
+						<div><dt>Faction</dt><dd id="syn-faction">—</dd></div>
+						<div><dt>Classe</dt><dd id="syn-classe">—</dd></div>
+						<div><dt>Genre</dt><dd id="syn-genre">—</dd></div>
+						<div><dt>Nom</dt><dd id="syn-nom">—</dd></div>
+					</dl>
+
+					<div class="synthese-tenue">
+						<p class="surtitre">Tenue</p>
+						<ul class="tenue-liste" id="syn-tenue"></ul>
+					</div>
+
+					<p class="alerte" id="creation-erreur" hidden></p>
+
+					<button class="cta cta--large" id="btn-valider" type="button" disabled>
+						Créer
+					</button>
+				</aside>
+			</div>
+		</main>
+
+	</body>
+</html>

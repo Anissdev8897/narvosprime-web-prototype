@@ -1,0 +1,30 @@
+{
+ "genere_par": "scripts/narvos-manifeste-squelettes.mjs",
+ "squelette_cible": "SKEL_Mannequin",
+ "prefixes": [
+  "Narvos/Defender/Demo/Meshes/ModularMeshes/"
+ ],
+ "lus": 18,
+ "compatibles": [
+  "SK_Head1",
+  "SK_Head2",
+  "SK_Head3",
+  "SK_Head4",
+  "SK_Head5",
+  "SK_HeadBase",
+  "SK_Legs1",
+  "SK_Legs2",
+  "SK_Legs3",
+  "SK_Legs4",
+  "SK_Legs5",
+  "SK_LegsBase",
+  "SK_Torso1",
+  "SK_Torso2",
+  "SK_Torso3",
+  "SK_Torso4",
+  "SK_Torso5",
+  "SK_TorsoBase"
+ ],
+ "autres": {},
+ "introuvables": []
+}

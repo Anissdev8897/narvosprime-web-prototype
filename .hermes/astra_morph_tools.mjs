@@ -1,0 +1,2 @@
+import {rpc} from '../scripts/lib/ue-mcp-client.mjs';
+const r=await rpc('tools/list');console.log(JSON.stringify(r.tools.filter(t=>/morph|mesh.*vert|screenshot|viewport/.test(t.name+' '+t.description))));

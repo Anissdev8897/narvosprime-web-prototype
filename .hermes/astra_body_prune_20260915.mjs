@@ -1,0 +1,30 @@
+import fs from 'node:fs';
+import {outil,outilJson} from '../scripts/lib/ue-mcp-client.mjs';
+const path='/Game/Narvos/PontMetaHuman/ABP_NarvosPersonnalisationCorps';
+const ctx={asset_path:path,graph_name:'EventGraph'};
+const before=await outilJson('get_node_pins',ctx);
+const anim=await outilJson('get_node_pins',{...ctx,graph_name:'AnimGraph'});
+const plan=JSON.parse(fs.readFileSync('.hermes/ASTRA_body_prune_plan_20260915.json'));
+const snapshot=JSON.parse(fs.readFileSync('.hermes/ASTRA_body_event_20260915.json'));
+if(JSON.stringify(before)!==JSON.stringify(snapshot))throw Error('Graphe change depuis audit');
+if(anim.nodes.length!==275||plan.keep.length!==21||plan.drop.length!==246)throw Error('Contrat inattendu');
+const backup='.hermes/sauvegardes/body-prune-20260915';
+fs.mkdirSync(backup,{recursive:true});
+fs.copyFileSync('WebPortal/Server/adk/Content/Narvos/PontMetaHuman/ABP_NarvosPersonnalisationCorps.uasset',backup+'/ABP_NarvosPersonnalisationCorps.uasset',fs.constants.COPYFILE_EXCL);
+fs.writeFileSync(backup+'/AnimGraph.json',JSON.stringify(anim,null,2));
+for(const [i,n] of plan.drop.entries()){
+ const r=await outil('remove_node',{...ctx,node_id:n.id});
+ if(r.erreur||!/Removed|removed/.test(r.texte))throw Error(r.texte);
+ if(i%30===0)console.log('Branche inactive retiree',i+1,'/',plan.drop.length);
+}
+const after=await outilJson('get_node_pins',ctx);
+const afterAnim=await outilJson('get_node_pins',{...ctx,graph_name:'AnimGraph'});
+if(JSON.stringify(anim)!==JSON.stringify(afterAnim))throw Error('AnimGraph change');
+const keptBefore=before.nodes.filter(n=>plan.keep.includes(n.id));
+const keptAfter=after.nodes.filter(n=>plan.keep.includes(n.id));
+if(JSON.stringify(keptBefore)!==JSON.stringify(keptAfter))throw Error('Branche active changee');
+const compile=await outil('compile_blueprint',{asset_path:path});
+const ok=!compile.erreur&&/: Success\s*$/.test(compile.texte);
+fs.writeFileSync('.hermes/ASTRA_body_prune_resultat_20260915.json',JSON.stringify({ok,removed:plan.drop.length,kept:plan.keep.length,pose_nodes:anim.nodes.length,compile,after},null,2));
+if(!ok)throw Error(compile.texte);
+console.log('OK pose 275 noeuds et branche active preserves');

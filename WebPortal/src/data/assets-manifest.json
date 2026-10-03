@@ -1,0 +1,31 @@
+{
+  "heroes": [],
+  "monsters": [],
+  "props": [],
+  "spells": [],
+  "spriteFiles": [],
+  "uiFiles": [],
+  "counts": {
+    "heroes": 0,
+    "monsters": 0,
+    "props": 0,
+    "spells": 0,
+    "sprites": 0,
+    "ui": 0,
+    "decor": 0,
+    "items": 0,
+    "generated": 0
+  },
+  "paths": {
+    "heroes": "public\\textures\\personnage",
+    "monsters": "public\\textures\\monstres",
+    "props": "public\\textures\\objet",
+    "spells": "public\\textures\\spells",
+    "sprites": "public\\textures\\sprites",
+    "ui": "public\\textures\\ui",
+    "decor": "public\\textures\\decor",
+    "items": "public\\textures\\items",
+    "generated": "public\\textures\\generated"
+  },
+  "timestamp": "2026-09-05T23:09:18.365Z"
+}

@@ -1,0 +1,3 @@
+import {rpc} from '../scripts/lib/ue-mcp-client.mjs';import fs from 'node:fs';
+const r=await rpc('tools/call',{name:'take_screenshot',arguments:{width:1280,height:720,quality:90}});
+for(const c of r.content??[]){if(c.type==='image'){fs.writeFileSync('.hermes/ASTRA_joues_viewport.jpg',Buffer.from(c.data,'base64'));console.log('viewport image saved');}else if(c.type==='text')console.log(c.text.slice(0,600));}

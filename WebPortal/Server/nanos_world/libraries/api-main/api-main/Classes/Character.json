@@ -1,0 +1,1780 @@
+{
+	"name": "Character",
+	"description": "Characters represents Actors which can be possessed, can move and interact with world. They are the default Skeletal Mesh Character built for nanos world.",
+	"authority": "server",
+	"network_distribution": "enabled",
+	"inheritance": [
+		"Entity",
+		"Actor",
+		"Paintable",
+		"Damageable",
+		"Pawn"
+	],
+	"constructors": [
+		{
+			"name": "Default Constructor",
+			"parameters": [
+				{
+					"type": "Vector",
+					"name": "location"
+				},
+				{
+					"type": "Rotator",
+					"name": "rotation"
+				},
+				{
+					"type": "SkeletalMeshPath",
+					"name": "skeletal_mesh_asset"
+				},
+				{
+					"type": "CollisionType",
+					"name": "collision_type",
+					"default": "CollisionType.Auto"
+				},
+				{
+					"type": "boolean",
+					"name": "gravity_enabled",
+					"default": "true"
+				},
+				{
+					"type": "integer",
+					"name": "max_health",
+					"default": "100",
+					"description": "Current / Max Health"
+				},
+				{
+					"type": "SoundPath",
+					"name": "death_sound",
+					"default": "nanos-world::A_Male_01_Death",
+					"description": "Played when Character dies"
+				},
+				{
+					"type": "SoundPath",
+					"name": "pain_sound",
+					"default": "nanos-world::A_Male_01_Pain",
+					"description": "Played when Character takes damage"
+				},
+				{
+					"type": "SpawnMode",
+					"name": "spawn_mode",
+					"default": "SpawnMode.Immediate",
+					"description": "Pass <code>SpawnMode.AfterConstructor</code> or <code>SpawnMode.Manual</code> to avoid immediately sending the entity to clients and improve performance when you want to configure it by setting several configs. Must call <code>FinishSpawn()</code> after all"
+				}
+			]
+		}
+	],
+	"functions": [
+		{
+			"authority": "server",
+			"name": "Drop",
+			"description": "Drops any Pickable the Character is holding",
+			"relations": {
+				"functions": [
+					"GetPicked",
+					"PickUp"
+				]
+			},
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "server",
+			"name": "EnterVehicle",
+			"description": "Enters the Vehicle at Seat (0 - Driver)",
+			"parameters": [
+				{
+					"type": "Vehicle",
+					"name": "vehicle"
+				},
+				{
+					"type": "integer",
+					"name": "seat",
+					"default": "0"
+				}
+			],
+			"relations": {
+				"functions": [
+					"GetVehicle",
+					"GetVehicleSeat"
+				],
+				"events": [
+					"EnterVehicle",
+					"AttemptEnterVehicle"
+				]
+			},
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "server",
+			"name": "GrabProp",
+			"description": "Gives a Prop to the Character",
+			"parameters": [
+				{
+					"type": "Prop",
+					"name": "prop"
+				}
+			],
+			"relations": {
+				"functions": [
+					"GetGrabbedProp"
+				]
+			},
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "server",
+			"name": "LeaveVehicle",
+			"description": "Leaves the current Vehicle",
+			"relations": {
+				"functions": [
+					"EnterVehicle",
+					"GetVehicle"
+				],
+				"events": [
+					"LeaveVehicle",
+					"AttemptLeaveVehicle"
+				]
+			},
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "server",
+			"name": "LookAt",
+			"description": "AI: Tries to make this Character to look at Location",
+			"parameters": [
+				{
+					"type": "Vector",
+					"name": "location",
+					"description": "World location to look"
+				}
+			],
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "server",
+			"name": "PickUp",
+			"description": "Gives a Melee/Grenade/Weapon (Pickable) to the Character",
+			"parameters": [
+				{
+					"type": "Pickable",
+					"name": "pickable"
+				}
+			],
+			"relations": {
+				"functions": [
+					"Drop",
+					"GetPicked"
+				]
+			},
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "both",
+			"name": "PlayAnimation",
+			"description": "Plays an Animation Montage on this character",
+			"parameters": [
+				{
+					"type": "AnimationPath",
+					"name": "animation_path"
+				},
+				{
+					"type": "AnimationSlotType",
+					"name": "slot_type",
+					"default": "AnimationSlotType.FullBody"
+				},
+				{
+					"type": "boolean",
+					"name": "loop_indefinitely",
+					"default": "false"
+				},
+				{
+					"type": "float",
+					"name": "blend_in_time",
+					"default": "0.25"
+				},
+				{
+					"type": "float",
+					"name": "blend_out_time",
+					"default": "0.25",
+					"description": "Pass it -1 to disable auto blend out and keep the animation running in last pose forever"
+				},
+				{
+					"type": "float",
+					"name": "play_rate",
+					"default": "1.0"
+				},
+				{
+					"type": "boolean",
+					"name": "stop_all_montages",
+					"default": "false",
+					"description": "Stops all running Montages from the same Group"
+				}
+			],
+			"relations": {
+				"etc": [
+					{
+						"label": "StopAnimation",
+						"url": "/docs/next/scripting-reference/classes/base-classes/pawn#function-stopanimation"
+					}
+				]
+			},
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetAnimationIdleWalkRunStanding",
+			"description": "Sets the Blend Space (2D) Animation for Standing",
+			"description_long": "Sets the Blend Space (2D) Animation for Standing<br/><br/>Horizontal Axis stands for Speed X and Vertical Axis for Speed Y",
+			"parameters": [
+				{
+					"type": "AnimationPath",
+					"name": "blend_space_path"
+				},
+				{
+					"type": "boolean",
+					"name": "enable_turn_in_place",
+					"default": "false"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetAnimationIdleWalkRunCrouching",
+			"description": "Sets the Blend Space (2D) Animation for Crouching<br/><br/>Horizontal Axis stands for Speed X and Vertical Axis for Speed Y",
+			"parameters": [
+				{
+					"type": "AnimationPath",
+					"name": "blend_space_path"
+				},
+				{
+					"type": "boolean",
+					"name": "enable_turn_in_place",
+					"default": "false"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetAnimationIdleWalkRunProning",
+			"description": "Sets the Blend Space (2D) Animation for Proning<br/><br/>Horizontal Axis stands for Speed X and Vertical Axis for Speed Y",
+			"parameters": [
+				{
+					"type": "AnimationPath",
+					"name": "blend_space_path"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetAnimationsTransitionStandingCrouching",
+			"description": "Sets the Transition Animation between Standing and Crouching",
+			"parameters": [
+				{
+					"type": "AnimationPath",
+					"name": "standing_to_crouching"
+				},
+				{
+					"type": "AnimationPath",
+					"name": "crouching_to_standing"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetAnimationsTransitionCrouchingProning",
+			"description": "Sets the Transition Animation between Crouching and Proning",
+			"parameters": [
+				{
+					"type": "AnimationPath",
+					"name": "crouching_to_proning"
+				},
+				{
+					"type": "AnimationPath",
+					"name": "proning_to_crouching"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetAccelerationSettings",
+			"description": "Sets the Movement Max Acceleration of this Character",
+			"parameters": [
+				{
+					"type": "integer",
+					"name": "walking",
+					"default": "768"
+				},
+				{
+					"type": "integer",
+					"name": "parachuting",
+					"default": "512"
+				},
+				{
+					"type": "integer",
+					"name": "skydiving",
+					"default": "768"
+				},
+				{
+					"type": "integer",
+					"name": "falling",
+					"default": "128"
+				},
+				{
+					"type": "integer",
+					"name": "swimming",
+					"default": "256"
+				},
+				{
+					"type": "integer",
+					"name": "swimming_surface",
+					"default": "256"
+				},
+				{
+					"type": "integer",
+					"name": "flying",
+					"default": "1024"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetAirControl",
+			"description": "Sets the amount of movement control allowed when it is in air",
+			"parameters": [
+				{
+					"type": "float",
+					"name": "air_control",
+					"default": "0.2",
+					"description": "When falling, amount of lateral movement control available to the character. 0 = no control, 1 = full control at max speed of MaxWalkSpeed"
+				},
+				{
+					"type": "float",
+					"name": "boost_multiplier",
+					"default": "512",
+					"description": "When falling, multiplier applied to air_control when lateral velocity is less than boost_velocity_threshold. Setting this to zero will disable air control boosting. Final result is clamped at 1"
+				},
+				{
+					"type": "float",
+					"name": "boost_velocity_threshold",
+					"default": "25",
+					"description": "When falling, if lateral velocity magnitude is less than this value, air_control is multiplied by boost_multiplier. Setting this to zero will disable air control boosting"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetCameraMode",
+			"description": "Sets the Camera Mode",
+			"description_long": "Sets the Camera Mode (i.e. Only TPS, FPS or if allow both)<br/><br/>Using FPSOnly CameraMode on AI will lock his body rotation (when using LookAt)",
+			"parameters": [
+				{
+					"type": "CameraMode",
+					"name": "camera_mode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetCanAim",
+			"description": "Sets if this Character is allowed to Aim",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "can_aim"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetCanDrop",
+			"description": "Sets if this Character is allowed to Drop the Picked up item",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "can_drop"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetCanDive",
+			"description": "Sets if this Character is allowed to Dive",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "can_dive"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetCanSprint",
+			"description": "Sets if this Character is allowed to Sprint",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "can_sprint"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetCanGrabProps",
+			"description": "Sets if this Character is allowed to Grab any Prop",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "can_grab_props"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetCanPickupPickables",
+			"description": "Sets if this Character is allowed to Pick up any Pickable (Weapon, Grenade, Melee...)",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "can_pickup"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetCanUsePickables",
+			"description": "Sets if this Character is allowed to use Pickables (Weapon, Grenade, Melee...)",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "can_use"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetCanPunch",
+			"description": "Sets if this Character is allowed to Punch",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "can_punch"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetCanDeployParachute",
+			"description": "Sets if this Character is allowed to deploy the Parachute",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "can_deploy_parachute"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetDeathSound",
+			"description": "Changes the Death sound when Character dies",
+			"parameters": [
+				{
+					"type": "SoundPath",
+					"name": "sound_asset"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetFallDamageTaken",
+			"description": "Set the Fall Damage multiplier taken when falling from High places",
+			"description_long": "Set the Fall Damage multiplier taken when falling from High places.<br/><br/>Setting to 0 will make the Character to do not take any damage",
+			"parameters": [
+				{
+					"type": "integer",
+					"name": "damage",
+					"description": "Default is 10"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetFOVMultiplier",
+			"description": "Sets the Field of View multiplier",
+			"parameters": [
+				{
+					"type": "float",
+					"name": "multiplier"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetHighFallingTime",
+			"description": "Sets time to transition to HighFalling state",
+			"description_long": "Sets time elapsed until automatically transition to HighFalling state (from SmallFalling) in seconds<br/><br/>Set it to -1 to never enter HighFalling time and consequently do not ragdoll when falling",
+			"parameters": [
+				{
+					"type": "float",
+					"name": "time",
+					"description": "Default is 1 second"
+				}
+			],
+			"relations": {
+				"functions": [
+					"SetRagdollOnHitEnabled"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetRagdollOnHitEnabled",
+			"description": "Sets if the character will enter ragdoll mode when being hit by an object or falling from a high place",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "is_enabled"
+				}
+			],
+			"relations": {
+				"functions": [
+					"SetHighFallingTime"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetRagdollStandUpCooldown",
+			"description": "Sets the cooldown time (in seconds) before this Character can stand up from ragdoll",
+			"parameters": [
+				{
+					"type": "float",
+					"name": "time"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetGaitMode",
+			"description": "Sets the Gait Mode",
+			"parameters": [
+				{
+					"type": "GaitMode",
+					"name": "gait_mode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetImpactDamageTaken",
+			"description": "Set the Impact Damage taken when being run over by things",
+			"description_long": "Set the Impact Damage taken when being run over by things.<br/><br/>Setting to 0 will make the Character to do not take damage or enter ragdoll mode",
+			"parameters": [
+				{
+					"type": "integer",
+					"name": "impact_damage",
+					"description": "Default is 10"
+				}
+			],
+			"relations": {
+				"functions": [
+					"SetRagdollOnHitEnabled"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetRadialDamageToRagdoll",
+			"description": "Set the minimum radial damage (e.g. explosions) taken to enter in ragdoll mode",
+			"description_long": "Set the minimum radial damage taken (e.g. explosions) to enter in ragdoll mode.<br/><br/>Setting to -1 will make the Character to do not enter ragdoll mode when getting radial damage",
+			"parameters": [
+				{
+					"type": "integer",
+					"name": "damage",
+					"description": "Default is 50"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetFootstepVolumeMultiplier",
+			"description": "Set the Footstep Volume multiplier",
+			"parameters": [
+				{
+					"type": "float",
+					"name": "volume_multiplier"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetInvulnerable",
+			"description": "Sets if the Character can receive any damage",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "is_invulnerable"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetMesh",
+			"description": "Changes the Character Mesh on the fly",
+			"parameters": [
+				{
+					"type": "SkeletalMeshPath",
+					"name": "skeletal_mesh_asset"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "both",
+			"name": "SetMorphTarget",
+			"description": "Set Morph Target with Name and Value",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "name",
+					"description": "Morph Target Name"
+				},
+				{
+					"type": "float",
+					"name": "value"
+				}
+			],
+			"relations": {
+				"functions": [
+					"GetMorphTarget",
+					"ClearMorphTargets",
+					"GetAllMorphTargetNames"
+				]
+			},
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "both",
+			"name": "GetMorphTarget",
+			"description": "Returns the value of a Morph Target",
+			"return": [
+				{
+					"type": "float",
+					"description": "value of the Morph Target",
+					"name": "value"
+				}
+			],
+			"parameters": [
+				{
+					"type": "string",
+					"name": "name",
+					"description": "Morph Target Name"
+				}
+			],
+			"relations": {
+				"functions": [
+					"SetMorphTarget",
+					"ClearMorphTargets",
+					"GetAllMorphTargetNames"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "ClearMorphTargets",
+			"description": "Clear all Morph Target that are set to this Mesh",
+			"relations": {
+				"functions": [
+					"SetMorphTarget",
+					"GetMorphTarget",
+					"GetAllMorphTargetNames"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "GetAllMorphTargetNames",
+			"description": "Returns a table with all morph targets available",
+			"return": [
+				{
+					"type": "string[]",
+					"description": "table with all morph targets available"
+				}
+			],
+			"relations": {
+				"functions": [
+					"SetMorphTarget",
+					"GetMorphTarget",
+					"ClearMorphTargets"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetPhysicalAnimationSettings",
+			"description": "Applies the physical animation settings to the body given",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "bone",
+					"description": "The body we will be driving"
+				},
+				{
+					"type": "boolean",
+					"name": "include_self",
+					"description": "Whether to modify the given body"
+				},
+				{
+					"type": "boolean",
+					"name": "is_local_simulation",
+					"description": "Whether the drive targets are in world space or local"
+				},
+				{
+					"type": "float",
+					"name": "orientation_strength",
+					"default": "0",
+					"description": "The strength used to correct orientation error"
+				},
+				{
+					"type": "float",
+					"name": "angular_velocity_strength",
+					"default": "0",
+					"description": "The strength used to correct angular velocity error"
+				},
+				{
+					"type": "float",
+					"name": "position_strength",
+					"default": "0",
+					"description": "The strength used to correct linear position error. Only used for non-local simulation"
+				},
+				{
+					"type": "float",
+					"name": "velocity_strength",
+					"default": "0",
+					"description": "The strength used to correct linear velocity error. Only used for non-local simulation"
+				},
+				{
+					"type": "float",
+					"name": "max_linear_force",
+					"default": "0",
+					"description": "The max force used to correct linear errors"
+				},
+				{
+					"type": "float",
+					"name": "max_angular_force",
+					"default": "0",
+					"description": "The max force used to correct angular errors"
+				}
+			],
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "both",
+			"name": "ResetPhysicalAnimationSettings",
+			"description": "Resets all Physical Animation settings",
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "server",
+			"name": "SetInputEnabled",
+			"description": "Enables/Disables Character's Input",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "is_enabled"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetParachuteTexture",
+			"description": "Changes the Parachute Texture",
+			"parameters": [
+				{
+					"type": "ImagePath",
+					"name": "texture"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetPainSound",
+			"description": "Changes the Pain sound when Character takes damage",
+			"parameters": [
+				{
+					"type": "SoundPath",
+					"name": "sound_asset"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetPunchDamage",
+			"description": "Set the Punch Damage this Character will apply on others",
+			"parameters": [
+				{
+					"type": "integer",
+					"name": "punch_damage",
+					"description": "Default is 15"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetRagdollMode",
+			"description": "Sets Character Ragdoll Mode",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "ragdoll_enabled"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetSimulatePhysics",
+			"description": "Sets the Character Capsule to simulate physics",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "simulate_physics"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetSpeedMultiplier",
+			"description": "Sets all speed multiplier",
+			"parameters": [
+				{
+					"type": "float",
+					"name": "speed_multiplier",
+					"description": "1 is normal"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetStanceMode",
+			"description": "Sets the Stance Mode",
+			"parameters": [
+				{
+					"type": "StanceMode",
+					"name": "stance_mode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetTeam",
+			"description": "Sets a Team which will disable damaging same Team Members",
+			"parameters": [
+				{
+					"type": "integer",
+					"name": "team",
+					"description": "0 is neutral and default"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "network-authority",
+			"name": "SetViewMode",
+			"description": "Sets the View Mode",
+			"parameters": [
+				{
+					"type": "ViewMode",
+					"name": "view_mode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "network-authority",
+			"name": "SetWeaponAimMode",
+			"description": "Sets the Weapon's Aim Mode",
+			"parameters": [
+				{
+					"type": "AimMode",
+					"name": "aim_mode"
+				}
+			],
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "server",
+			"name": "UnGrabProp",
+			"description": "UnGrabs/Drops the Prop the Character is holding",
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "both",
+			"name": "IsInRagdollMode",
+			"description": "Gets if Character is in ragdoll mode",
+			"return": [
+				{
+					"type": "boolean",
+					"name": "ragdoll_enabled"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "IsInvulnerable",
+			"description": "Gets if is invulnerable",
+			"return": [
+				{
+					"type": "boolean",
+					"name": "is_invulnerable"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "IsInputEnabled",
+			"description": "Gets if has input enabled",
+			"return": [
+				{
+					"type": "boolean",
+					"name": "is_enabled"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetCameraMode",
+			"description": "Gets the camera mode",
+			"return": [
+				{
+					"type": "CameraMode",
+					"name": "camera_mode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetCanDrop",
+			"description": "Gets if can drop",
+			"return": [
+				{
+					"type": "boolean",
+					"name": "can_drop"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetCanPunch",
+			"description": "Gets if can punch",
+			"return": [
+				{
+					"type": "boolean",
+					"name": "can_punch"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetCanAim",
+			"description": "Gets if can aim",
+			"return": [
+				{
+					"type": "boolean",
+					"name": "can_aim"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetCanSprint",
+			"description": "Gets if can sprint",
+			"return": [
+				{
+					"type": "boolean",
+					"name": "can_sprint"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetCanGrabProps",
+			"description": "Gets if can grab props",
+			"return": [
+				{
+					"type": "boolean",
+					"name": "can_grab_props"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetCanPickupPickables",
+			"description": "Gets if can pickup Pickables (Weapons, Melee, Grenade...)",
+			"return": [
+				{
+					"type": "boolean",
+					"name": "can_pickup"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetCanUsePickables",
+			"description": "Gets if can use Pickables (Weapons, Melee, Grenade...)",
+			"return": [
+				{
+					"type": "boolean",
+					"name": "can_use"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetFallDamageTaken",
+			"description": "Gets the Fall Damage",
+			"return": [
+				{
+					"type": "integer",
+					"name": "damage"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetFallingMode",
+			"description": "Gets the FallingMode",
+			"return": [
+				{
+					"type": "FallingMode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetGaitMode",
+			"description": "Gets the GaitMode",
+			"return": [
+				{
+					"type": "GaitMode",
+					"name": "gait_mode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetGrabbedProp",
+			"description": "Gets the Grabbed Prop",
+			"return": [
+				{
+					"type": "Prop?",
+					"name": "prop"
+				}
+			],
+			"relations": {
+				"functions": [
+					"GrabProp",
+					"UnGrabProp"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetImpactDamageTaken",
+			"description": "Gets the impact damage taken",
+			"return": [
+				{
+					"type": "integer",
+					"name": "impact_damage"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetJumpZVelocity",
+			"description": "Gets the Jump Z Velocity",
+			"return": [
+				{
+					"type": "integer",
+					"name": "jump_z_velocity"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetPicked",
+			"description": "Gets the Pickable if picking up",
+			"return": [
+				{
+					"type": "Pickable?",
+					"name": "object"
+				}
+			],
+			"relations": {
+				"functions": [
+					"PickUp",
+					"Drop"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetPunchDamage",
+			"description": "Gets the punch damage",
+			"return": [
+				{
+					"type": "integer",
+					"name": "punch_damage"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetSpeedMultiplier",
+			"description": "Gets the speed multiplier",
+			"return": [
+				{
+					"type": "float",
+					"name": "speed_multiplier"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetStanceMode",
+			"description": "Gets the Stance Mode",
+			"return": [
+				{
+					"type": "StanceMode",
+					"name": "stance_mode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetSwimmingMode",
+			"description": "Gets the Swimming Mode",
+			"return": [
+				{
+					"type": "SwimmingMode",
+					"name": "swimming_mode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetTeam",
+			"description": "Gets the Team",
+			"return": [
+				{
+					"type": "integer",
+					"name": "team"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetVehicle",
+			"description": "Gets the entered Vehicle",
+			"return": [
+				{
+					"type": "Vehicle?",
+					"name": "vehicle"
+				}
+			],
+			"relations": {
+				"functions": [
+					"EnterVehicle",
+					"LeaveVehicle"
+				]
+			},
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetVehicleSeat",
+			"description": "Gets the entered Vehicle seat",
+			"return": [
+				{
+					"type": "integer",
+					"name": "seat_index",
+					"description": "The seat index the Character is sitting in the Vehicle. -1 if not in a Vehicle"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetViewMode",
+			"description": "Gets the View Mode",
+			"return": [
+				{
+					"type": "ViewMode",
+					"name": "view_mode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetWeaponAimMode",
+			"description": "Gets the Weapon Aim Mode",
+			"return": [
+				{
+					"type": "AimMode",
+					"name": "aim_mode"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetPhysicsAsset",
+			"description": "Sets the Physics Asset for the Character",
+			"parameters": [
+				{
+					"type": "Other",
+					"name": "physics_asset"
+				}
+			],
+			"efficiency": "slow"
+		}
+	],
+	"events": [
+		{
+			"name": "Attack",
+			"authority": "both",
+			"description": "Triggered when the Character effectively attacks with a Melee",
+			"arguments": [
+				{
+					"name": "self",
+					"type": "Character"
+				},
+				{
+					"name": "melee",
+					"type": "Melee"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "Drop",
+			"description": "When Character drops the currently picked up Pickable",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "Pickable",
+					"name": "object"
+				},
+				{
+					"type": "boolean",
+					"name": "triggered_by_player"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "EnterVehicle",
+			"description": "When Character enters a vehicle",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "Vehicle",
+					"name": "vehicle"
+				},
+				{
+					"type": "integer",
+					"name": "seat_index"
+				}
+			],
+			"relations": {
+				"functions": [
+					"GetVehicle",
+					"EnterVehicle"
+				],
+				"events": [
+					"AttemptEnterVehicle"
+				]
+			}
+		},
+		{
+			"authority": "server",
+			"name": "AttemptEnterVehicle",
+			"description": "Triggered when a Character attempts to enter a vehicle",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "Vehicle",
+					"name": "vehicle"
+				},
+				{
+					"type": "integer",
+					"name": "seat_index"
+				}
+			],
+			"return": [
+				{
+					"type": "boolean",
+					"description": "Return <code>false</code> to prevent it"
+				}
+			],
+			"relations": {
+				"functions": [
+					"GetVehicle",
+					"EnterVehicle"
+				],
+				"events": [
+					"EnterVehicle"
+				]
+			}
+		},
+		{
+			"authority": "both-net-authority-first",
+			"name": "FallingModeChange",
+			"description": "Called when FallingMode changes",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "FallingMode",
+					"name": "old_state"
+				},
+				{
+					"type": "FallingMode",
+					"name": "new_state"
+				}
+			]
+		},
+		{
+			"authority": "both-net-authority-first",
+			"name": "Fire",
+			"description": "When Character fires a Weapon",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "Weapon",
+					"name": "weapon"
+				}
+			]
+		},
+		{
+			"authority": "both-net-authority-first",
+			"name": "GaitModeChange",
+			"description": "Called when GaitMode changes",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "GaitMode",
+					"name": "old_state"
+				},
+				{
+					"type": "GaitMode",
+					"name": "new_state"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "GrabProp",
+			"description": "When Character grabs up a Prop",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "Prop",
+					"name": "prop"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "Highlight",
+			"description": "When Character highlights/looks at a Prop or a Pickable",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "boolean",
+					"name": "is_highlighted",
+					"description": "Whether the object is being highlighted or not"
+				},
+				{
+					"type": "Prop|Pickable",
+					"name": "object"
+				}
+			]
+		},
+		{
+			"authority": "server",
+			"name": "Interact",
+			"description": "Triggered when a Character interacts with a Prop or Pickable",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "Prop|Pickable",
+					"name": "object"
+				}
+			],
+			"return": [
+				{
+					"type": "boolean",
+					"description": "Return <code>false</code> to prevent it"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "LeaveVehicle",
+			"description": "When Character leaves a vehicle",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "Vehicle",
+					"name": "vehicle"
+				},
+				{
+					"type": "integer",
+					"name": "seat_index"
+				}
+			],
+			"relations": {
+				"functions": [
+					"LeaveVehicle"
+				],
+				"events": [
+					"AttemptLeaveVehicle"
+				]
+			}
+		},
+		{
+			"authority": "server",
+			"name": "AttemptLeaveVehicle",
+			"description": "Triggered when this Character attempts to leave a vehicle",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "Vehicle",
+					"name": "vehicle"
+				}
+			],
+			"return": [
+				{
+					"type": "boolean",
+					"description": "Return <code>false</code> to prevent it"
+				}
+			],
+			"relations": {
+				"functions": [
+					"LeaveVehicle"
+				],
+				"events": [
+					"LeaveVehicle"
+				]
+			}
+		},
+		{
+			"authority": "both",
+			"name": "PickUp",
+			"description": "When Character picks up anything",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "Pickable",
+					"name": "object"
+				}
+			],
+			"relations": {
+				"functions": [
+					"GetPicked"
+				]
+			}
+		},
+		{
+			"authority": "both",
+			"name": "Punch",
+			"description": "When Character punches",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "RagdollModeChange",
+			"description": "When Character enters or leaves ragdoll",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "boolean",
+					"name": "old_state"
+				},
+				{
+					"type": "boolean",
+					"name": "new_state"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "AttemptReload",
+			"description": "Triggered when this Character attempts to reload",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "Weapon",
+					"name": "weapon"
+				}
+			],
+			"return": [
+				{
+					"type": "boolean",
+					"description": "Return <code>false</code> to prevent it"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "Reload",
+			"description": "When Character reloads a weapon",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "Weapon",
+					"name": "weapon"
+				},
+				{
+					"type": "integer",
+					"name": "ammo_to_reload"
+				}
+			]
+		},
+		{
+			"authority": "both-net-authority-first",
+			"name": "StanceModeChange",
+			"description": "Called when StanceMode changes",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "StanceMode",
+					"name": "old_state"
+				},
+				{
+					"type": "StanceMode",
+					"name": "new_state"
+				}
+			]
+		},
+		{
+			"authority": "both-net-authority-first",
+			"name": "SwimmingModeChange",
+			"description": "Called when Swimming Mode changes",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "SwimmingMode",
+					"name": "old_state"
+				},
+				{
+					"type": "SwimmingMode",
+					"name": "new_state"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "UnGrabProp",
+			"description": "When Character drops a Prop",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "Prop",
+					"name": "prop"
+				}
+			]
+		},
+		{
+			"authority": "both-net-authority-first",
+			"name": "ViewModeChange",
+			"description": "When Character changes its View Mode",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "ViewMode",
+					"name": "old_state"
+				},
+				{
+					"type": "ViewMode",
+					"name": "new_state"
+				}
+			]
+		},
+		{
+			"authority": "both-net-authority-first",
+			"name": "WeaponAimModeChange",
+			"description": "Called when Weapon Aim Mode changes",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self"
+				},
+				{
+					"type": "AimMode",
+					"name": "old_state"
+				},
+				{
+					"type": "AimMode",
+					"name": "new_state"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "PullUse",
+			"description": "Triggered when a Character presses the use button for a Pickable (i.e. clicks left mouse button with this equipped)",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self",
+					"description": "The Character that used it"
+				},
+				{
+					"type": "Pickable",
+					"name": "pickable",
+					"description": "The Pickable which has just been used"
+				}
+			]
+		},
+		{
+			"authority": "both",
+			"name": "ReleaseUse",
+			"description": "Triggered when a Character releases the use button for a Pickable (i.e. releases left mouse button with this equipped)",
+			"arguments": [
+				{
+					"type": "Character",
+					"name": "self",
+					"description": "The Character that stopped using it"
+				},
+				{
+					"type": "Pickable",
+					"name": "pickable",
+					"description": "The Pickable which has just stopped being used"
+				}
+			]
+		}
+	]
+}

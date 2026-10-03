@@ -1,0 +1,379 @@
+{
+  "soldat_humain": {
+    "verdict": "OK",
+    "tier": 1,
+    "asset_mesh": "Meshy_AI_biped_Meshy_AI_Meshy_Merged_Animations_14",
+    "anim": "Meshy_AI_biped_Meshy_AI_Meshy_Merged_AnimationsIdle_11_13",
+    "clip_source": "Idle_11",
+    "duree_s": 1.9,
+    "activite_rad": 3.7,
+    "deplXZ": 1.25
+  },
+  "soldat_femme": {
+    "verdict": "OK",
+    "tier": 1,
+    "asset_mesh": "Meshy_AI_biped_Character_output_11",
+    "anim": "Meshy_AI_biped_Meshy_AI_Meshy_Merged_AnimationsRunning_13",
+    "clip_source": "Running",
+    "duree_s": 9.97,
+    "activite_rad": 20.4,
+    "deplXZ": 8.3,
+    "nom_decale": true
+  },
+  "soldat_vert": {
+    "verdict": "OK",
+    "tier": 1,
+    "asset_mesh": "Meshy_AI_biped_Character_output_13",
+    "anim": "Meshy_AI_biped_Meshy_AI_Meshy_Merged_AnimationsIdle_11_15",
+    "clip_source": "Idle_11",
+    "duree_s": 1.9,
+    "activite_rad": 3.6,
+    "deplXZ": 1.54
+  },
+  "soldat_mercenaire": {
+    "verdict": "OK",
+    "tier": 1,
+    "asset_mesh": "Meshy_AI_biped_Character_output_12",
+    "anim": "Meshy_AI_biped_Meshy_AI_Meshy_Merged_AnimationsIdle_11_14",
+    "clip_source": "Idle_11",
+    "duree_s": 1.9,
+    "activite_rad": 3.7,
+    "deplXZ": 1.43
+  },
+  "mercenaire_tank": {
+    "verdict": "OK",
+    "tier": 2,
+    "asset_mesh": "mercenaire_tank_idle",
+    "anim": "mercenaire_tank_walking_Anim",
+    "clip_source": "Armature|walking_man|baselayer",
+    "duree_s": 1.07,
+    "activite_rad": 33.4,
+    "deplXZ": 8.6,
+    "marche_sur_place": true,
+    "nom_decale": true
+  },
+  "mercenaire_humain_tank": {
+    "verdict": "OK",
+    "tier": 1,
+    "asset_mesh": "Meshy_AI_biped_Character_output_9",
+    "anim": "Meshy_AI_biped_Meshy_AI_Meshy_Merged_AnimationsWalking_11",
+    "clip_source": "Walking",
+    "duree_s": 1.9,
+    "activite_rad": 3.7,
+    "deplXZ": 1.48,
+    "nom_decale": true
+  },
+  "sou_major": {
+    "verdict": "OK",
+    "tier": 1,
+    "asset_mesh": "Meshy_AI_biped_Character_output_14",
+    "anim": "Meshy_AI_biped_Meshy_AI_Meshy_Merged_AnimationsDead_17",
+    "clip_source": "Dead",
+    "duree_s": 1.9,
+    "activite_rad": 3.6,
+    "deplXZ": 1.34,
+    "nom_decale": true
+  },
+  "general": {
+    "verdict": "OK",
+    "tier": 1,
+    "asset_mesh": "Meshy_AI_biped_Meshy_AI_Meshy_Merged_Animations",
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]
+[TROU — ligne jamais lue dans les transcriptions]

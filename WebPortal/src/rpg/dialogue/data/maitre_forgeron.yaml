@@ -1,0 +1,214 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# dialogues/maitre_forgeron.yaml — Dialogue du Maître Forgeron (Boris)
+#
+# PNJ donneur de quêtes dans la zone Forge.
+# Propose des quêtes selon progression du joueur.
+# Conditions : niveau, réputation, quêtes actives/complétées.
+# Actions : donner quêtes, récompenses, réputation.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+dialogues:
+
+  # ── Dialogue principal : Maître Forgeron (Boris) ──────────────────────────
+  - id: "maitre_forgeron"
+    title: "Le Maître Forgeron"
+    npcFolder: "boris"
+    npcName: "Boris"
+    startNode: "accueil"
+    tags: ["forge", "quest", "main"]
+
+    nodes:
+      # ── Accueil ──────────────────────────────────────────────────────────
+      - id: "accueil"
+        text: |
+          Salut, {player}. La Forge a besoin de bras. T'as l'air d'un
+          combattant — t'auras ta part de gloire si tu tiens le choc.
+        speaker: "Boris"
+
+        choices:
+          - id: "quest_first_blood"
+            text: "J'veux en découdre. Qu'est-ce qu'il y a à faire ?"
+            nextNode: "proposer_premier_sang"
+            conditions: []
+            onSelect: []
+
+          - id: "quest_progress"
+            text: "J'ai fait le tour des hostiles. Quoi d'autre ?"
+            nextNode: "proposer_frontline"
+            conditions:
+              - type: quest_completed
+                params:
+                  questId: "forge_first_blood"
+              - type: quest_not_active
+                params:
+                  questId: "forge_frontline"
+
+          - id: "quest_purge"
+            text: "J'ai tenu la ligne de front. Donne-moi du lourd."
+            nextNode: "proposer_purge"
+            conditions:
+              - type: quest_completed
+                params:
+                  questId: "forge_frontline"
+              - type: quest_not_active
+                params:
+                  questId: "forge_purge"
+
+          - id: "quest_collecte"
+            text: "J'ai besoin d'approvisionnement. T'as des ressources ?"
+            nextNode: "proposer_collecte"
+            conditions:
+              - type: quest_completed
+                params:
+                  questId: "forge_first_blood"
+              - type: quest_not_active
+                params:
+                  questId: "forge_collecte_essences"
+
+          - id: "ask_rep"
+            text: "Dis donc, c'est quoi ta faction au juste ?"
+            nextNode: "faction_info"
+            conditions:
+              - type: reputation_min
+                params:
+                  faction: "akarlys"
+                  min: 100
+
+          - id: "farewell"
+            text: "Je reviendrai."
+            nextNode: "au_revoir"
+
+      # ── Premier Sang ─────────────────────────────────────────────────────
+      - id: "proposer_premier_sang"
+        text: |
+          Des vagues d'hostiles déferlent par le nord. On tient la ligne,
+          mais on perd du terrain. Monte en première ligne, fais tes
+          preuves — abats-en cinq. Je te paierai en crédits et en XP.
+        speaker: "Boris"
+
+        choices:
+          - id: "accept_first_blood"
+            text: "Compte sur moi. J'y vais."
+            nextNode: "accepte_mission_1"
+            onSelect:
+              - type: give_quest
+                params:
+                  questId: "forge_first_blood"
+              - type: play_sound
+                params:
+                  soundId: "quest_accept"
+
+          - id: "decline_first_blood"
+            text: "Pas maintenant. J'ai besoin de me préparer."
+            nextNode: "accueil"
+
+      - id: "accepte_mission_1"
+        text: |
+          Voilà qui est parlé ! La paie t'attend à ton retour.
+          Et n'oublie pas : vise la tête, ça va plus vite.
+        speaker: "Boris"
+        choices:
+          - id: "fin_accept"
+            text: "Compris. J'y vais."
+            nextNode: "fin_dialogue"
+
+      # ── Ligne de front ──────────────────────────────────────────────────
+      - id: "proposer_frontline"
+        text: |
+          T'as fait du bon boulot, je te l'accorde. Mais ce n'est que
+          le début. Les grosses légumes veulent que tu pousses jusqu'à
+          la ligne de front ennemie — au nord, à une cinquantaine de
+          mètres. Repère le terrain et reviens me faire ton rapport.
+        speaker: "Boris"
+
+        choices:
+          - id: "accept_frontline"
+            text: "J'irai voir ce qu'il y a là-bas."
+            nextNode: "accepte_frontline"
+            onSelect:
+              - type: give_quest
+                params:
+                  questId: "forge_frontline"
+
+          - id: "back_to_accueil"
+            text: "Je finis d'abord ce que j'ai commencé."
+            nextNode: "accueil"
+
+      - id: "accepte_frontline"
+        text: |
+          Bonne chance, soldat. La zone est chaude — blinde-toi bien
+          et reste en couverture.
+        speaker: "Boris"
+
+      # ── Purge ────────────────────────────────────────────────────────────
+      - id: "proposer_purge"
+        text: |
+          Bon sang, t'as tenu la ligne ! Le commandement est impressionné.
+          Maintenant, on va en profiter : je veux une purge totale de
+          la zone. Nettoie-moi ce secteur, abats-en douze.
+          La solde sera bonne.
+        speaker: "Boris"
+
+        choices:
+          - id: "accept_purge"
+            text: "Je nettoie tout. Fini les rôdeurs."
+            nextNode: "accepte_purge"
+            onSelect:
+              - type: give_quest
+                params:
+                  questId: "forge_purge"
+
+      - id: "accepte_purge"
+        text: |
+          C'est mon gars ! À ton retour, tu seras décoré. Et bien payé.
+        speaker: "Boris"
+
+      # ── Collecte ─────────────────────────────────────────────────────────
+      - id: "proposer_collecte"
+        text: |
+          On manque de ressources. Les relais akarlys ont besoin de
+          fragments de vie et de cristaux d'énergie. Tu croises ce
+          genre de trucs sur les cadavres d'hostiles — ramène-m'en
+          un maximum, je te les paie au prix fort.
+        speaker: "Boris"
+
+        choices:
+          - id: "accept_collecte"
+            text: "Je peux te trouver ça, oui."
+            nextNode: "accepte_collecte"
+            onSelect:
+              - type: give_quest
+                params:
+                  questId: "forge_collecte_essences"
+
+      - id: "accepte_collecte"
+        text: |
+          Parfait. Apporte-moi ça et je te file une potion de soin
+          majeure en prime. Bonne chasse !
+        speaker: "Boris"
+
+      # ── Faction info ─────────────────────────────────────────────────────
+      - id: "faction_info"
+        text: |
+          Moi ? Je suis un fidèle d'Akar'lys. On tient cette forge
+          depuis des générations. Les Mezalayis voudraient la main
+          dessus, et les Zayan — ces aliens — rôdent dans l'ombre.
+          Toi aussi t'as une faction, non ? Montre-toi digne et
+          t'auras notre confiance.
+        speaker: "Boris"
+
+        choices:
+          - id: "back_after_faction"
+            text: "Intéressant. Bon, revenons aux choses sérieuses."
+            nextNode: "accueil"
+
+      # ── Au revoir ────────────────────────────────────────────────────────
+      - id: "au_revoir"
+        text: |
+          Reviens me voir quand t'as du sang neuf à verser.
+          La Forge a toujours besoin de héros.
+        speaker: "Boris"
+
+      # ── Fin du dialogue ──────────────────────────────────────────────────
+      - id: "fin_dialogue"
+        text: ""

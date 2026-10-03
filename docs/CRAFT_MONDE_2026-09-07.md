@@ -1,0 +1,47 @@
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+- **Le panneau se ferme en quittant la station** : Fait — `EndOverlap` posé (envoie une liste vide → le client masque le panneau). La paire `EndOverlap` est inférée de `BeginOverlap` déjà utilisé ; si le nanos de la version ne la déclenche pas, rien ne casse (le panneau reste ouvert, comportement actuel).
+<!-- [TROU — ligne jamais lue dans les transcriptions] -->
+- **Test en moteur à faire de ton côté** (Unreal) : stations visibles, trigger de marche, WebUI du panneau, craft réel + `EnregistrerSac` à la clé.
+<!-- [FIN INCONNUE — la suite du fichier n'a jamais été lue dans sa dernière version] -->

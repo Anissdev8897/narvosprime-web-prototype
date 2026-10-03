@@ -1,0 +1,58 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-electron
+.DS_Store
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Electron
+release/
+*.asar
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Backup files
+*.bak
+
+# WASM build artifacts
+wasm/build/
+wasm/dist/
+
+# Public WASM artifacts
+public/wasm/
+
+# Reserved Windows names (zero-byte artifacts)
+_nul
+nul
+
+# Large 3D model assets (binary, too large for git)
+public/models/
+# Reserve d'assets bruts Unreal (36 Go) — rangee par epoque, hors runtime web.
+public/asset_game/
+public/textures/textures_index.json
+public/models_index.json
+public/textures_index.json
+
+# Smoke test results
+smoke-results/

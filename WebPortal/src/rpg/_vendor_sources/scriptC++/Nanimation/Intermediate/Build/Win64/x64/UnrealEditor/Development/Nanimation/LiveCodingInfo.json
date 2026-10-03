@@ -1,0 +1,21 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.Nanimation.cpp.obj": [
+			"AnimNode_NanimSelect.gen.cpp.obj",
+			"Nanimation.init.gen.cpp.obj",
+			"NanimationComponent.gen.cpp.obj",
+			"NanimationLibrary.gen.cpp.obj",
+			"NanimationSet.gen.cpp.obj",
+			"NanimationTypes.gen.cpp.obj",
+			"PerModuleInline.gen.cpp.obj",
+			"AnimNode_NanimSelect.cpp.obj",
+			"NanimationComponent.cpp.obj",
+			"NanimationLibrary.cpp.obj",
+			"NanimationLog.cpp.obj",
+			"NanimationModule.cpp.obj",
+			"NanimationSet.cpp.obj",
+			"NanimationDeterminismTest.cpp.obj"
+		]
+	}
+}

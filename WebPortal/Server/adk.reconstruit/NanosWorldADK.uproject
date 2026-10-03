@@ -1,0 +1,61 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.7",
+  "Category": "",
+  "Description": "",
+  "Plugins": [
+    {
+      "Name": "Water",
+      "Enabled": true
+    },
+    {
+      "Name": "PythonScriptPlugin",
+      "Enabled": true
+    },
+    {
+      "Name": "GLTFExporter",
+      "Enabled": true
+    },
+    {
+      "Name": "UniGLB",
+      "Enabled": false
+    },
+    {
+      "Name": "UbaController",
+      "Enabled": false
+    },
+    {
+      "Name": "XGEController",
+      "Enabled": false
+    },
+    {
+      "Name": "Mutable",
+      "Enabled": true
+    },
+    {
+      "Name": "UnrealMCPServer",
+      "Enabled": true
+    },
+    {
+      "Name": "LiveLinkControlRig",
+      "Enabled": true
+    },
+    {
+      "Name": "AppleARKitFaceSupport",
+      "Enabled": true,
+      "SupportedTargetPlatforms": [
+        "IOS",
+        "Win64",
+        "Mac",
+        "Linux",
+        "Android"
+      ]
+    },
+    {
+      "Name": "GameplayAbilities",
+      "Enabled": true
+    }
+  ],
+  "TargetPlatforms": [
+    "Windows",
+[FIN INCONNUE — la suite du fichier n'a jamais été lue dans sa dernière version]

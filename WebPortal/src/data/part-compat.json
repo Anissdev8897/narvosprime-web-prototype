@@ -1,0 +1,2212 @@
+[
+  {
+    "id": "wraith_legs",
+    "source": "wraith",
+    "region": "legs",
+    "bones": 155,
+    "coverageByName": 0.4967741935483871,
+    "coverageByWeight": 0.4779639975170673,
+    "bindDelta": 1.3498115824655332,
+    "scale": 1.0986900339441814
+  },
+  {
+    "id": "wraith_torso",
+    "source": "wraith",
+    "region": "torso",
+    "bones": 155,
+    "coverageByName": 0.4967741935483871,
+    "coverageByWeight": 0.9999999999999659,
+    "bindDelta": 1.3498115824655332,
+    "scale": 1.0986900339441814
+  },
+  {
+    "id": "wraith_accessory",
+    "source": "wraith",
+    "region": "accessory",
+    "bones": 155,
+    "coverageByName": 0.4967741935483871,
+    "coverageByWeight": 0.26761583011582885,
+    "bindDelta": 1.3498115824655332,
+    "scale": 1.0986900339441814
+  },
+  {
+    "id": "wraith_feet",
+    "source": "wraith",
+    "region": "feet",
+    "bones": 155,
+    "coverageByName": 0.4967741935483871,
+    "coverageByWeight": 1.0000000000000053,
+    "bindDelta": 1.3498115824655332,
+    "scale": 1.0986900339441814
+  },
+  {
+    "id": "wraith_arms",
+    "source": "wraith",
+    "region": "arms",
+    "bones": 155,
+    "coverageByName": 0.4967741935483871,
+    "coverageByWeight": 0.5041724617524403,
+    "bindDelta": 1.3498115824655332,
+    "scale": 1.0986900339441814
+  },
+  {
+    "id": "wraith_hands",
+    "source": "wraith",
+    "region": "hands",
+    "bones": 155,
+    "coverageByName": 0.4967741935483871,
+    "coverageByWeight": 0.6556701030927842,
+    "bindDelta": 1.3498115824655332,
+    "scale": 1.0986900339441814
+  },
+  {
+    "id": "wraith_head",
+    "source": "wraith",
+    "region": "head",
+    "bones": 155,
+    "coverageByName": 0.4967741935483871,
+    "coverageByWeight": 1.0000000000000064,
+    "bindDelta": 1.3498115824655332,
+    "scale": 1.0986900339441814
+  },
+  {
+    "id": "murdock_torso",
+    "source": "murdock",
+    "region": "torso",
+    "bones": 154,
+    "coverageByName": 0.474025974025974,
+    "coverageByWeight": 0.8383230225899847,
+    "bindDelta": 2.1888478115985057,
+    "scale": 0.9810976750569423
+  },
+  {
+    "id": "murdock_head",
+    "source": "murdock",
+    "region": "head",
+    "bones": 154,
+    "coverageByName": 0.474025974025974,
+    "coverageByWeight": 0.17910569730411605,
+    "bindDelta": 2.1888478115985057,
+    "scale": 0.9810976750569423
+  },
+  {
+    "id": "murdock_arms",
+    "source": "murdock",
+    "region": "arms",
+    "bones": 154,
+    "coverageByName": 0.474025974025974,
+    "coverageByWeight": 0.5108589596531143,
+    "bindDelta": 2.1888478115985057,
+    "scale": 0.9810976750569423
+  },
+  {
+    "id": "murdock_legs",
+    "source": "murdock",
+    "region": "legs",
+    "bones": 154,
+    "coverageByName": 0.474025974025974,
+    "coverageByWeight": 0.835315899299067,
+    "bindDelta": 2.1888478115985057,
+    "scale": 0.9810976750569423
+  },
+  {
+    "id": "murdock_hands",
+    "source": "murdock",
+    "region": "hands",
+    "bones": 154,
+    "coverageByName": 0.474025974025974,
+    "coverageByWeight": 0.7615515048749505,
+    "bindDelta": 2.1888478115985057,
+    "scale": 0.9810976750569423
+  },
+  {
+    "id": "murdock_feet",
+    "source": "murdock",
+    "region": "feet",
+    "bones": 154,
+    "coverageByName": 0.474025974025974,
+    "coverageByWeight": 1,
+    "bindDelta": 2.1888478115985057,
+    "scale": 0.9810976750569423
+  },
+  {
+    "id": "boris_arms",
+    "source": "boris",
+    "region": "arms",
+    "bones": 168,
+    "coverageByName": 0.4226190476190476,
+    "coverageByWeight": 0.999999999999957,
+    "bindDelta": 1.5046705789185677,
+    "scale": 0.6178384800318384
+  },
+  {
+    "id": "boris_legs",
+    "source": "boris",
+    "region": "legs",
+    "bones": 168,
+    "coverageByName": 0.4226190476190476,
+    "coverageByWeight": 0.39701526543631804,
+    "bindDelta": 1.5046705789185677,
+    "scale": 0.6178384800318384
+  },
+  {
+    "id": "boris_torso",
+    "source": "boris",
+    "region": "torso",
+    "bones": 168,
+    "coverageByName": 0.4226190476190476,
+    "coverageByWeight": 0.26904387105605365,
+    "bindDelta": 1.5046705789185677,
+    "scale": 0.6178384800318384
+  },
+  {
+    "id": "boris_hair",
+    "source": "boris",
+    "region": "hair",
+    "bones": 168,
+    "coverageByName": 0.4226190476190476,
+    "coverageByWeight": 0.6214412783082277,
+    "bindDelta": 1.5046705789185677,
+    "scale": 0.6178384800318384
+  },
+  {
+    "id": "boris_head",
+    "source": "boris",
+    "region": "head",
+    "bones": 168,
+    "coverageByName": 0.4226190476190476,
+    "coverageByWeight": 0.40588447310122194,
+    "bindDelta": 1.5046705789185677,
+    "scale": 0.6178384800318384
+  },
+  {
+    "id": "boris_hands",
+    "source": "boris",
+    "region": "hands",
+    "bones": 168,
+    "coverageByName": 0.4226190476190476,
+    "coverageByWeight": 0.7789874795862826,
+    "bindDelta": 1.5046705789185677,
+    "scale": 0.6178384800318384
+  },
+  {
+    "id": "boris_feet",
+    "source": "boris",
+    "region": "feet",
+    "bones": 168,
+    "coverageByName": 0.4226190476190476,
+    "coverageByWeight": 0.13956701980654077,
+    "bindDelta": 1.5046705789185677,
+    "scale": 0.6178384800318384
+  },
+  {
+    "id": "steel_torso",
+    "source": "steel",
+    "region": "torso",
+    "bones": 131,
+    "coverageByName": 0.46564885496183206,
+    "coverageByWeight": 0.586855129293357,
+    "bindDelta": 1.8051633106514082,
+    "scale": 0.6964410192811495
+  },
+  {
+    "id": "steel_legs",
+    "source": "steel",
+    "region": "legs",
+    "bones": 131,
+    "coverageByName": 0.46564885496183206,
+    "coverageByWeight": 0.8959834010330474,
+    "bindDelta": 1.8051633106514082,
+    "scale": 0.6964410192811495
+  },
+  {
+    "id": "steel_head",
+    "source": "steel",
+    "region": "head",
+    "bones": 131,
+    "coverageByName": 0.46564885496183206,
+    "coverageByWeight": 0.1991519931329884,
+    "bindDelta": 1.8051633106514082,
+    "scale": 0.6964410192811495
+  },
+  {
+    "id": "steel_arms",
+    "source": "steel",
+    "region": "arms",
+    "bones": 131,
+    "coverageByName": 0.46564885496183206,
+    "coverageByWeight": 0.9563637509651604,
+    "bindDelta": 1.8051633106514082,
+    "scale": 0.6964410192811495
+  },
+  {
+    "id": "steel_hands",
+    "source": "steel",
+    "region": "hands",
+    "bones": 131,
+    "coverageByName": 0.46564885496183206,
+    "coverageByWeight": 1,
+    "bindDelta": 1.8051633106514082,
+    "scale": 0.6964410192811495
+  },
+  {
+    "id": "steel_feet",
+    "source": "steel",
+    "region": "feet",
+    "bones": 131,
+    "coverageByName": 0.46564885496183206,
+    "coverageByWeight": 0.8436845778087927,
+    "bindDelta": 1.8051633106514082,
+    "scale": 0.6964410192811495
+  },
+  {
+    "id": "echo_legs",
+    "source": "echo",
+    "region": "legs",
+    "bones": 134,
+    "coverageByName": 0.5970149253731343,
+    "coverageByWeight": 1.0000000000000284,
+    "bindDelta": 0.6345554690821065,
+    "scale": 1.136119718432577
+  },
+  {
+    "id": "echo_torso",
+    "source": "echo",
+    "region": "torso",
+    "bones": 134,
+    "coverageByName": 0.5970149253731343,
+    "coverageByWeight": 0.5978831354341763,
+    "bindDelta": 0.6345554690821065,
+    "scale": 1.136119718432577
+  },
+  {
+    "id": "echo_feet",
+    "source": "echo",
+    "region": "feet",
+    "bones": 134,
+    "coverageByName": 0.5970149253731343,
+    "coverageByWeight": 1,
+    "bindDelta": 0.6345554690821065,
+    "scale": 1.136119718432577
+  },
+  {
+    "id": "echo_arms",
+    "source": "echo",
+    "region": "arms",
+    "bones": 134,
+    "coverageByName": 0.5970149253731343,
+    "coverageByWeight": 0.9555102568236117,
+    "bindDelta": 0.6345554690821065,
+    "scale": 1.136119718432577
+  },
+  {
+    "id": "echo_head",
+    "source": "echo",
+    "region": "head",
+    "bones": 134,
+    "coverageByName": 0.5970149253731343,
+    "coverageByWeight": 0.9348027014814193,
+    "bindDelta": 0.6345554690821065,
+    "scale": 1.136119718432577
+  },
+  {
+    "id": "echo_hands",
+    "source": "echo",
+    "region": "hands",
+    "bones": 134,
+    "coverageByName": 0.5970149253731343,
+    "coverageByWeight": 0.999999999999989,
+    "bindDelta": 0.6345554690821065,
+    "scale": 1.136119718432577
+  },
+  {
+    "id": "samurai_torso",
+    "source": "samurai",
+    "region": "torso",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999895,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "samurai_head",
+    "source": "samurai",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999999,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "samurai_hair",
+    "source": "samurai",
+    "region": "hair",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "samurai_legs",
+    "source": "samurai",
+    "region": "legs",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000009,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "samurai_hands",
+    "source": "samurai",
+    "region": "hands",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000004,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "samurai_arms",
+    "source": "samurai",
+    "region": "arms",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000013,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "samurai_feet",
+    "source": "samurai",
+    "region": "feet",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000007,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "biker_m_torso",
+    "source": "biker_m",
+    "region": "torso",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000422,
+    "bindDelta": 0,
+    "scale": 1
+  },
+  {
+    "id": "biker_m_head",
+    "source": "biker_m",
+    "region": "head",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000118,
+    "bindDelta": 0,
+    "scale": 1
+  },
+  {
+    "id": "biker_m_arms",
+    "source": "biker_m",
+    "region": "arms",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000278,
+    "bindDelta": 0,
+    "scale": 1
+  },
+  {
+    "id": "biker_m_legs",
+    "source": "biker_m",
+    "region": "legs",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000118,
+    "bindDelta": 0,
+    "scale": 1
+  },
+  {
+    "id": "biker_m_hands",
+    "source": "biker_m",
+    "region": "hands",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000029,
+    "bindDelta": 0,
+    "scale": 1
+  },
+  {
+    "id": "biker_m_feet",
+    "source": "biker_m",
+    "region": "feet",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000013,
+    "bindDelta": 0,
+    "scale": 1
+  },
+  {
+    "id": "biker_f_torso",
+    "source": "biker_f",
+    "region": "torso",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000344,
+    "bindDelta": 0.5007637579469693,
+    "scale": 1.1185767477512485
+  },
+  {
+    "id": "biker_f_head",
+    "source": "biker_f",
+    "region": "head",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000113,
+    "bindDelta": 0.5007637579469693,
+    "scale": 1.1185767477512485
+  },
+  {
+    "id": "biker_f_hands",
+    "source": "biker_f",
+    "region": "hands",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000056,
+    "bindDelta": 0.5007637579469693,
+    "scale": 1.1185767477512485
+  },
+  {
+    "id": "biker_f_arms",
+    "source": "biker_f",
+    "region": "arms",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000147,
+    "bindDelta": 0.5007637579469693,
+    "scale": 1.1185767477512485
+  },
+  {
+    "id": "biker_f_legs",
+    "source": "biker_f",
+    "region": "legs",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000084,
+    "bindDelta": 0.5007637579469693,
+    "scale": 1.1185767477512485
+  },
+  {
+    "id": "biker_f_feet",
+    "source": "biker_f",
+    "region": "feet",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999989,
+    "bindDelta": 0.5007637579469693,
+    "scale": 1.1185767477512485
+  },
+  {
+    "id": "mpfb_head",
+    "source": "mpfb",
+    "region": "head",
+    "bones": 52,
+    "coverageByName": 0,
+    "coverageByWeight": 0,
+    "bindDelta": 0,
+    "scale": 1.2198733114234557
+  },
+  {
+    "id": "mpfb_torso",
+    "source": "mpfb",
+    "region": "torso",
+    "bones": 52,
+    "coverageByName": 0,
+    "coverageByWeight": 0,
+    "bindDelta": 0,
+    "scale": 1.2198733114234557
+  },
+  {
+    "id": "mpfb_arms",
+    "source": "mpfb",
+    "region": "arms",
+    "bones": 52,
+    "coverageByName": 0,
+    "coverageByWeight": 0,
+    "bindDelta": 0,
+    "scale": 1.2198733114234557
+  },
+  {
+    "id": "mpfb_hands",
+    "source": "mpfb",
+    "region": "hands",
+    "bones": 52,
+    "coverageByName": 0,
+    "coverageByWeight": 0,
+    "bindDelta": 0,
+    "scale": 1.2198733114234557
+  },
+  {
+    "id": "mpfb_legs",
+    "source": "mpfb",
+    "region": "legs",
+    "bones": 52,
+    "coverageByName": 0,
+    "coverageByWeight": 0,
+    "bindDelta": 0,
+    "scale": 1.2198733114234557
+  },
+  {
+    "id": "mpfb_feet",
+    "source": "mpfb",
+    "region": "feet",
+    "bones": 52,
+    "coverageByName": 0,
+    "coverageByWeight": 0,
+    "bindDelta": 0,
+    "scale": 1.2198733114234557
+  },
+  {
+    "id": "manny_head",
+    "source": "manny",
+    "region": "head",
+    "bones": 89,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000053,
+    "bindDelta": 0.0000039044848858304605,
+    "scale": 1.0000001547411717
+  },
+  {
+    "id": "manny_legs",
+    "source": "manny",
+    "region": "legs",
+    "bones": 89,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000375,
+    "bindDelta": 0.0000039044848858304605,
+    "scale": 1.0000001547411717
+  },
+  {
+    "id": "manny_feet",
+    "source": "manny",
+    "region": "feet",
+    "bones": 89,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000042,
+    "bindDelta": 0.0000039044848858304605,
+    "scale": 1.0000001547411717
+  },
+  {
+    "id": "manny_torso",
+    "source": "manny",
+    "region": "torso",
+    "bones": 89,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999609,
+    "bindDelta": 0.0000039044848858304605,
+    "scale": 1.0000001547411717
+  },
+  {
+    "id": "manny_arms",
+    "source": "manny",
+    "region": "arms",
+    "bones": 89,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999765,
+    "bindDelta": 0.0000039044848858304605,
+    "scale": 1.0000001547411717
+  },
+  {
+    "id": "manny_hands",
+    "source": "manny",
+    "region": "hands",
+    "bones": 89,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000366,
+    "bindDelta": 0.0000039044848858304605,
+    "scale": 1.0000001547411717
+  },
+  {
+    "id": "quinn_legs",
+    "source": "quinn",
+    "region": "legs",
+    "bones": 89,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000266,
+    "bindDelta": 0.5199850225120922,
+    "scale": 1.042475967564566
+  },
+  {
+    "id": "quinn_torso",
+    "source": "quinn",
+    "region": "torso",
+    "bones": 89,
+    "coverageByName": 1,
+    "coverageByWeight": 1.000000000000033,
+    "bindDelta": 0.5199850225120922,
+    "scale": 1.042475967564566
+  },
+  {
+    "id": "quinn_feet",
+    "source": "quinn",
+    "region": "feet",
+    "bones": 89,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000033,
+    "bindDelta": 0.5199850225120922,
+    "scale": 1.042475967564566
+  },
+  {
+    "id": "quinn_arms",
+    "source": "quinn",
+    "region": "arms",
+    "bones": 89,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000815,
+    "bindDelta": 0.5199850225120922,
+    "scale": 1.042475967564566
+  },
+  {
+    "id": "quinn_head",
+    "source": "quinn",
+    "region": "head",
+    "bones": 89,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000744,
+    "bindDelta": 0.5199850225120922,
+    "scale": 1.042475967564566
+  },
+  {
+    "id": "quinn_hands",
+    "source": "quinn",
+    "region": "hands",
+    "bones": 89,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999415,
+    "bindDelta": 0.5199850225120922,
+    "scale": 1.042475967564566
+  },
+  {
+    "id": "valkiria_head",
+    "source": "valkiria",
+    "region": "head",
+    "bones": 81,
+    "coverageByName": 0.8518518518518519,
+    "coverageByWeight": 0.9587516454154312,
+    "bindDelta": 1.4412739471047866,
+    "scale": 0.9886413240285583
+  },
+  {
+    "id": "valkiria_feet",
+    "source": "valkiria",
+    "region": "feet",
+    "bones": 81,
+    "coverageByName": 0.8518518518518519,
+    "coverageByWeight": 0.9999999999999997,
+    "bindDelta": 1.4412739471047866,
+    "scale": 0.9886413240285583
+  },
+  {
+    "id": "valkiria_legs",
+    "source": "valkiria",
+    "region": "legs",
+    "bones": 81,
+    "coverageByName": 0.8518518518518519,
+    "coverageByWeight": 0.9999999999999997,
+    "bindDelta": 1.4412739471047866,
+    "scale": 0.9886413240285583
+  },
+  {
+    "id": "valkiria_torso",
+    "source": "valkiria",
+    "region": "torso",
+    "bones": 81,
+    "coverageByName": 0.8518518518518519,
+    "coverageByWeight": 0.8009086313412178,
+    "bindDelta": 1.4412739471047866,
+    "scale": 0.9886413240285583
+  },
+  {
+    "id": "valkiria_arms",
+    "source": "valkiria",
+    "region": "arms",
+    "bones": 81,
+    "coverageByName": 0.8518518518518519,
+    "coverageByWeight": 0.9997579587417753,
+    "bindDelta": 1.4412739471047866,
+    "scale": 0.9886413240285583
+  },
+  {
+    "id": "valkiria_hands",
+    "source": "valkiria",
+    "region": "hands",
+    "bones": 81,
+    "coverageByName": 0.8518518518518519,
+    "coverageByWeight": 0.9999999999999992,
+    "bindDelta": 1.4412739471047866,
+    "scale": 0.9886413240285583
+  },
+  {
+    "id": "nuc_jeans_legs",
+    "source": "nuc_jeans",
+    "region": "legs",
+    "bones": 11,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 1.4451354114893897,
+    "scale": null
+  },
+  {
+    "id": "nuc_shirt_torso",
+    "source": "nuc_shirt",
+    "region": "torso",
+    "bones": 19,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 2.923666275793802,
+    "scale": null
+  },
+  {
+    "id": "nuc_bulletproof_torso",
+    "source": "nuc_bulletproof",
+    "region": "torso",
+    "bones": 8,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 2.9236697099306945,
+    "scale": null
+  },
+  {
+    "id": "nuc_holster_accessory",
+    "source": "nuc_holster",
+    "region": "accessory",
+    "bones": 4,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 1.4400954462334656,
+    "scale": null
+  },
+  {
+    "id": "zs4_body_hands",
+    "source": "zs4_body",
+    "region": "hands",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000224,
+    "bindDelta": 0.09994735300290515,
+    "scale": 1.000001230361946
+  },
+  {
+    "id": "zs4_body_arms",
+    "source": "zs4_body",
+    "region": "arms",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000175,
+    "bindDelta": 0.09994735300290515,
+    "scale": 1.000001230361946
+  },
+  {
+    "id": "zs4_body_torso",
+    "source": "zs4_body",
+    "region": "torso",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000207,
+    "bindDelta": 0.09994735300290515,
+    "scale": 1.000001230361946
+  },
+  {
+    "id": "zs4_body_legs",
+    "source": "zs4_body",
+    "region": "legs",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000033,
+    "bindDelta": 0.09994735300290515,
+    "scale": 1.000001230361946
+  },
+  {
+    "id": "zs4_body_feet",
+    "source": "zs4_body",
+    "region": "feet",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999998,
+    "bindDelta": 0.09994735300290515,
+    "scale": 1.000001230361946
+  },
+  {
+    "id": "zs4_head_head",
+    "source": "zs4_head",
+    "region": "head",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999994,
+    "bindDelta": 0.09994595746231862,
+    "scale": 1.0000002339442744
+  },
+  {
+    "id": "zs4_hat_accessory",
+    "source": "zs4_hat",
+    "region": "accessory",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.09994595746231862,
+    "scale": 1.0000002339442742
+  },
+  {
+    "id": "zs4_jacket_torso",
+    "source": "zs4_jacket",
+    "region": "torso",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000013,
+    "bindDelta": 0.09994654468236926,
+    "scale": 1.0000002426156938
+  },
+  {
+    "id": "zs4_pants_legs",
+    "source": "zs4_pants",
+    "region": "legs",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000004,
+    "bindDelta": 0.09994595746231862,
+    "scale": 1.0000002426156938
+  },
+  {
+    "id": "zs4_shoes_feet",
+    "source": "zs4_shoes",
+    "region": "feet",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999999,
+    "bindDelta": 0.09994595746231862,
+    "scale": 1.0000002426156938
+  },
+  {
+    "id": "zs1_head_head",
+    "source": "zs1_head",
+    "region": "head",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000022,
+    "bindDelta": 0.0999466636665435,
+    "scale": 1.000000590722616
+  },
+  {
+    "id": "zs1_hat_accessory",
+    "source": "zs1_hat",
+    "region": "accessory",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.0999466636665435,
+    "scale": 1.000000590722616
+  },
+  {
+    "id": "zs2_head_head",
+    "source": "zs2_head",
+    "region": "head",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000029,
+    "bindDelta": 0.0999464932949669,
+    "scale": 0.999999728172211
+  },
+  {
+    "id": "zs2_hat_accessory",
+    "source": "zs2_hat",
+    "region": "accessory",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.0999464932949669,
+    "scale": 0.999999728172211
+  },
+  {
+    "id": "zsail_head_head",
+    "source": "zsail_head",
+    "region": "head",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000007,
+    "bindDelta": 0.09994601262983521,
+    "scale": 0.9999994962529845
+  },
+  {
+    "id": "zsail_hat_accessory",
+    "source": "zsail_hat",
+    "region": "accessory",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.09994601262983521,
+    "scale": 0.9999994962529845
+  },
+  {
+    "id": "ztank_head_head",
+    "source": "ztank_head",
+    "region": "head",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000038,
+    "bindDelta": 0.09994595746231862,
+    "scale": 0.9999993558485623
+  },
+  {
+    "id": "ztank_hat_accessory",
+    "source": "ztank_hat",
+    "region": "accessory",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.09994595746231862,
+    "scale": 0.9999993558485623
+  },
+  {
+    "id": "zoff_head_head",
+    "source": "zoff_head",
+    "region": "head",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000007,
+    "bindDelta": 0.09994595746231862,
+    "scale": 1.0000002426156938
+  },
+  {
+    "id": "zoff_hat_accessory",
+    "source": "zoff_hat",
+    "region": "accessory",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.09994595746231862,
+    "scale": 1.0000002426156938
+  },
+  {
+    "id": "zoff_jacket_torso",
+    "source": "zoff_jacket",
+    "region": "torso",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.00000000000001,
+    "bindDelta": 0.09994595746231862,
+    "scale": 1.0000002426156938
+  },
+  {
+    "id": "zoff_pants_legs",
+    "source": "zoff_pants",
+    "region": "legs",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999999,
+    "bindDelta": 0.09994595746231862,
+    "scale": 1.0000002426156938
+  },
+  {
+    "id": "zoff_shoes_feet",
+    "source": "zoff_shoes",
+    "region": "feet",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.09994595746231862,
+    "scale": 1.000000242615696
+  },
+  {
+    "id": "zwin_head_head",
+    "source": "zwin_head",
+    "region": "head",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000007,
+    "bindDelta": 0.09994666699658951,
+    "scale": 1.0000006353157465
+  },
+  {
+    "id": "zwin_hat_accessory",
+    "source": "zwin_hat",
+    "region": "accessory",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.09994666699658951,
+    "scale": 1.0000006353157465
+  },
+  {
+    "id": "zwin_jacket_torso",
+    "source": "zwin_jacket",
+    "region": "torso",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000033,
+    "bindDelta": 0.09994666699658951,
+    "scale": 1.0000006353157465
+  },
+  {
+    "id": "zwin_pants_legs",
+    "source": "zwin_pants",
+    "region": "legs",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000002,
+    "bindDelta": 0.09994666699658951,
+    "scale": 1.0000006353157465
+  },
+  {
+    "id": "zwin_shoes_feet",
+    "source": "zwin_shoes",
+    "region": "feet",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.09994666699658951,
+    "scale": 1.0000006353157465
+  },
+  {
+    "id": "tr_m_body_head",
+    "source": "tr_m_body",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000158,
+    "bindDelta": 1.4098637524003945,
+    "scale": 0.9800455808880356
+  },
+  {
+    "id": "tr_m_body_torso",
+    "source": "tr_m_body",
+    "region": "torso",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000178,
+    "bindDelta": 1.4098637524003945,
+    "scale": 0.9800455808880356
+  },
+  {
+    "id": "tr_m_body_arms",
+    "source": "tr_m_body",
+    "region": "arms",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000016,
+    "bindDelta": 1.4098637524003945,
+    "scale": 0.9800455808880356
+  },
+  {
+    "id": "tr_m_body_hands",
+    "source": "tr_m_body",
+    "region": "hands",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000078,
+    "bindDelta": 1.4098637524003945,
+    "scale": 0.9800455808880356
+  },
+  {
+    "id": "tr_m_body_legs",
+    "source": "tr_m_body",
+    "region": "legs",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000122,
+    "bindDelta": 1.4098637524003945,
+    "scale": 0.9800455808880356
+  },
+  {
+    "id": "tr_m_body_feet",
+    "source": "tr_m_body",
+    "region": "feet",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000016,
+    "bindDelta": 1.4098637524003945,
+    "scale": 0.9800455808880356
+  },
+  {
+    "id": "tr_f_body_head",
+    "source": "tr_f_body",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000073,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_f_body_torso",
+    "source": "tr_f_body",
+    "region": "torso",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000167,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_f_body_arms",
+    "source": "tr_f_body",
+    "region": "arms",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000064,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_f_body_hands",
+    "source": "tr_f_body",
+    "region": "hands",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000078,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_f_body_legs",
+    "source": "tr_f_body",
+    "region": "legs",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000122,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_f_body_feet",
+    "source": "tr_f_body",
+    "region": "feet",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000016,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_pf_body_head",
+    "source": "tr_pf_body",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.000000000000006,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_pf_body_torso",
+    "source": "tr_pf_body",
+    "region": "torso",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000313,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_pf_body_arms",
+    "source": "tr_pf_body",
+    "region": "arms",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000064,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_pf_body_hands",
+    "source": "tr_pf_body",
+    "region": "hands",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000047,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_pf_body_legs",
+    "source": "tr_pf_body",
+    "region": "legs",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000089,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_pf_body_feet",
+    "source": "tr_pf_body",
+    "region": "feet",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000016,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_m_form_head",
+    "source": "tr_m_form",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999996,
+    "bindDelta": 1.4098639021746755,
+    "scale": 0.9800461427068368
+  },
+  {
+    "id": "tr_m_form_arms",
+    "source": "tr_m_form",
+    "region": "arms",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 1.4098639021746755,
+    "scale": 0.9800461427068368
+  },
+  {
+    "id": "tr_m_form_torso",
+    "source": "tr_m_form",
+    "region": "torso",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000029,
+    "bindDelta": 1.4098639021746755,
+    "scale": 0.9800461427068368
+  },
+  {
+    "id": "tr_m_form_legs",
+    "source": "tr_m_form",
+    "region": "legs",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000018,
+    "bindDelta": 1.4098639021746755,
+    "scale": 0.9800461427068368
+  },
+  {
+    "id": "tr_m_form_hands",
+    "source": "tr_m_form",
+    "region": "hands",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.000000000000005,
+    "bindDelta": 1.4098639021746755,
+    "scale": 0.9800461427068368
+  },
+  {
+    "id": "tr_m_form_feet",
+    "source": "tr_m_form",
+    "region": "feet",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000009,
+    "bindDelta": 1.4098639021746755,
+    "scale": 0.9800461427068368
+  },
+  {
+    "id": "tr_f_form_head",
+    "source": "tr_f_form",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000009,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_f_form_feet",
+    "source": "tr_f_form",
+    "region": "feet",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999998,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_f_form_hands",
+    "source": "tr_f_form",
+    "region": "hands",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999989,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_f_form_arms",
+    "source": "tr_f_form",
+    "region": "arms",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000007,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_f_form_torso",
+    "source": "tr_f_form",
+    "region": "torso",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000047,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_f_form_legs",
+    "source": "tr_f_form",
+    "region": "legs",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_pf_form_torso",
+    "source": "tr_pf_form",
+    "region": "torso",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.000000000000003,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_pf_form_legs",
+    "source": "tr_pf_form",
+    "region": "legs",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000002,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_pf_form_arms",
+    "source": "tr_pf_form",
+    "region": "arms",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999992,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_pf_form_feet",
+    "source": "tr_pf_form",
+    "region": "feet",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999997,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_pf_form_hands",
+    "source": "tr_pf_form",
+    "region": "hands",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000002,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_pf_form_head",
+    "source": "tr_pf_form",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000036,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_m_head_a_head",
+    "source": "tr_m_head_a",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000007,
+    "bindDelta": 1.4098638739306257,
+    "scale": 0.9800457758293676
+  },
+  {
+    "id": "tr_m_head_b_head",
+    "source": "tr_m_head_b",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000029,
+    "bindDelta": 1.4098639021746755,
+    "scale": 0.9800461427068368
+  },
+  {
+    "id": "tr_m_chest_torso",
+    "source": "tr_m_chest",
+    "region": "torso",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000198,
+    "bindDelta": 1.4098637524003945,
+    "scale": 0.9800455808880356
+  },
+  {
+    "id": "tr_m_shoulders_accessory",
+    "source": "tr_m_shoulders",
+    "region": "accessory",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1,
+    "bindDelta": 1.4098638712096132,
+    "scale": 0.9800458609740693
+  },
+  {
+    "id": "tr_m_legs_legs",
+    "source": "tr_m_legs",
+    "region": "legs",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000104,
+    "bindDelta": 1.4098639021746755,
+    "scale": 0.9800461427068368
+  },
+  {
+    "id": "tr_m_shoes_feet",
+    "source": "tr_m_shoes",
+    "region": "feet",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000018,
+    "bindDelta": 1.4098639021746755,
+    "scale": 0.9800461427068368
+  },
+  {
+    "id": "tr_m_hands_hands",
+    "source": "tr_m_hands",
+    "region": "hands",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000042,
+    "bindDelta": 1.4098638712096132,
+    "scale": 0.9800458609740693
+  },
+  {
+    "id": "tr_m_chest_thin_torso",
+    "source": "tr_m_chest_thin",
+    "region": "torso",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000198,
+    "bindDelta": 1.4098637524003945,
+    "scale": 0.9800455808880356
+  },
+  {
+    "id": "tr_m_legs_thin_legs",
+    "source": "tr_m_legs_thin",
+    "region": "legs",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000104,
+    "bindDelta": 1.4098639021746755,
+    "scale": 0.9800461427068368
+  },
+  {
+    "id": "tr_m_shoes_thin_feet",
+    "source": "tr_m_shoes_thin",
+    "region": "feet",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.0000000000000018,
+    "bindDelta": 1.4098639021746755,
+    "scale": 0.9800461427068368
+  },
+  {
+    "id": "tr_f_head_a_head",
+    "source": "tr_f_head_a",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.000000000000001,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_f_head_b_head",
+    "source": "tr_f_head_b",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 0.9852941176470589,
+    "coverageByWeight": 1.000000000000005,
+    "bindDelta": 1.4387304601229622,
+    "scale": 1.0264541907479612
+  },
+  {
+    "id": "tr_f_shoulders_accessory",
+    "source": "tr_f_shoulders",
+    "region": "accessory",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 1.4387307102133986,
+    "scale": 1.0264535953436273
+  },
+  {
+    "id": "tr_pf_head_a_head",
+    "source": "tr_pf_head_a",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000024,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_pf_head_b_head",
+    "source": "tr_pf_head_b",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000033,
+    "bindDelta": 0.9013414930660183,
+    "scale": 1.0441197129393358
+  },
+  {
+    "id": "tr_pf_shoulders_accessory",
+    "source": "tr_pf_shoulders",
+    "region": "accessory",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.9013412964741722,
+    "scale": 1.044119713007565
+  },
+  {
+    "id": "tr_pf_legs_legs",
+    "source": "tr_pf_legs",
+    "region": "legs",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000087,
+    "bindDelta": 0.9013412470413416,
+    "scale": 1.0441197125978512
+  },
+  {
+    "id": "tr_pf_shoes_feet",
+    "source": "tr_pf_shoes",
+    "region": "feet",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000018,
+    "bindDelta": 0.9013412470413416,
+    "scale": 1.0441197125978512
+  },
+  {
+    "id": "cs_head_head",
+    "source": "cs_head",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999998,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "cs_hair_hair",
+    "source": "cs_hair",
+    "region": "hair",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 1.4098623501048073,
+    "scale": 0.9800466327760028
+  },
+  {
+    "id": "cs_helmet_accessory",
+    "source": "cs_helmet",
+    "region": "accessory",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 1.4098623501048073,
+    "scale": 0.9800466327760028
+  },
+  {
+    "id": "cs_torso_torso",
+    "source": "cs_torso",
+    "region": "torso",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000007,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "cs_jacket_torso",
+    "source": "cs_jacket",
+    "region": "torso",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.000000000000001,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "cs_arm_arms",
+    "source": "cs_arm",
+    "region": "arms",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000009,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "cs_hand_hands",
+    "source": "cs_hand",
+    "region": "hands",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000004,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "cs_leg_legs",
+    "source": "cs_leg",
+    "region": "legs",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000004,
+    "bindDelta": 1.4098621400466438,
+    "scale": 0.980046549497472
+  },
+  {
+    "id": "cs_bag_accessory",
+    "source": "cs_bag",
+    "region": "accessory",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000044,
+    "bindDelta": 1.4098623501048073,
+    "scale": 0.9800466327760028
+  },
+  {
+    "id": "bk_m_head01_head",
+    "source": "bk_m_head01",
+    "region": "head",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000149,
+    "bindDelta": 5.960464728410778e-8,
+    "scale": 1
+  },
+  {
+    "id": "bk_m_head02_head",
+    "source": "bk_m_head02",
+    "region": "head",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1.000000000000018,
+    "bindDelta": 5.960464728410778e-8,
+    "scale": 1
+  },
+  {
+    "id": "bk_m_hair_hair",
+    "source": "bk_m_hair",
+    "region": "hair",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 5.960464728410778e-8,
+    "scale": 0.9999999999999997
+  },
+  {
+    "id": "bk_m_hair_wild_hair",
+    "source": "bk_m_hair_wild",
+    "region": "hair",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999706,
+    "bindDelta": 1.3969262708460376e-9,
+    "scale": 1.0000000002355742
+  },
+  {
+    "id": "bk_m_beard_hair",
+    "source": "bk_m_beard",
+    "region": "hair",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 5.960464728410778e-8,
+    "scale": 0.9999999999999997
+  },
+  {
+    "id": "bk_m_arms_arms",
+    "source": "bk_m_arms",
+    "region": "arms",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000158,
+    "bindDelta": 0.0000043706923336184894,
+    "scale": 1.0000002468646183
+  },
+  {
+    "id": "bk_m_hands_hands",
+    "source": "bk_m_hands",
+    "region": "hands",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000038,
+    "bindDelta": 0.0000043706923336184894,
+    "scale": 1.0000002468646183
+  },
+  {
+    "id": "bk_m_jacket_torso",
+    "source": "bk_m_jacket",
+    "region": "torso",
+    "bones": 96,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000001033,
+    "bindDelta": 4.284804510472539e-7,
+    "scale": 1
+  },
+  {
+    "id": "bk_m_jacket_arms",
+    "source": "bk_m_jacket",
+    "region": "arms",
+    "bones": 96,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000973,
+    "bindDelta": 4.284804510472539e-7,
+    "scale": 1
+  },
+  {
+    "id": "bk_m_jeans_vest_torso",
+    "source": "bk_m_jeans_vest",
+    "region": "torso",
+    "bones": 66,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000003066,
+    "bindDelta": 3.5501106399758966e-15,
+    "scale": 1
+  },
+  {
+    "id": "bk_m_jeans_vest_legs",
+    "source": "bk_m_jeans_vest",
+    "region": "legs",
+    "bones": 66,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999999977,
+    "bindDelta": 3.5501106399758966e-15,
+    "scale": 1
+  },
+  {
+    "id": "bk_m_shirt_vest_torso",
+    "source": "bk_m_shirt_vest",
+    "region": "torso",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000726,
+    "bindDelta": 0.0000043706923336184894,
+    "scale": 1.0000002468646183
+  },
+  {
+    "id": "bk_m_shirt_vest_arms",
+    "source": "bk_m_shirt_vest",
+    "region": "arms",
+    "bones": 161,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000107,
+    "bindDelta": 0.0000043706923336184894,
+    "scale": 1.0000002468646183
+  },
+  {
+    "id": "bk_m_vest_long_torso",
+    "source": "bk_m_vest_long",
+    "region": "torso",
+    "bones": 91,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000001805,
+    "bindDelta": 3.5501106399758966e-15,
+    "scale": 1
+  },
+  {
+    "id": "bk_m_vest_long_arms",
+    "source": "bk_m_vest_long",
+    "region": "arms",
+    "bones": 91,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000764,
+    "bindDelta": 3.5501106399758966e-15,
+    "scale": 1
+  },
+  {
+    "id": "bk_m_pants_legs",
+    "source": "bk_m_pants",
+    "region": "legs",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000335,
+    "bindDelta": 0.0000043706923336184894,
+    "scale": 1.0000002468646183
+  },
+  {
+    "id": "bk_m_tanktop_torso",
+    "source": "bk_m_tanktop",
+    "region": "torso",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000002,
+    "bindDelta": 0.0000043706923336184894,
+    "scale": 1.0000002468646183
+  },
+  {
+    "id": "bk_m_boots_feet",
+    "source": "bk_m_boots",
+    "region": "feet",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000222,
+    "bindDelta": 0.000003848439834664245,
+    "scale": 1.0000006563740351
+  },
+  {
+    "id": "bk_m_shoes_feet",
+    "source": "bk_m_shoes",
+    "region": "feet",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000098,
+    "bindDelta": 0.0000043706923336184894,
+    "scale": 1.0000002468646183
+  },
+  {
+    "id": "bk_m_gloves_hands",
+    "source": "bk_m_gloves",
+    "region": "hands",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000253,
+    "bindDelta": 0.0000043706923336184894,
+    "scale": 1.0000002468646183
+  },
+  {
+    "id": "bk_m_bandana_accessory",
+    "source": "bk_m_bandana",
+    "region": "accessory",
+    "bones": 10,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 3.5501106399758966e-15,
+    "scale": 1
+  },
+  {
+    "id": "bk_m_glasses_accessory",
+    "source": "bk_m_glasses",
+    "region": "accessory",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.000003848439834664245,
+    "scale": 1.0000006563740351
+  },
+  {
+    "id": "bk_f_leather_arms",
+    "source": "bk_f_leather",
+    "region": "arms",
+    "bones": 90,
+    "coverageByName": 1,
+    "coverageByWeight": 1.000000000000092,
+    "bindDelta": 0.3970316400251922,
+    "scale": 1.1185769583801002
+  },
+  {
+    "id": "bk_f_leather_torso",
+    "source": "bk_f_leather",
+    "region": "torso",
+    "bones": 90,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999997283,
+    "bindDelta": 0.3970316400251922,
+    "scale": 1.1185769583801002
+  },
+  {
+    "id": "bk_f_shirt_vest_arms",
+    "source": "bk_f_shirt_vest",
+    "region": "arms",
+    "bones": 159,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000001923,
+    "bindDelta": 0.5007641042060338,
+    "scale": 1.118576891616443
+  },
+  {
+    "id": "bk_f_shirt_vest_torso",
+    "source": "bk_f_shirt_vest",
+    "region": "torso",
+    "bones": 159,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000001807,
+    "bindDelta": 0.5007641042060338,
+    "scale": 1.118576891616443
+  },
+  {
+    "id": "bk_f_shirt_half_torso",
+    "source": "bk_f_shirt_half",
+    "region": "torso",
+    "bones": 76,
+    "coverageByName": 1,
+    "coverageByWeight": 0.9999999999998119,
+    "bindDelta": 0.15456111073757983,
+    "scale": 1.118576891616443
+  },
+  {
+    "id": "bk_f_pants_legs",
+    "source": "bk_f_pants",
+    "region": "legs",
+    "bones": 159,
+    "coverageByName": 1,
+    "coverageByWeight": 1.00000000000001,
+    "bindDelta": 0.5007644802103732,
+    "scale": 1.1185768609133602
+  },
+  {
+    "id": "bk_f_tanktop_torso",
+    "source": "bk_f_tanktop",
+    "region": "torso",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000457,
+    "bindDelta": 0.5007643347448784,
+    "scale": 1.1185770978222185
+  },
+  {
+    "id": "bk_f_boots_feet",
+    "source": "bk_f_boots",
+    "region": "feet",
+    "bones": 159,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000069,
+    "bindDelta": 0.5007641042060338,
+    "scale": 1.1185771022833753
+  },
+  {
+    "id": "bk_f_boots_casual_feet",
+    "source": "bk_f_boots_casual",
+    "region": "feet",
+    "bones": 159,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000049,
+    "bindDelta": 0.5007641042060338,
+    "scale": 1.1185771022833753
+  },
+  {
+    "id": "bk_f_hair_hair",
+    "source": "bk_f_hair",
+    "region": "hair",
+    "bones": 10,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.12022440237513533,
+    "scale": 1.1185770978285376
+  },
+  {
+    "id": "bk_f_bandana_accessory",
+    "source": "bk_f_bandana",
+    "region": "accessory",
+    "bones": 150,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 0.5007641042060338,
+    "scale": 1.1185768916164425
+  },
+  {
+    "id": "ue4_mannequin_arms",
+    "source": "ue4_mannequin",
+    "region": "arms",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000022,
+    "bindDelta": 1.409886010605897,
+    "scale": 0.980046908393096
+  },
+  {
+    "id": "ue4_mannequin_hands",
+    "source": "ue4_mannequin",
+    "region": "hands",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1,
+    "bindDelta": 1.409886010605897,
+    "scale": 0.980046908393096
+  },
+  {
+    "id": "ue4_mannequin_feet",
+    "source": "ue4_mannequin",
+    "region": "feet",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000002,
+    "bindDelta": 1.409886010605897,
+    "scale": 0.980046908393096
+  },
+  {
+    "id": "ue4_mannequin_legs",
+    "source": "ue4_mannequin",
+    "region": "legs",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000007,
+    "bindDelta": 1.409886010605897,
+    "scale": 0.980046908393096
+  },
+  {
+    "id": "ue4_mannequin_torso",
+    "source": "ue4_mannequin",
+    "region": "torso",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000095,
+    "bindDelta": 1.409886010605897,
+    "scale": 0.980046908393096
+  },
+  {
+    "id": "ue4_mannequin_head",
+    "source": "ue4_mannequin",
+    "region": "head",
+    "bones": 68,
+    "coverageByName": 1,
+    "coverageByWeight": 1.0000000000000007,
+    "bindDelta": 1.409886010605897,
+    "scale": 0.980046908393096
+  },
+  {
+    "id": "uefn_mannequin_feet",
+    "source": "uefn_mannequin",
+    "region": "feet",
+    "bones": 88,
+    "coverageByName": 0.9886363636363636,
+    "coverageByWeight": 0.9999999999999998,
+    "bindDelta": 1.0790806737312895,
+    "scale": 1.141004463566801
+  },
+  {
+    "id": "uefn_mannequin_arms",
+    "source": "uefn_mannequin",
+    "region": "arms",
+    "bones": 88,
+    "coverageByName": 0.9886363636363636,
+    "coverageByWeight": 1.000000000000002,
+    "bindDelta": 1.0790806737312895,
+    "scale": 1.141004463566801
+  },
+  {
+    "id": "uefn_mannequin_legs",
+    "source": "uefn_mannequin",
+    "region": "legs",
+    "bones": 88,
+    "coverageByName": 0.9886363636363636,
+    "coverageByWeight": 1,
+    "bindDelta": 1.0790806737312895,
+    "scale": 1.141004463566801
+  },
+  {
+    "id": "uefn_mannequin_head",
+    "source": "uefn_mannequin",
+    "region": "head",
+    "bones": 88,
+    "coverageByName": 0.9886363636363636,
+    "coverageByWeight": 1,
+    "bindDelta": 1.0790806737312895,
+    "scale": 1.141004463566801
+  },
+  {
+    "id": "uefn_mannequin_torso",
+    "source": "uefn_mannequin",
+    "region": "torso",
+    "bones": 88,
+    "coverageByName": 0.9886363636363636,
+    "coverageByWeight": 0.999999999999997,
+    "bindDelta": 1.0790806737312895,
+    "scale": 1.141004463566801
+  },
+  {
+    "id": "uefn_mannequin_hands",
+    "source": "uefn_mannequin",
+    "region": "hands",
+    "bones": 88,
+    "coverageByName": 0.9886363636363636,
+    "coverageByWeight": 1.000000000000007,
+    "bindDelta": 1.0790806737312895,
+    "scale": 1.141004463566801
+  },
+  {
+    "id": "mh_mocap_m_feet",
+    "source": "mh_mocap_m",
+    "region": "feet",
+    "bones": 210,
+    "coverageByName": 0.7142857142857143,
+    "coverageByWeight": 0.957605434185814,
+    "bindDelta": 0.5596728414881494,
+    "scale": 1.0375892970949907
+  },
+  {
+    "id": "mh_mocap_m_head",
+    "source": "mh_mocap_m",
+    "region": "head",
+    "bones": 210,
+    "coverageByName": 0.7142857142857143,
+    "coverageByWeight": 1.0000000000000038,
+    "bindDelta": 0.5596728414881494,
+    "scale": 1.0375892970949907
+  },
+  {
+    "id": "mh_mocap_m_arms",
+    "source": "mh_mocap_m",
+    "region": "arms",
+    "bones": 210,
+    "coverageByName": 0.7142857142857143,
+    "coverageByWeight": 0.9560925857447851,
+    "bindDelta": 0.5596728414881494,
+    "scale": 1.0375892970949907
+  },
+  {
+    "id": "mh_mocap_m_torso",
+    "source": "mh_mocap_m",
+    "region": "torso",
+    "bones": 210,
+    "coverageByName": 0.7142857142857143,
+    "coverageByWeight": 0.9776900954069152,
+    "bindDelta": 0.5596728414881494,
+    "scale": 1.0375892970949907
+  },
+  {
+    "id": "mh_mocap_m_hands",
+    "source": "mh_mocap_m",
+    "region": "hands",
+    "bones": 210,
+    "coverageByName": 0.7142857142857143,
+    "coverageByWeight": 0.7654138143125895,
+    "bindDelta": 0.5596728414881494,
+    "scale": 1.0375892970949907
+  },
+  {
+    "id": "mh_mocap_m_legs",
+    "source": "mh_mocap_m",
+    "region": "legs",
+    "bones": 210,
+    "coverageByName": 0.7142857142857143,
+    "coverageByWeight": 0.8882288800041614,
+    "bindDelta": 0.5596728414881494,
+    "scale": 1.0375892970949907
+  }
+]

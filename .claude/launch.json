@@ -1,0 +1,29 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ui-creation",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "8777",
+        "--directory",
+        "WebPortal/Server/nanos_world/packages/narvos-map-proto/Client/UI"
+      ],
+      "port": 8777
+    },
+    {
+      "name": "vite-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "WebPortal",
+        "run",
+        "dev"
+      ],
+      "port": 3005
+    }
+  ]
+}

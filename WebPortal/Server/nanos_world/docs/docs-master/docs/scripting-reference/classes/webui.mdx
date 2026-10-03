@@ -1,0 +1,194 @@
+---
+title: 🖥️ WebUI
+description: Class for spawning a web browser in the screen
+sidebar_position: 0
+tags: [scripting, ui]
+---
+
+<HeaderDeclaration type="Class" name="WebUI" image="/img/docs/webui.webp" />
+
+:::tip
+
+Our WebUI implementation is built using the last versions of [Chromium Embedded Framework](https://bitbucket.org/chromiumembedded/cef).
+
+:::
+
+:::tip
+
+To access the in-browser remote debugging head over to http://localhost:9222 when you are connected to a server.
+
+:::
+
+:::note Proprietary Codecs
+
+Proprietary Codecs like **MPEG-4** (.mp4), **H.264**, **H.265** and **AAC** are not supported on public CEF builds. We recommend converting your media files to **WEBM** or **OGG**.
+
+:::
+
+
+## 🎒 Examples {/* #examples */}
+
+```lua title="Client/Index.lua" showLineNumbers
+-- Loading a local file
+local my_ui = WebUI(
+    "Awesome UI",            -- Name
+    "file://UI/index.html",  -- Path relative to this package (Client/)
+    WidgetVisibility.Visible  -- Is Visible on Screen
+)
+
+-- Loading a Web URL
+local my_browser = WebUI(
+    "Awesome Site",          -- Name
+    "https://nanos-world.com",   -- Web's URL
+    WidgetVisibility.Visible  -- Is Visible on Screen
+)
+
+-- Loading a local file from other package
+local my_ui = WebUI(
+    "Awesome Other UI",      -- Name
+    "file://other-package/Client/UI/index.html",
+    WidgetVisibility.Visible  -- Is Visible on Screen
+)
+```
+
+
+#### Using a WebUI as Mesh Material {/* #using-a-webui-as-mesh-material */}
+
+```lua title="Client/Index.lua" showLineNumbers
+-- Spawns a WebUI with is_visible = false, is_transparent = false, auto_resize = false and size of 500x500
+local my_ui = WebUI("Awesome Site", "https://nanos-world.com", false, false, false, 500, 500)
+
+-- Spawns a StaticMesh (can be any mesh)
+local static_mesh = StaticMesh(Vector(0, 0, 100), Rotator(), "nanos-world::SM_Cube")
+
+-- Sets the mesh material to use the WebUI
+static_mesh:SetMaterialFromWebUI(my_ui)
+```
+
+
+#### Communicating between Lua and JS (WebUI) {/* #communicating-between-lua-and-js-webui */}
+
+```lua title="Client/Index.lua" showLineNumbers
+local my_ui = WebUI("Awesome UI", "file://UI/index.html")
+
+local param1 = 123
+local param2 = "hello"
+
+-- Calls a JS event
+my_ui:CallEvent("MyEvent", param1, param2)
+
+-- Subscribes to receive JS events
+my_ui:Subscribe("MyAnswer", function(param1)
+    Console.Log("Received back! %s", param1)
+    -- Will output 'Received back! Hey there!'
+end)
+```
+
+```javascript title="script.js" showLineNumbers
+// Register for "MyEvent" from Lua
+Events.Subscribe("MyEvent", function(param1, param2) {
+    console.log("Triggered! " + param1 + " " + param2);
+    // Will output 'Triggered! 123 hello'
+
+    // Triggers "MyAnswer" on Lua
+    Events.Call("MyAnswer", "Hey there!");
+});
+
+// It is also possible to unsubscribe from an event to make it stop triggering
+Events.Unsubscribe("MyEvent");
+```
+
+
+#### Pretty Scroll Bar {/* #pretty-scroll-bar */}
+
+Since we migrated from Webkit to CEF, some scrollbars got ugly. Here's a small CSS snippet to make them almost like the Webkit ones:
+
+```css showLineNumbers
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #494949;
+}
+
+body {
+    scrollbar-gutter: stable both-edges;
+}
+```
+
+More related examples:
+
+<ReferenceLink href="core-concepts/scripting/user-interface">User Interface</ReferenceLink>
+<ReferenceLink href="getting-started/tutorials-and-examples/basic-hud-html">Basic HUD (HTML)</ReferenceLink>
+
+:::tip
+
+You can use the output Texture from a Canvas with [:SetMaterialFromWebUI()](/scripting-reference/classes/base-classes/paintable.mdx#setmaterialfromwebui) method!
+
+:::
+
+
+## 📚 Libraries & Frameworks {/* #libraries--frameworks */}
+
+Here a list of Community Created Libraries & Frameworks making use of WebUIs expanding it's possibilities:
+
+
+<div className="card-links">
+
+<CardLink
+	title="EGUI"
+	description="Framework for creating User Interfaces by MegaThorx"
+	image_src="https://nanos-world.github.io/egui-docs/assets/images/tab-panel-2c678b43d0cc8a3fec78e8507eaebac1.png"
+	href="https://github.com/nanos-world/egui"
+	is_lean={true}
+/>
+
+<CardLink
+	title="WebUI3d2d"
+	description="Spawn interactable WebUIs in the 3D world by Timmy"
+	image_src="/img/docs/webui3d2d.webp"
+	href="https://github.com/Timmy-the-nobody/WebUI3d2d"
+	is_lean={true}
+/>
+
+<CardLink
+	title="UI Framework"
+	description="A powerful UI framework ported by Voltaism"
+	image_src="https://github.com/vugi99/nanos-uiframework/raw/master/screenshots/UIFrameworkLogo2_1000x500.png"
+	href="https://github.com/vugi99/nanos-uiframework"
+	is_lean={true}
+/>
+
+</div>
+
+
+## 🛠 Constructors {/* #constructors */}
+
+<ConstructorDeclaration type="Class" name="WebUI" />
+
+
+## 🔍 HTML Path Searchers {/* #html-path-searchers */}
+
+Loading a .html file supports the following searchers, which are looked in the following order:
+
+1. Relative to `current-file-path/`
+2. Relative to `current-package/Client/`
+3. Relative to `current-package/`
+4. Relative to `Packages/`
+
+
+## 🗿 Static Functions {/* #static-functions */}
+
+<StaticFunctionsDeclaration type="Class" name="WebUI" />
+
+
+## 🦠 Functions {/* #functions */}
+
+<FunctionsDeclaration type="Class" name="WebUI" />
+
+
+## 🚀 Events {/* #events */}
+
+<EventsDeclaration type="Class" name="WebUI" />

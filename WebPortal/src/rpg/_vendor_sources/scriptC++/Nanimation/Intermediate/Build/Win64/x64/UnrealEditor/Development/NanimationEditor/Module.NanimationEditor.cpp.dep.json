@@ -1,0 +1,37 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\nanimationeditor\\module.nanimationeditor.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\aniss\\documents\\tpsmodelue57_01\\intermediate\\build\\win64\\x64\\tpsmodelue57editor\\development\\unrealed\\sharedpch.unrealed.project.valapi.valexpapi.cpp20.inclorderunreal5_6.h.pch",
+        "Includes": [
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\nanimationeditor\\definitions.nanimationeditor.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimationeditor\\uht\\animgraphnode_nanimselect.gen.cpp",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\source\\nanimationeditor\\public\\animgraphnode_nanimselect.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\editor\\animgraph\\public\\animgraphnode_base.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\editor\\unrealed\\public\\ipropertyaccesseditor.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\animgraph\\uht\\animgraphnode_base.generated.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\source\\nanimation\\public\\animnode_nanimselect.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\source\\nanimation\\public\\nanimationtypes.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimation\\uht\\nanimationtypes.generated.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimation\\uht\\animnode_nanimselect.generated.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimationeditor\\uht\\animgraphnode_nanimselect.generated.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimationeditor\\uht\\nanimationeditor.init.gen.cpp",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimationeditor\\uht\\nanimationeditorsettings.gen.cpp",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\source\\nanimationeditor\\public\\nanimationeditorsettings.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimationeditor\\uht\\nanimationeditorsettings.generated.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimationeditor\\uht\\nanimeditorlibrary.gen.cpp",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\source\\nanimationeditor\\public\\nanimeditorlibrary.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimationeditor\\uht\\nanimeditorlibrary.generated.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimationeditor\\uht\\nanimgeneratesetcommandlet.gen.cpp",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\source\\nanimationeditor\\public\\nanimgeneratesetcommandlet.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\runtime\\engine\\classes\\commandlets\\commandlet.h",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\commandlet.generated.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\unrealeditor\\inc\\nanimationeditor\\uht\\nanimgeneratesetcommandlet.generated.h",
+            "c:\\users\\aniss\\documents\\tpsmodelue57_01\\plugins\\nanimation\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\nanimationeditor\\permoduleinline.gen.cpp",
+            "c:\\program files\\epic games\\ue_5.8\\engine\\source\\runtime\\core\\public\\hal\\permoduleinline.inl"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

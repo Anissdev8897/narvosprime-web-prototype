@@ -1,0 +1,256 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   ASSEMBLAGE — l'établi : slots du plan à gauche, sac filtré à droite.
+
+   Direction : deux colonnes INÉGALES séparées par un filet PLEINE HAUTEUR (un
+   filet SÉPARE ou va jusqu'au bord, jamais de moignon). Pas de grille de cartes
+   uniformes : les slots sont des lignes de hauteur variable, le sac une liste
+   dense. Les liserés de rareté sont ceux du catalogue, comme dans l'inventaire
+   et la roue. Aucun dégradé décoratif.
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Corps en deux colonnes inégales ─────────────────────────────────────────── */
+
+.assemblage-corps {
+	display: flex;
+	align-items: stretch;
+	min-height: 280px;
+	max-height: 52vh;
+}
+
+/* Les slots : la colonne LARGE — c'est ici que le travail se fait. */
+.assemblage-slots {
+	list-style: none;
+	flex: 3;
+	overflow-y: auto;
+	padding: 14px 20px 18px 24px;
+}
+
+/* Le sac : plus étroit, derrière le filet pleine hauteur qui SÉPARE les deux
+   natures de contenu (ce qu'on construit / ce qu'on a). */
+.assemblage-cote {
+	flex: 2;
+	display: flex;
+	flex-direction: column;
+	border-left: 1px solid var(--bord);
+	padding-left: 0;
+	min-width: 0;
+}
+
+.assemblage-cote .consigne {
+	/* La consigne touche le filet : elle appartient à la colonne du sac. */
+	padding: 12px 16px 10px 18px;
+}
+
+.assemblage-cote .liste-dense {
+	flex: 1;
+	overflow-y: auto;
+	padding: 0 14px 16px 18px;
+}
+
+/* ── Un slot du plan ─────────────────────────────────────────────────────────── */
+
+.assemblage-slot {
+	margin-bottom: 8px;
+	background: rgba(255, 255, 255, .015);
+	/* Le liseré gauche porte l'ÉTAT du slot : requis, optionnel, complet. */
+	border-left: 3px solid var(--bord);
+}
+
+.assemblage-slot[data-etat="requis"]    { border-left-color: var(--accent); }
+.assemblage-slot[data-etat="optionnel"] { border-left-color: var(--bord); }
+.assemblage-slot[data-etat="complet"]   { border-left-color: var(--uncommon); }
+
+.assemblage-slot-tete {
+	display: flex;
+	align-items: baseline;
+	gap: 12px;
+	width: 100%;
+	padding: 10px 12px;
+	background: none;
+	border: none;
+	color: var(--texte);
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+	transition: background .12s;
+}
+.assemblage-slot-tete:hover { background: rgba(78, 201, 224, .06); }
+
+/* Le slot sélectionné : la barre pleine sur toute la hauteur de la ligne, pas
+   une coche — comme l'actif du panneau graphismes. */
+.assemblage-slot[aria-current="true"] {
+	background: rgba(78, 201, 224, .07);
+}
+.assemblage-slot[aria-current="true"] .assemblage-slot-nom { color: var(--accent-fort); }
+
+.assemblage-slot-nom {
+	flex: 1;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+/* « requis » / « optionnel » : l'information qui décide si la finalisation est
+   possible, visible avant même les chiffres. */
+.assemblage-slot-marque {
+	font-size: 9px;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: var(--texte-faible);
+}
+.assemblage-slot[data-etat="requis"] .assemblage-slot-marque { color: var(--accent); }
+.assemblage-slot[data-etat="complet"] .assemblage-slot-marque { color: var(--uncommon); }
+
+.assemblage-slot-compte {
+	font-family: "Share Tech Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+	font-size: 12px;
+	color: var(--texte-faible);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+.assemblage-slot[data-etat="complet"] .assemblage-slot-compte { color: var(--uncommon); }
+
+/* ── Les pièces posées dans un slot ──────────────────────────────────────────── */
+
+.assemblage-posees {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	padding: 0 12px 10px 12px;
+}
+
+.assemblage-posee {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 4px 9px 4px 6px;
+	background: rgba(255, 255, 255, .03);
+	border: 1px solid var(--bord);
+	border-left: 3px solid var(--common);
+	cursor: pointer;
+	transition: border-color .12s, background .12s;
+}
+.assemblage-posee:hover {
+	border-color: var(--legendary);
+	background: rgba(240, 160, 32, .06);
+}
+.assemblage-posee[data-rarete="uncommon"]  { border-left-color: var(--uncommon); }
+.assemblage-posee[data-rarete="rare"]      { border-left-color: var(--rare); }
+.assemblage-posee[data-rarete="epic"]      { border-left-color: var(--epic); }
+.assemblage-posee[data-rarete="legendary"] { border-left-color: var(--legendary); }
+
+.assemblage-posee .nom { font-size: 12px; }
+.assemblage-posee .qte {
+	font-size: 11px;
+	color: var(--accent);
+	font-variant-numeric: tabular-nums;
+}
+
+/* Le × n'apparaît qu'au survol : retirer est un geste rare, il ne doit pas
+   encombrer chaque puce en permanence. */
+.assemblage-retirer {
+	font-size: 13px;
+	line-height: 1;
+	color: var(--texte-faible);
+	opacity: 0;
+	transition: opacity .12s, color .12s;
+}
+.assemblage-posee:hover .assemblage-retirer { opacity: 1; }
+.assemblage-posee:hover .assemblage-retirer:hover { color: var(--legendary); }
+
+.assemblage-posee .roue-icone { width: 22px; height: 22px; }
+.assemblage-posee .roue-emoji { font-size: 16px; line-height: 22px; }
+.assemblage-posee .roue-img { width: 22px; height: 22px; }
+
+/* ── Le sac, filtré par le serveur ───────────────────────────────────────────── */
+
+.assemblage-cote .liste-dense li {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+/* Ce que le slot accepterait : plein contraste, cliquable. */
+.assemblage-cote .liste-dense li[data-pose="oui"] {
+	border-left: 3px solid var(--common);
+	cursor: pointer;
+}
+.assemblage-cote .liste-dense li[data-pose="oui"]:hover {
+	background: rgba(78, 201, 224, .07);
+}
+.assemblage-cote .liste-dense li[data-pose="oui"][data-rarete="uncommon"]  { border-left-color: var(--uncommon); }
+.assemblage-cote .liste-dense li[data-pose="oui"][data-rarete="rare"]      { border-left-color: var(--rare); }
+.assemblage-cote .liste-dense li[data-pose="oui"][data-rarete="epic"]      { border-left-color: var(--epic); }
+.assemblage-cote .liste-dense li[data-pose="oui"][data-rarete="legendary"] { border-left-color: var(--legendary); }
+
+/* Ce qu'il refuse : grisé, sans liseré — une pièce qui ne promet rien. Le
+   filtrage est décidé par le serveur ; la page ne fait que le montrer. */
+.assemblage-cote .liste-dense li[data-pose="non"] {
+	opacity: .38;
+	cursor: default;
+}
+
+.assemblage-piece-icone { flex: none; }
+.assemblage-cote .liste-dense .roue-icone { width: 24px; height: 24px; }
+.assemblage-cote .liste-dense .roue-emoji { font-size: 18px; line-height: 24px; }
+.assemblage-cote .liste-dense .roue-img { width: 24px; height: 24px; }
+
+/* ── Choix du plan (sans assemblage en cours) ────────────────────────────────── */
+
+#assemblage-choix {
+	overflow-y: auto;
+	max-height: 52vh;
+	padding: 10px 18px 18px;
+}
+
+#assemblage-plans { padding: 0; }
+
+#assemblage-plans li {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	border-left: 3px solid var(--common);
+}
+#assemblage-plans li[data-rarete="uncommon"]  { border-left-color: var(--uncommon); }
+#assemblage-plans li[data-rarete="rare"]      { border-left-color: var(--rare); }
+#assemblage-plans li[data-rarete="epic"]      { border-left-color: var(--epic); }
+#assemblage-plans li[data-rarete="legendary"] { border-left-color: var(--legendary); }
+
+#assemblage-plans .ref { flex: none; max-width: 46%; }
+
+.assemblage-plan-icone { flex: none; }
+#assemblage-plans .roue-icone { width: 26px; height: 26px; }
+#assemblage-plans .roue-emoji { font-size: 20px; line-height: 26px; }
+#assemblage-plans .roue-img { width: 26px; height: 26px; }
+
+/* ── Refus et résultat, au bas du panneau ────────────────────────────────────── */
+
+/* Même langue que le refus de la roue : bord ambre, posé, éphémère (le JS le
+   masque tout seul). */
+.assemblage-refus {
+	margin: 0 24px 16px;
+	padding: 9px 14px;
+	background: rgba(11, 15, 20, .92);
+	border: 1px solid var(--legendary);
+	border-left: 3px solid var(--legendary);
+	font-size: 13px;
+	color: var(--texte);
+}
+
+/* Le résultat est dit honnêtement : un objet dans le sac, pas une promesse. */
+.assemblage-resultat {
+	margin: 0 24px 16px;
+	padding: 9px 14px;
+	background: rgba(79, 191, 106, .07);
+	border: 1px solid var(--uncommon);
+	border-left: 3px solid var(--uncommon);
+	font-size: 13px;
+	line-height: 1.5;
+	color: var(--texte);
+}
+
+/* Le bouton Finaliser désactivé doit se lire comme tel : pas une cible morte. */
+#assemblage-finaliser:disabled {
+	opacity: .38;
+	cursor: default;
+}

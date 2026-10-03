@@ -1,0 +1,25 @@
+{
+  // Typage des prototypes (`Prototype/**`).
+  //
+  // ── POURQUOI UN FICHIER SÉPARÉ ─────────────────────────────────────────────
+  //
+  // `tsconfig.json` n'inclut que `src/**/*` : mesuré le 04/08/2026, tsc voyait
+  // 0 fichier de `Prototype/`. `npm run typecheck` annonçait donc « 0 erreur »
+  // sans jamais avoir regardé le dossier — un contrôle qui rassure sans rien
+  // contrôler, exactement ce que la politique prototype cherche à éviter.
+  //
+  // Séparé plutôt qu'ajouté à l'`include` principal : une erreur de type dans
+  // un prototype ne doit PAS bloquer le build du jeu, mais elle doit être
+  // visible. Deux commandes, deux verdicts.
+  //
+  // Les fichiers de `src/` importés par un prototype sont tirés en même temps
+  // (résolution de modules), donc l'interface consommée est vérifiée elle aussi.
+  //
+  // `src/vite-env.d.ts` est listé explicitement : il déclare `ImportMeta.env`,
+  // que les modules de `src/` tirés par les prototypes utilisent. Sans lui,
+  // deux erreurs fantômes remontent (`sharedLoaders`, `AudioManager`) — des
+  // fichiers pourtant sains, faute d'avoir chargé leurs déclarations globales.
+  "extends": "./tsconfig.json",
+  "include": ["Prototype/**/*", "src/vite-env.d.ts"],
+  "exclude": ["node_modules", "dist", "dist-electron"]
+}

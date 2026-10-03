@@ -1,0 +1,204 @@
+---
+title: 🕹️ Input
+description: Create custom Bindings and Retrieve Input information
+tags: [static-class, client]
+---
+
+<HeaderDeclaration type="StaticClass" name="Input" />
+
+
+## 🎒 Examples {/* #examples */}
+
+```lua title="Client/Index.lua" showLineNumbers
+-- Registers the binding_name 'SpawnMenu' with default key 'Q'
+-- This will add 'SpawnMenu' to user KeyBinding Settings automatically
+Input.Register("SpawnMenu", "Q")
+
+-- Subscribes for Pressing the key
+Input.Bind("SpawnMenu", InputEvent.Pressed, function()
+	-- Opens the Spawn Menu
+end)
+
+-- Subscribes for Releasing the key
+Input.Bind("SpawnMenu", InputEvent.Released, function()
+	-- Closes the Spawn Menu
+end)
+```
+
+```lua title="Client/Index.lua" showLineNumbers
+-- Subscribes for native Bindings
+Input.Bind("MoveForward", InputEvent.Pressed, function(delta)
+	-- Pressed MoveForward key (usually W)
+end)
+
+-- Subscribes for native Bindings
+Input.Bind("MoveBackward", InputEvent.Pressed, function(delta)
+	-- Pressed MoveBackward key (usually S)
+end)
+```
+
+<ExamplesDeclaration type="StaticClass" name="Input" />
+
+
+## 🗿 Static Functions {/* #static-functions */}
+
+<StaticFunctionsDeclaration type="StaticClass" name="Input" />
+
+## 🚀 Events {/* #events */}
+
+<EventsDeclaration type="StaticClass" name="Input" />
+
+## ⌨️ Key Names {/* #️-key-names */}
+
+List of all keys names returned in Key/Mouse events.
+
+
+### ▶️ Function Keys {/* #️function-keys */}
+
+| **Key Name** | **Description** |
+| :--- | :--- |
+| **`F1`** | Function One |
+| **`F2`** | Function Two |
+| **`F3`** | Function Three |
+| **`F4`** | Function Four |
+| **`F5`** | Function Five |
+| **`F6`** | Function Six |
+| **`F7`** | Function Seven |
+| **`F8`** | Function Eight |
+| **`F9`** | Function Nine |
+| **`F10`** | Function Ten |
+| **`F11`** | Function Eleven |
+| **`F12`** | Function Twelve |
+
+
+### ▶️ Alphanumerical keys {/* #️alphanumerical-keys */}
+
+| **Key Name** | **Description** |
+| :--- | :--- |
+| **`A`** | Letter A |
+| **`B`** | Letter B |
+| **`C`** | Letter C |
+| **`D`** | Letter D |
+| **`E`** | Letter E |
+| **`F`** | Letter F |
+| **`G`** | Letter G |
+| **`H`** | Letter H |
+| **`I`** | Letter I |
+| **`J`** | Letter J |
+| **`K`** | Letter K |
+| **`L`** | Letter L |
+| **`M`** | Letter M |
+| **`N`** | Letter N |
+| **`O`** | Letter O |
+| **`P`** | Letter P |
+| **`Q`** | Letter Q |
+| **`R`** | Letter R |
+| **`S`** | Letter S |
+| **`T`** | Letter T |
+| **`U`** | Letter U |
+| **`V`** | Letter V |
+| **`W`** | Letter W |
+| **`X`** | Letter X |
+| **`Y`** | Letter Y |
+| **`Z`** | Letter Z |
+
+
+### ▶️ Special keys {/* #️special-keys */}
+
+| **Key Name** | **Description** |
+| :--- | :--- |
+| **`Escape`** | Escape |
+| **`Tab`** | Tab |
+| **`Tilde`** | ~ |
+| **`ScrollLock`** | Scroll Lock |
+| **`Pause`** | Pause |
+| **`BackSpace`** | BackSpace |
+| **`One`** | One |
+| **`Two`** | Two |
+| **`Three`** | Three |
+| **`Four`** | Four |
+| **`Five`** | Five |
+| **`Six`** | Six |
+| **`Seven`** | Seven |
+| **`Eight`** | Eight |
+| **`Nine`** | Nine |
+| **`Zero`** | Zero |
+| **`Underscore`** | \_ |
+| **`Equals`** | = |
+| **`Backslash`** |  |
+| **`LeftBracket`** | \[ |
+| **`RightBracket`** | \] |
+| **`Enter`** | Enter or Numpad Enter |
+| **`CapsLock`** | Caps Lock |
+| **`Semicolon`** | ; |
+| **`Quote`** | ‘ |
+| **`LeftShift`** | Left Shift |
+| **`Comma`** | , |
+| **`Period`** | . |
+| **`Slash`** | / |
+| **`RightShift`** | Right Shift |
+| **`LeftControl`** | Left Control |
+| **`LeftAlt`** | Left Alt |
+| **`SpaceBar`** | Space Bar |
+| **`RightAlt`** | Right Alt |
+| **`RightControl`** | Right Control |
+| **`Left`** | Left |
+| **`Up`** | Up |
+| **`Down`** | Down |
+| **`Right`** | Right |
+| **`Home`** | Home |
+| **`End`** | End |
+| **`Insert`** | Insert |
+| **`PageUp`** | Page Up |
+| **`Delete`** | Delete |
+| **`PageDown`** | Page Down |
+| **`NumLock`** | Num Lock |
+| **`Divide`** | Numpad / |
+| **`Multiply`** | Numpad \* |
+| **`Subtract`** | Numpad - |
+| **`Add`** | Numpad + |
+| **`PageDown`** | Page Down |
+| **`NumPadOne`** | Numpad One |
+| **`NumPadTwo`** | Numpad Two |
+| **`NumPadThree`** | Numpad Three |
+| **`NumPadFour`** | Numpad Four |
+| **`NumPadFive`** | Numpad Five |
+| **`NumPadSix`** | Numpad Six |
+| **`NumPadSeven`** | Numpad Seven |
+| **`NumPadEight`** | Numpad Eight |
+| **`NumPadNine`** | Numpad Nine |
+| **`NumPadZero`** | Numpad Zero |
+| **`Decimal`** | Numpad Decimal |
+
+
+### ▶️ Mouse {/* #️mouse */}
+
+| **Key Name** | **Description** |
+| :--- | :--- |
+| **`LeftMouseButton`** | Left Mouse Button |
+| **`RightMouseButton`** | Right Mouse Button |
+| **`MiddleMouseButton`** | Middle Mouse Button |
+| **`ThumbMouseButton`** | Primary Mouse Thumb Button |
+| **`ThumbMouseButton2`** | Secondary Mouse Thumb Button |
+| **`MouseScrollUp`** | Mouse Wheel Scrolling Up |
+| **`MouseScrollDown`** | Mouse Wheel Scrolling Down |
+| **`MouseX`** | Mouse Movement on the X Axis |
+| **`MouseY`** | Mouse Movement on the Y Axis |
+
+
+### ▶️ AZERTY {/* #️azerty */}
+
+| **Key Name** | **Description** |
+| :--- | :--- |
+| **`Ampersand`**| & |
+| **`Asterix`**| * |
+| **`Caret`**| ^ |
+| **`Colon`**| : |
+| **`Dollar`**| $ |
+| **`Exclamation`**| ! |
+| **`LeftParantheses`**| ( |
+| **`RightParantheses`**| ) |
+| **`A_AccentGrave`**| À |
+| **`C_Cedille`**| Ç |
+| **`E_AccentAigu`**| É |
+| **`E_AccentGrave`**| È |

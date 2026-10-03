@@ -1,0 +1,117 @@
+{
+  "ok": true,
+  "rigs": [
+    {
+      "name": "IK_NarvosMetaHuman",
+      "solvers": 1,
+      "goals": [
+        "LeftFootIK",
+        "LeftHandIK",
+        "RightFootIK",
+        "RightHandIK"
+      ]
+    },
+    {
+      "name": "IK_NarvosMetaHumanCorps",
+      "solvers": 1,
+      "goals": [
+        "LeftFootIK",
+        "LeftHandIK",
+        "RightFootIK",
+        "RightHandIK"
+      ]
+    }
+  ],
+  "retargeters": [
+    {
+      "name": "RTG_NanosVersMetaHuman",
+      "mapping": {
+        "Root": "Root",
+        "Spine": "Spine",
+        "Neck": "Neck",
+        "Head": "Head",
+        "LeftLeg": "LeftLeg",
+        "LeftClavicle": "LeftClavicle",
+        "LeftArm": "LeftArm",
+        "LeftIndexMetacarpal": "None",
+        "LeftMiddleMetacarpal": "None",
+        "LeftRingMetacarpal": "None",
+        "LeftPinkyMetacarpal": "None",
+        "LeftThumb": "LeftThumb",
+        "LeftIndex": "LeftIndex",
+        "LeftMiddle": "LeftMiddle",
+        "LeftRing": "LeftRing",
+        "LeftPinky": "LeftPinky",
+        "RightLeg": "RightLeg",
+        "RightClavicle": "RightClavicle",
+        "RightArm": "RightArm",
+        "RightIndexMetacarpal": "None",
+        "RightMiddleMetacarpal": "None",
+        "RightRingMetacarpal": "None",
+        "RightPinkyMetacarpal": "None",
+        "RightThumb": "RightThumb",
+        "RightIndex": "RightIndex",
+        "RightMiddle": "RightMiddle",
+        "RightRing": "RightRing",
+        "RightPinky": "RightPinky"
+      },
+      "arms": [
+        {
+          "chain": "LeftArm",
+          "source_position": 1.0,
+          "source_rotation": 0.0
+        },
+        {
+          "chain": "RightArm",
+          "source_position": 1.0,
+          "source_rotation": 0.0
+        }
+      ]
+    },
+    {
+      "name": "RTG_NanosVersMetaHumanCorps",
+      "mapping": {
+        "Root": "Root",
+        "Spine": "Spine",
+        "Neck": "Neck",
+        "Head": "Head",
+        "LeftLeg": "LeftLeg",
+        "LeftClavicle": "LeftClavicle",
+        "LeftArm": "LeftArm",
+        "LeftIndexMetacarpal": "None",
+        "LeftMiddleMetacarpal": "None",
+        "LeftRingMetacarpal": "None",
+        "LeftPinkyMetacarpal": "None",
+        "LeftThumb": "LeftThumb",
+        "LeftIndex": "LeftIndex",
+        "LeftMiddle": "LeftMiddle",
+        "LeftRing": "LeftRing",
+        "LeftPinky": "LeftPinky",
+        "RightLeg": "RightLeg",
+        "RightClavicle": "RightClavicle",
+        "RightArm": "RightArm",
+        "RightIndexMetacarpal": "None",
+        "RightMiddleMetacarpal": "None",
+        "RightRingMetacarpal": "None",
+        "RightPinkyMetacarpal": "None",
+        "RightThumb": "RightThumb",
+        "RightIndex": "RightIndex",
+        "RightMiddle": "RightMiddle",
+        "RightRing": "RightRing",
+        "RightPinky": "RightPinky"
+      },
+      "arms": [
+        {
+          "chain": "LeftArm",
+          "source_position": 1.0,
+          "source_rotation": 0.0
+        },
+        {
+          "chain": "RightArm",
+          "source_position": 1.0,
+          "source_rotation": 0.0
+        }
+      ]
+    }
+  ]
+}

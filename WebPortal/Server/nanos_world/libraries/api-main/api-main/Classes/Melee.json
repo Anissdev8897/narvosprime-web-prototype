@@ -1,0 +1,246 @@
+{
+	"name": "Melee",
+	"description": "A Melee represents an Entity which can be Pickable by a Character and can be used to melee attack, Characters can hold it with hands with pre-defined handling modes.",
+	"authority": "server",
+	"network_distribution": "enabled",
+	"inheritance": [
+		"Entity",
+		"Actor",
+		"Paintable",
+		"Pickable"
+	],
+	"constructors": [
+		{
+			"name": "Default Constructor",
+			"parameters": [
+				{
+					"type": "Vector",
+					"name": "location"
+				},
+				{
+					"type": "Rotator",
+					"name": "rotation"
+				},
+				{
+					"type": "StaticMeshPath",
+					"name": "asset"
+				},
+				{
+					"type": "CollisionType",
+					"name": "collision_type",
+					"default": "CollisionType.Auto"
+				},
+				{
+					"type": "boolean",
+					"name": "gravity_enabled",
+					"default": "true"
+				},
+				{
+					"type": "HandlingMode",
+					"name": "handling_mode",
+					"default": "HandlingMode.Torch"
+				},
+				{
+					"type": "MaterialPath",
+					"name": "crosshair_material",
+					"default": ""
+				},
+				{
+					"type": "boolean",
+					"name": "can_use",
+					"default": "true"
+				},
+				{
+					"type": "SpawnMode",
+					"name": "spawn_mode",
+					"default": "SpawnMode.Immediate",
+					"description": "Pass <code>SpawnMode.AfterConstructor</code> or <code>SpawnMode.Manual</code> to avoid immediately sending the entity to clients and improve performance when you want to configure it by setting several configs. Must call <code>FinishSpawn()</code> after all"
+				}
+			]
+		}
+	],
+	"functions": [
+		{
+			"authority": "server",
+			"name": "AddAnimationCharacterUse",
+			"description": "Sets an Animation when attacking",
+			"description_long": "Sets an Animation when attacking<br/><br/>You can add more than one animation, which will be selected randomly when attacking",
+			"parameters": [
+				{
+					"type": "AnimationPath",
+					"name": "asset_path",
+					"description": "The Animation used when attacking"
+				},
+				{
+					"type": "float",
+					"default": "1.0",
+					"name": "play_rate",
+					"description": "The Animation Play Rate"
+				},
+				{
+					"type": "AnimationSlotType",
+					"default": "AnimationSlotType.UpperBody",
+					"name": "slot_Type",
+					"description": "Whether to play it on upper body or full body"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "ClearAnimationsCharacterUse",
+			"description": "Clears the Character Attack Animation list",
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetImpactSound",
+			"description": "Sets the Sound when hitting something",
+			"parameters": [
+				{
+					"type": "SurfaceType",
+					"name": "surface_type",
+					"description": "The surface to apply the sound. Use <code>SurfaceType.Default</code> to be the default to all non defined surfaces. Note: Surfaces <b>Water</b> and <b>Flesh</b> already have default sounds and must be explicitly overridden"
+				},
+				{
+					"type": "SoundPath",
+					"name": "asset_path",
+					"description": "The Sound used when attacking"
+				},
+				{
+					"type": "float",
+					"name": "volume",
+					"default": "1.0"
+				},
+				{
+					"type": "float",
+					"name": "pitch",
+					"default": "1.0"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "both",
+			"name": "SetSoundUse",
+			"description": "Sets the Sound when attacking",
+			"parameters": [
+				{
+					"type": "SoundPath",
+					"name": "asset_path",
+					"description": "The Sound used when attacking"
+				}
+			],
+			"efficiency": "slow"
+		},
+		{
+			"authority": "server",
+			"name": "SetBaseDamage",
+			"description": "Sets the Base Damage",
+			"parameters": [
+				{
+					"type": "integer",
+					"name": "damage",
+					"default": "",
+					"description": "The Base Damage value"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "server",
+			"name": "SetDamageSettings",
+			"description": "Sets the times when to start applying damage and when to end",
+			"description_long": "Sets the times when to start applying damage and when to end. During this time the collision of the melee will be enabled and the damage will be applied if it hits something",
+			"parameters": [
+				{
+					"type": "float",
+					"name": "damage_start_time",
+					"description": "The initial time to start applying damage"
+				},
+				{
+					"type": "float",
+					"name": "damage_duration_time",
+					"description": "The duration time to stop applying damage"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "SetCooldown",
+			"description": "Sets the cooldown between attacking",
+			"parameters": [
+				{
+					"type": "float",
+					"name": "cooldown"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetAnimationsCharacterUse",
+			"description": "Gets the Animations when Character uses it",
+			"return": [
+				{
+					"type": "AnimationPath[]"
+				}
+			],
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "both",
+			"name": "GetSoundUse",
+			"description": "Gets the Sound when Character uses it",
+			"return": [
+				{
+					"type": "SoundPath",
+					"name": "asset_path"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetBaseDamage",
+			"description": "Gets the Base Damage",
+			"return": [
+				{
+					"type": "integer",
+					"name": "damage"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "both",
+			"name": "GetCooldown",
+			"description": "Gets the Cooldown between usages",
+			"return": [
+				{
+					"type": "float",
+					"name": "cooldown"
+				}
+			],
+			"efficiency": "fast"
+		}
+	],
+	"events": [
+		{
+			"name": "Attack",
+			"authority": "both",
+			"description": "Triggered when the Character effectively attacks with this Melee",
+			"arguments": [
+				{
+					"name": "self",
+					"type": "Melee"
+				},
+				{
+					"name": "handler",
+					"type": "Character"
+				}
+			]
+		}
+	]
+}

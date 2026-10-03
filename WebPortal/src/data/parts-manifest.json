@@ -1,0 +1,2055 @@
+[
+  {
+    "id": "wraith",
+    "label": "Wraith",
+    "method": "material",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/wraith/legs.glb",
+        "bones": 155,
+        "method": "material"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/wraith/torso.glb",
+        "bones": 155,
+        "method": "material"
+      },
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/wraith/accessory.glb",
+        "bones": 155,
+        "method": "material"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/wraith/feet.glb",
+        "bones": 155,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/wraith/arms.glb",
+        "bones": 155,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/wraith/hands.glb",
+        "bones": 155,
+        "method": "bone"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/wraith/head.glb",
+        "bones": 155,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "murdock",
+    "label": "Murdock",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/murdock/torso.glb",
+        "bones": 154,
+        "method": "material"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/murdock/head.glb",
+        "bones": 154,
+        "method": "material"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/murdock/arms.glb",
+        "bones": 154,
+        "method": "material"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/murdock/legs.glb",
+        "bones": 154,
+        "method": "material"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/murdock/hands.glb",
+        "bones": 154,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/murdock/feet.glb",
+        "bones": 154,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "boris",
+    "label": "Boris",
+    "method": "material",
+    "parts": [
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/boris/arms.glb",
+        "bones": 168,
+        "method": "material"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/boris/legs.glb",
+        "bones": 168,
+        "method": "material"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/boris/torso.glb",
+        "bones": 168,
+        "method": "material"
+      },
+      {
+        "region": "hair",
+        "path": "/models/personnages/_parts/boris/hair.glb",
+        "bones": 168,
+        "method": "material"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/boris/head.glb",
+        "bones": 168,
+        "method": "material"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/boris/hands.glb",
+        "bones": 168,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/boris/feet.glb",
+        "bones": 168,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "steel",
+    "label": "Steel",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/steel/torso.glb",
+        "bones": 131,
+        "method": "material"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/steel/legs.glb",
+        "bones": 131,
+        "method": "material"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/steel/head.glb",
+        "bones": 131,
+        "method": "material"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/steel/arms.glb",
+        "bones": 131,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/steel/hands.glb",
+        "bones": 131,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/steel/feet.glb",
+        "bones": 131,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "echo",
+    "label": "Echo",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/echo/legs.glb",
+        "bones": 134,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/echo/torso.glb",
+        "bones": 134,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/echo/feet.glb",
+        "bones": 134,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/echo/arms.glb",
+        "bones": 134,
+        "method": "bone"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/echo/head.glb",
+        "bones": 134,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/echo/hands.glb",
+        "bones": 134,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "samurai",
+    "label": "Samouraï cyber",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/samurai/torso.glb",
+        "bones": 68,
+        "method": "material"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/samurai/head.glb",
+        "bones": 68,
+        "method": "material"
+      },
+      {
+        "region": "hair",
+        "path": "/models/personnages/_parts/samurai/hair.glb",
+        "bones": 68,
+        "method": "material"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/samurai/legs.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/samurai/hands.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/samurai/arms.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/samurai/feet.glb",
+        "bones": 68,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "biker_m",
+    "label": "Mannequin Biker (H)",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/biker_m/torso.glb",
+        "bones": 161,
+        "method": "material"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/biker_m/head.glb",
+        "bones": 161,
+        "method": "material"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/biker_m/arms.glb",
+        "bones": 161,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/biker_m/legs.glb",
+        "bones": 161,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/biker_m/hands.glb",
+        "bones": 161,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/biker_m/feet.glb",
+        "bones": 161,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "biker_f",
+    "label": "Mannequin Biker (F)",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/biker_f/torso.glb",
+        "bones": 161,
+        "method": "material"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/biker_f/head.glb",
+        "bones": 161,
+        "method": "material"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/biker_f/hands.glb",
+        "bones": 161,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/biker_f/arms.glb",
+        "bones": 161,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/biker_f/legs.glb",
+        "bones": 161,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/biker_f/feet.glb",
+        "bones": 161,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "mpfb",
+    "label": "Corps MPFB2 (UE)",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/mpfb/head.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/mpfb/torso.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/mpfb/arms.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/mpfb/hands.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/mpfb/legs.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/mpfb/feet.glb",
+        "bones": 89,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "manny",
+    "label": "Manny (UE)",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/manny/head.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/manny/legs.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/manny/feet.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/manny/torso.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/manny/arms.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/manny/hands.glb",
+        "bones": 89,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "quinn",
+    "label": "Quinn (UE)",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/quinn/legs.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/quinn/torso.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/quinn/feet.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/quinn/arms.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/quinn/head.glb",
+        "bones": 89,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/quinn/hands.glb",
+        "bones": 89,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "valkiria",
+    "label": "Valkiria",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/valkiria/head.glb",
+        "bones": 81,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/valkiria/feet.glb",
+        "bones": 81,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/valkiria/legs.glb",
+        "bones": 81,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/valkiria/torso.glb",
+        "bones": 81,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/valkiria/arms.glb",
+        "bones": 81,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/valkiria/hands.glb",
+        "bones": 81,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "nuc_jeans",
+    "label": "Jean tactique",
+    "method": "material",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/nuc_jeans/legs.glb",
+        "bones": 11,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "nuc_shirt",
+    "label": "Chemise retroussée",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/nuc_shirt/torso.glb",
+        "bones": 19,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "nuc_bulletproof",
+    "label": "Gilet pare-balles",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/nuc_bulletproof/torso.glb",
+        "bones": 8,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "nuc_holster",
+    "label": "Holster rigide",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/nuc_holster/accessory.glb",
+        "bones": 4,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zs4_body",
+    "label": "Zombie soldat 4 (corps)",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/zs4_body/hands.glb",
+        "bones": 161,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/zs4_body/arms.glb",
+        "bones": 161,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/zs4_body/torso.glb",
+        "bones": 161,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/zs4_body/legs.glb",
+        "bones": 161,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/zs4_body/feet.glb",
+        "bones": 161,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "zs4_head",
+    "label": "Zombie soldat 4 (tête)",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/zs4_head/head.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zs4_hat",
+    "label": "Casque zombie 4",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/zs4_hat/accessory.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zs4_jacket",
+    "label": "Veste zombie 4",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/zs4_jacket/torso.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zs4_pants",
+    "label": "Pantalon zombie 4",
+    "method": "material",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/zs4_pants/legs.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zs4_shoes",
+    "label": "Bottes zombie 4",
+    "method": "material",
+    "parts": [
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/zs4_shoes/feet.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zs1_head",
+    "label": "Zombie soviétique 1 (tête)",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/zs1_head/head.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zs1_hat",
+    "label": "Chapeau zombie soviétique 1",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/zs1_hat/accessory.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zs2_head",
+    "label": "Zombie soviétique 2 (tête)",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/zs2_head/head.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zs2_hat",
+    "label": "Chapeau zombie soviétique 2",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/zs2_hat/accessory.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zsail_head",
+    "label": "Zombie marin (tête)",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/zsail_head/head.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zsail_hat",
+    "label": "Chapeau zombie marin",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/zsail_hat/accessory.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "ztank_head",
+    "label": "Zombie tankiste (tête)",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/ztank_head/head.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "ztank_hat",
+    "label": "Casque zombie tankiste",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/ztank_hat/accessory.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zoff_head",
+    "label": "Zombie officier (tête)",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/zoff_head/head.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zoff_hat",
+    "label": "Casquette zombie officier",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/zoff_hat/accessory.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zoff_jacket",
+    "label": "Veste zombie officier",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/zoff_jacket/torso.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zoff_pants",
+    "label": "Pantalon zombie officier",
+    "method": "material",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/zoff_pants/legs.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zoff_shoes",
+    "label": "Chaussures zombie officier",
+    "method": "material",
+    "parts": [
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/zoff_shoes/feet.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zwin_head",
+    "label": "Zombie hivernal (tête)",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/zwin_head/head.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zwin_hat",
+    "label": "Chapeau zombie hivernal",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/zwin_hat/accessory.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zwin_jacket",
+    "label": "Veste zombie hivernal",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/zwin_jacket/torso.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zwin_pants",
+    "label": "Pantalon zombie hivernal",
+    "method": "material",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/zwin_pants/legs.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "zwin_shoes",
+    "label": "Bottes zombie hivernal",
+    "method": "material",
+    "parts": [
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/zwin_shoes/feet.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_m_body",
+    "label": "Trooper H (corps armuré)",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/tr_m_body/head.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/tr_m_body/torso.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/tr_m_body/arms.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/tr_m_body/hands.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/tr_m_body/legs.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/tr_m_body/feet.glb",
+        "bones": 68,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "tr_f_body",
+    "label": "Trooper F (corps armuré)",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/tr_f_body/head.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/tr_f_body/torso.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/tr_f_body/arms.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/tr_f_body/hands.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/tr_f_body/legs.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/tr_f_body/feet.glb",
+        "bones": 68,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "tr_pf_body",
+    "label": "Trooper F petite (corps armuré)",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/tr_pf_body/head.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/tr_pf_body/torso.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/tr_pf_body/arms.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/tr_pf_body/hands.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/tr_pf_body/legs.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/tr_pf_body/feet.glb",
+        "bones": 68,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "tr_m_form",
+    "label": "Silhouette trooper H",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/tr_m_form/head.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/tr_m_form/arms.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/tr_m_form/torso.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/tr_m_form/legs.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/tr_m_form/hands.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/tr_m_form/feet.glb",
+        "bones": 68,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "tr_f_form",
+    "label": "Silhouette trooper F",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/tr_f_form/head.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/tr_f_form/feet.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/tr_f_form/hands.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/tr_f_form/arms.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/tr_f_form/torso.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/tr_f_form/legs.glb",
+        "bones": 68,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "tr_pf_form",
+    "label": "Silhouette trooper F petite",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/tr_pf_form/torso.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/tr_pf_form/legs.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/tr_pf_form/arms.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/tr_pf_form/feet.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/tr_pf_form/hands.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/tr_pf_form/head.glb",
+        "bones": 68,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "tr_m_head_a",
+    "label": "Visage trooper H A",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/tr_m_head_a/head.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_m_head_b",
+    "label": "Visage trooper H B",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/tr_m_head_b/head.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_m_chest",
+    "label": "Plastron trooper H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/tr_m_chest/torso.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_m_shoulders",
+    "label": "Épaulières trooper H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/tr_m_shoulders/accessory.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_m_legs",
+    "label": "Jambières trooper H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/tr_m_legs/legs.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_m_shoes",
+    "label": "Bottes trooper H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/tr_m_shoes/feet.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_m_hands",
+    "label": "Gants trooper H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/tr_m_hands/hands.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_m_chest_thin",
+    "label": "Plastron léger trooper H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/tr_m_chest_thin/torso.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_m_legs_thin",
+    "label": "Jambières légères trooper H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/tr_m_legs_thin/legs.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_m_shoes_thin",
+    "label": "Bottes légères trooper H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/tr_m_shoes_thin/feet.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_f_head_a",
+    "label": "Visage trooper F A",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/tr_f_head_a/head.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_f_head_b",
+    "label": "Visage trooper F B",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/tr_f_head_b/head.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_f_shoulders",
+    "label": "Épaulières trooper F",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/tr_f_shoulders/accessory.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_pf_head_a",
+    "label": "Visage trooper F petite A",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/tr_pf_head_a/head.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_pf_head_b",
+    "label": "Visage trooper F petite B",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/tr_pf_head_b/head.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_pf_shoulders",
+    "label": "Épaulières trooper F petite",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/tr_pf_shoulders/accessory.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_pf_legs",
+    "label": "Jambières trooper F petite",
+    "method": "material",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/tr_pf_legs/legs.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "tr_pf_shoes",
+    "label": "Bottes trooper F petite",
+    "method": "material",
+    "parts": [
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/tr_pf_shoes/feet.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "cs_head",
+    "label": "Tête samouraï cyber",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/cs_head/head.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "cs_hair",
+    "label": "Cheveux samouraï cyber",
+    "method": "material",
+    "parts": [
+      {
+        "region": "hair",
+        "path": "/models/personnages/_parts/cs_hair/hair.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "cs_helmet",
+    "label": "Casque samouraï cyber",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/cs_helmet/accessory.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "cs_torso",
+    "label": "Torse samouraï cyber",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/cs_torso/torso.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "cs_jacket",
+    "label": "Veste samouraï cyber",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/cs_jacket/torso.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "cs_arm",
+    "label": "Bras samouraï cyber",
+    "method": "material",
+    "parts": [
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/cs_arm/arms.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "cs_hand",
+    "label": "Mains samouraï cyber",
+    "method": "material",
+    "parts": [
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/cs_hand/hands.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "cs_leg",
+    "label": "Jambes samouraï cyber",
+    "method": "material",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/cs_leg/legs.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "cs_bag",
+    "label": "Sac samouraï cyber",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/cs_bag/accessory.glb",
+        "bones": 68,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_head01",
+    "label": "Visage biker H 01",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/bk_m_head01/head.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_head02",
+    "label": "Visage biker H 02",
+    "method": "material",
+    "parts": [
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/bk_m_head02/head.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_hair",
+    "label": "Cheveux biker H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "hair",
+        "path": "/models/personnages/_parts/bk_m_hair/hair.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_hair_wild",
+    "label": "Cheveux sauvages biker H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "hair",
+        "path": "/models/personnages/_parts/bk_m_hair_wild/hair.glb",
+        "bones": 161,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_beard",
+    "label": "Barbe biker H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "hair",
+        "path": "/models/personnages/_parts/bk_m_beard/hair.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_arms",
+    "label": "Bras biker H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/bk_m_arms/arms.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_hands",
+    "label": "Mains biker H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/bk_m_hands/hands.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_jacket",
+    "label": "Blouson cuir biker H",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/bk_m_jacket/torso.glb",
+        "bones": 96,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/bk_m_jacket/arms.glb",
+        "bones": 96,
+        "method": "bone"
+      }
+    ],
+    "partial": true
+  },
+  {
+    "id": "bk_m_jeans_vest",
+    "label": "Jean + veste biker H",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/bk_m_jeans_vest/torso.glb",
+        "bones": 66,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/bk_m_jeans_vest/legs.glb",
+        "bones": 66,
+        "method": "bone"
+      }
+    ],
+    "partial": true
+  },
+  {
+    "id": "bk_m_shirt_vest",
+    "label": "Chemise + gilet biker H",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/bk_m_shirt_vest/torso.glb",
+        "bones": 161,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/bk_m_shirt_vest/arms.glb",
+        "bones": 161,
+        "method": "bone"
+      }
+    ],
+    "partial": true
+  },
+  {
+    "id": "bk_m_vest_long",
+    "label": "Gilet long biker H",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/bk_m_vest_long/torso.glb",
+        "bones": 91,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/bk_m_vest_long/arms.glb",
+        "bones": 91,
+        "method": "bone"
+      }
+    ],
+    "partial": true
+  },
+  {
+    "id": "bk_m_pants",
+    "label": "Jean biker H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/bk_m_pants/legs.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_tanktop",
+    "label": "Débardeur biker H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/bk_m_tanktop/torso.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_boots",
+    "label": "Bottes biker H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/bk_m_boots/feet.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_shoes",
+    "label": "Chaussures biker H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/bk_m_shoes/feet.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_gloves",
+    "label": "Gants biker H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/bk_m_gloves/hands.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_bandana",
+    "label": "Bandana biker H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/bk_m_bandana/accessory.glb",
+        "bones": 10,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_m_glasses",
+    "label": "Lunettes biker H",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/bk_m_glasses/accessory.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_f_leather",
+    "label": "Blouson cuir biker F",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/bk_f_leather/arms.glb",
+        "bones": 90,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/bk_f_leather/torso.glb",
+        "bones": 90,
+        "method": "bone"
+      }
+    ],
+    "partial": true
+  },
+  {
+    "id": "bk_f_shirt_vest",
+    "label": "Chemise + gilet biker F",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/bk_f_shirt_vest/arms.glb",
+        "bones": 159,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/bk_f_shirt_vest/torso.glb",
+        "bones": 159,
+        "method": "bone"
+      }
+    ],
+    "partial": true
+  },
+  {
+    "id": "bk_f_shirt_half",
+    "label": "Chemise courte biker F",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/bk_f_shirt_half/torso.glb",
+        "bones": 76,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_f_pants",
+    "label": "Jean biker F",
+    "method": "material",
+    "parts": [
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/bk_f_pants/legs.glb",
+        "bones": 159,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_f_tanktop",
+    "label": "Débardeur biker F",
+    "method": "material",
+    "parts": [
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/bk_f_tanktop/torso.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_f_boots",
+    "label": "Bottes biker F",
+    "method": "material",
+    "parts": [
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/bk_f_boots/feet.glb",
+        "bones": 159,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_f_boots_casual",
+    "label": "Bottines biker F",
+    "method": "material",
+    "parts": [
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/bk_f_boots_casual/feet.glb",
+        "bones": 159,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_f_hair",
+    "label": "Cheveux biker F",
+    "method": "material",
+    "parts": [
+      {
+        "region": "hair",
+        "path": "/models/personnages/_parts/bk_f_hair/hair.glb",
+        "bones": 10,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "bk_f_bandana",
+    "label": "Bandana biker F",
+    "method": "material",
+    "parts": [
+      {
+        "region": "accessory",
+        "path": "/models/personnages/_parts/bk_f_bandana/accessory.glb",
+        "bones": 150,
+        "method": "author"
+      }
+    ]
+  },
+  {
+    "id": "ue4_mannequin",
+    "label": "Mannequin UE4",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/ue4_mannequin/arms.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/ue4_mannequin/hands.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/ue4_mannequin/feet.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/ue4_mannequin/legs.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/ue4_mannequin/torso.glb",
+        "bones": 68,
+        "method": "bone"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/ue4_mannequin/head.glb",
+        "bones": 68,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "uefn_mannequin",
+    "label": "Mannequin UEFN",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/uefn_mannequin/feet.glb",
+        "bones": 88,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/uefn_mannequin/arms.glb",
+        "bones": 88,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/uefn_mannequin/legs.glb",
+        "bones": 88,
+        "method": "bone"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/uefn_mannequin/head.glb",
+        "bones": 88,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/uefn_mannequin/torso.glb",
+        "bones": 88,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/uefn_mannequin/hands.glb",
+        "bones": 88,
+        "method": "bone"
+      }
+    ]
+  },
+  {
+    "id": "mh_mocap_m",
+    "label": "Corps mocap MetaHuman H",
+    "method": "dominant-bone",
+    "parts": [
+      {
+        "region": "feet",
+        "path": "/models/personnages/_parts/mh_mocap_m/feet.glb",
+        "bones": 210,
+        "method": "bone"
+      },
+      {
+        "region": "head",
+        "path": "/models/personnages/_parts/mh_mocap_m/head.glb",
+        "bones": 210,
+        "method": "bone"
+      },
+      {
+        "region": "arms",
+        "path": "/models/personnages/_parts/mh_mocap_m/arms.glb",
+        "bones": 210,
+        "method": "bone"
+      },
+      {
+        "region": "torso",
+        "path": "/models/personnages/_parts/mh_mocap_m/torso.glb",
+        "bones": 210,
+        "method": "bone"
+      },
+      {
+        "region": "hands",
+        "path": "/models/personnages/_parts/mh_mocap_m/hands.glb",
+        "bones": 210,
+        "method": "bone"
+      },
+      {
+        "region": "legs",
+        "path": "/models/personnages/_parts/mh_mocap_m/legs.glb",
+        "bones": 210,
+        "method": "bone"
+      }
+    ]
+  }
+]

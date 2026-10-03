@@ -1,0 +1,619 @@
+{
+	"name": "Input",
+	"description": "Create custom keybindings and retrieve input information.",
+	"authority": "client",
+	"static_functions": [
+		{
+			"authority": "client",
+			"name": "Bind",
+			"description": "Binds a function to an Input defined using <code>Register</code> or from the game",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "binding_name",
+					"description": "The keybinding id"
+				},
+				{
+					"type": "InputEvent",
+					"name": "input_event",
+					"description": "Which event to register (Released/Pressed)"
+				},
+				{
+					"type": "function",
+					"name": "callback",
+					"description": "The function to trigger",
+					"function_parameters": [
+						{
+							"name": "delta?",
+							"type": "float"
+						}
+					]
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "Unbind",
+			"description": "Unbinds an Input function",
+			"description_long": "Unbinds all Input functions related to the given binding_name and input_event",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "binding_name",
+					"description": "The keybinding id"
+				},
+				{
+					"type": "InputEvent",
+					"name": "input_event",
+					"description": "Which event to register (Released/Pressed)"
+				},
+				{
+					"type": "function",
+					"name": "callback",
+					"description": "The specific function to unbind",
+					"default": "nil"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "Register",
+			"description": "Registers a keybinding to a default key",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "binding_name",
+					"description": "The keybinding id"
+				},
+				{
+					"type": "string",
+					"name": "key_name",
+					"description": "The Key to use by default if this wasn't set before"
+				},
+				{
+					"type": "string?",
+					"name": "description",
+					"description": "Text to show on Key Bindings Settings"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "Unregister",
+			"description": "Unregisters a keybinding",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "binding_name",
+					"description": "The keybinding id"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "GetKeyboardLayout",
+			"description": "Gets the keyboard layout of the user",
+			"return": [
+				{
+					"type": "KeyboardLayout"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "GetKeyIcon",
+			"description": "Gets the icon path of a key",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "key_name"
+				},
+				{
+					"type": "boolean",
+					"name": "dark_mode",
+					"default": "false"
+				}
+			],
+			"return": [
+				{
+					"type": "string"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "GetKeyCode",
+			"description": "Gets the key code of a key",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "key_name"
+				}
+			],
+			"return": [
+				{
+					"type": "integer"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "GetModifierKeys",
+			"description": "Gets the currently pressed modifier keys",
+			"return": [
+				{
+					"type": "KeyModifier"
+				}
+			],
+			"examples": [
+				{
+					"title": "Checks if has Shift pressed",
+					"content": [
+						"local modifier_keys = Input.GetModifierKeys()",
+						"local has_shift_pressed = modifier_keys & KeyModifier.LeftShiftDown"
+					],
+					"output": "true"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "GetMappedKeys",
+			"description": "Returns the keys bound to a keybinding",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "binding_name",
+					"description": "The keybinding id"
+				}
+			],
+			"return": [
+				{
+					"type": "string[]",
+					"description": "list of all keys"
+				}
+			],
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "client",
+			"name": "ResetBindings",
+			"description": "Resets all bound functions by this Package",
+			"efficiency": "fast"
+		},
+		{
+			"authority": "client",
+			"name": "GetScriptingKeyBindings",
+			"description": "Returns a table with all Scripting KeyBindings",
+			"return": [
+				{
+					"type": "table",
+					"table_properties_custom": "\n\t\"[BINDING_NAME_01]\" = {\n\t\t\"[KEY_01]\",\n\t\t\"[KEY_02]\",\n\t\t...\n\t},\n\t\"[BINDING_NAME_02]\" = {\n\t\t\"[KEY_03]\",\n\t\t\"[KEY_04]\",\n\t\t...\n\t},\n\t..."
+				}
+			],
+			"efficiency": "moderate"
+		},
+		{
+			"authority": "client",
+			"name": "GetGameKeyBindings",
+			"description": "Returns a table with all Game KeyBindings",
+			"return": [
+				{
+					"type": "table",
+					"table_properties_custom": "\n\t\"[BINDING_NAME_01]\" = {\n\t\t\"[KEY_01]\",\n\t\t\"[KEY_02]\",\n\t\t...\n\t},\n\t\"[BINDING_NAME_02]\" = {\n\t\t\"[KEY_03]\",\n\t\t\"[KEY_04]\",\n\t\t...\n\t},\n\t..."
+				}
+			],
+			"efficiency": "moderate"
+		},
+		{
+			"name": "SetInputEnabled",
+			"description": "Toggles Local Player input",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "enable_input",
+					"description": ""
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"name": "SetMouseEnabled",
+			"description": "Displays/Hides Mouse Cursor",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "boolean",
+					"name": "is_enabled",
+					"description": ""
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"name": "SetMouseCursor",
+			"description": "Sets the current Mouse Cursor type",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "CursorType",
+					"name": "cursor_type",
+					"description": ""
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"name": "GetMouseCursor",
+			"description": "Gets the current Mouse Cursor type",
+			"authority": "client",
+			"return": [
+				{
+					"type": "CursorType",
+					"description": "the current Cursor type"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"name": "InputKey",
+			"description": "Forces an Input Key event on Local Player",
+			"description_long": "Forces an Input Key event on Local Player<br/><br/>This won't trigger any Scripting event as it bypass internal validations",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "key_name",
+					"description": "Key Name to input"
+				},
+				{
+					"type": "InputEvent",
+					"name": "input_event",
+					"description": "Which Event to input"
+				},
+				{
+					"type": "float",
+					"name": "amount_depressed",
+					"description": "The amount pressed",
+					"default": "1"
+				}
+			],
+			"efficiency": "moderate"
+		},
+		{
+			"name": "IsKeyDown",
+			"description": "Returns if a key is being pressed",
+			"authority": "client",
+			"return": [
+				{
+					"type": "boolean",
+					"description": "if the key is pressed"
+				}
+			],
+			"parameters": [
+				{
+					"type": "string",
+					"name": "key_name"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"name": "IsBindingDown",
+			"description": "Returns if a Key Binding is being pressed",
+			"description_long": "Returns if a Key Binding is being pressed.<br><br>A Binding can be mapped to more than one Key, any of them being pressed is enough for this to return <code>true</code>.",
+			"authority": "client",
+			"return": [
+				{
+					"type": "boolean",
+					"description": "if the Key Binding is pressed"
+				}
+			],
+			"parameters": [
+				{
+					"type": "string",
+					"name": "binding_name"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"name": "IsMouseEnabled",
+			"description": "",
+			"authority": "client",
+			"return": [
+				{
+					"type": "boolean",
+					"description": "if the mouse is visible"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"name": "IsInputEnabled",
+			"description": "",
+			"authority": "client",
+			"return": [
+				{
+					"type": "boolean",
+					"description": "if the input is visible"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"name": "Subscribe",
+			"description": "Subscribes to an Event",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "event_name",
+					"description": "Event to subscribe to"
+				},
+				{
+					"type": "function",
+					"name": "callback",
+					"description": "Callback to run on the event occurring"
+				}
+			],
+			"return": [
+				{
+					"type": "function",
+					"description": "The function callback"
+				}
+			],
+			"efficiency": "fast"
+		},
+		{
+			"name": "Unsubscribe",
+			"description": "Unsubscribes from all subscribed Events in this Class and in this Package, optionally passing the function to unsubscribe only that callback",
+			"authority": "client",
+			"parameters": [
+				{
+					"type": "string",
+					"name": "event_name",
+					"description": "Event to unsubscribe to"
+				},
+				{
+					"type": "function",
+					"name": "callback",
+					"default": "nil",
+					"description": "Optional callback to specifically unsubscribe to"
+				}
+			],
+			"efficiency": "fast"
+		}
+	],
+	"events": [
+		{
+			"name": "KeyBindingChange",
+			"description": "A key binding has been changed through the settings",
+			"authority": "client",
+			"arguments": [
+				{
+					"type": "string",
+					"name": "binding_name",
+					"description": "The keybinding id"
+				},
+				{
+					"type": "string",
+					"name": "key",
+					"description": "The new key associated"
+				},
+				{
+					"type": "float",
+					"name": "scale",
+					"description": "The scale input (usually 1 or -1)"
+				}
+			]
+		},
+		{
+			"name": "KeyDown",
+			"description": "A keyboard key is being pressed",
+			"authority": "client",
+			"return": [
+				{
+					"type": "boolean",
+					"description": "Return false to block it"
+				}
+			],
+			"arguments": [
+				{
+					"type": "string",
+					"name": "key_name",
+					"description": "The key pressed"
+				},
+				{
+					"type": "float?",
+					"name": "delta",
+					"description": "The amount depressed in case of this is an Axis input"
+				}
+			]
+		},
+		{
+			"name": "KeyPress",
+			"description": "A keyboard key has been pressed",
+			"authority": "client",
+			"return": [
+				{
+					"type": "boolean",
+					"description": "Return false to block it"
+				}
+			],
+			"arguments": [
+				{
+					"type": "string",
+					"name": "key_name",
+					"description": "The key pressed"
+				},
+				{
+					"type": "float?",
+					"name": "delta",
+					"description": "The amount depressed in case of this is an Axis input"
+				}
+			]
+		},
+		{
+			"name": "KeyUp",
+			"description": "A keyboard key has been released",
+			"authority": "client",
+			"return": [
+				{
+					"type": "boolean",
+					"description": "Return false to block it"
+				}
+			],
+			"arguments": [
+				{
+					"type": "string",
+					"name": "key_name",
+					"description": "The key pressed"
+				},
+				{
+					"type": "float?",
+					"name": "delta",
+					"description": "The amount depressed in case of this is an Axis input"
+				}
+			]
+		},
+		{
+			"name": "MouseDown",
+			"description": "A mouse button has been pressed / is being pressed",
+			"authority": "client",
+			"return": [
+				{
+					"type": "boolean",
+					"description": "Return false to block it"
+				}
+			],
+			"arguments": [
+				{
+					"type": "string",
+					"name": "key_name",
+					"description": ""
+				},
+				{
+					"type": "float",
+					"name": "mouse_x",
+					"description": ""
+				},
+				{
+					"type": "float",
+					"name": "mouse_y",
+					"description": ""
+				}
+			]
+		},
+		{
+			"name": "MouseUp",
+			"description": "A mouse button has been released",
+			"authority": "client",
+			"return": [
+				{
+					"type": "boolean",
+					"description": "Return false to block it"
+				}
+			],
+			"arguments": [
+				{
+					"type": "string",
+					"name": "key_name",
+					"description": ""
+				},
+				{
+					"type": "float",
+					"name": "mouse_x",
+					"description": ""
+				},
+				{
+					"type": "float",
+					"name": "mouse_y",
+					"description": ""
+				}
+			]
+		},
+		{
+			"name": "MouseEnable",
+			"description": "When mouse cursor is displayed/hidden",
+			"authority": "client",
+			"arguments": [
+				{
+					"type": "boolean",
+					"name": "is_enabled",
+					"description": ""
+				}
+			]
+		},
+		{
+			"name": "MouseMove",
+			"description": "Called when the mouse moves",
+			"authority": "client",
+			"return": [
+				{
+					"type": "boolean",
+					"description": "Return false to block it"
+				}
+			],
+			"arguments": [
+				{
+					"type": "float",
+					"name": "cursor_delta_x",
+					"description": ""
+				},
+				{
+					"type": "float",
+					"name": "cursor_delta_y",
+					"description": ""
+				},
+				{
+					"type": "float",
+					"name": "mouse_x",
+					"description": ""
+				},
+				{
+					"type": "float",
+					"name": "mouse_y",
+					"description": ""
+				}
+			]
+		},
+		{
+			"name": "MouseScroll",
+			"description": "Called when the mouse scrolls",
+			"authority": "client",
+			"return": [
+				{
+					"type": "boolean",
+					"description": "Return false to block it"
+				}
+			],
+			"arguments": [
+				{
+					"type": "float",
+					"name": "mouse_x",
+					"description": ""
+				},
+				{
+					"type": "float",
+					"name": "mouse_y",
+					"description": ""
+				},
+				{
+					"type": "float",
+					"name": "delta",
+					"description": ""
+				}
+			]
+		}
+	]
+}

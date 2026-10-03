@@ -1,0 +1,16 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0.0",
+	"FriendlyName": "OpenRigLogic Sample Content",
+	"Description": "Sample Content to support OpenRigLogic, https://github.com/EpicGames/OpenRigLogic",
+	"Category": "Other",
+	"CreatedBy": "Epic Games",
+	"CreatedByURL": "",
+	"DocsURL": "https://github.com/EpicGames/OpenRigLogic",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/EpicGames/OpenRigLogic",
+	"EngineVersion": "5.8.0",
+	"CanContainContent": true,
+	"Installed": true
+}

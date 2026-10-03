@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"E:/narvosprime-web-prototype/WebPortal/wasm/build/cmake_install.cmake",
+		"E:/narvosprime-web-prototype/WebPortal/wasm/build/vendor/glm/cmake_install.cmake",
+		"E:/narvosprime-web-prototype/WebPortal/wasm/build/vendor/glm/glm/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

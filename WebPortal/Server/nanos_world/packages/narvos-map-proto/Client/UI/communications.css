@@ -1,0 +1,450 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   COMMUNICATIONS — le téléphone et le clavier de la porte à code.
+
+   Téléphone : ÉTROIT ET HAUT, à la proportion de l'objet. Une rangée d'onglets
+   texte (l'actif porte une arête basse, pas une pastille), puis une seule vue.
+   Le fil de messages est une liste éditoriale : l'expéditeur en petites
+   capitales, l'heure en chiffres à chasse fixe, le texte en grand.
+
+   Digicode : un écran, douze touches. La grille est ici FONCTIONNELLE — c'est un
+   pavé numérique, pas une mise en page de cartes. Les chiffres tapés sont
+   masqués.
+
+   Couleur sémantique, comme teleports.css : cyan = joignable / accepté, ambre =
+   hors réseau / refusé, vert = fait. Aucun jeton redéfini : tout vient de style.css.
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* Surface pleine : pas de dégradé (règle du projet, cf. .panneau--tp). */
+.panneau--tel,
+.panneau--dc { background: var(--fond-carte); }
+
+/* ── Téléphone ─────────────────────────────────────────────────────────────── */
+
+/* ── L'objet : un smartphone (demande B8, 2026-09-13) ───────────────────────
+   Cadre noir à coins très arrondis, écran inséré, îlot en haut, barre d'état,
+   dock d'applications et barre d'accueil en bas. Les coins coupés des panneaux
+   (clip-path de .panneau) n'ont rien à faire sur un téléphone : retirés ici. */
+
+.panneau--tel {
+	width: min(360px, 92vw);
+	height: min(720px, 88vh);
+	padding: 12px;
+	background: #05080c;
+	border: 1px solid #2a3642;
+	border-radius: 48px;
+	clip-path: none;
+	box-shadow:
+		0 30px 80px rgba(0, 0, 0, .7),
+		inset 0 0 0 2px #10161d,
+		inset 0 0 0 9px #05080c;
+	/* L'écran, dans le cadre. */
+	background-clip: padding-box;
+	overflow: hidden;
+	animation: tel-sortir .42s cubic-bezier(.18, .9, .22, 1);
+}
+
+/* L'écran : tout ce qui est dans le cadre, fond sombre et coins suivants. */
+.panneau--tel > * { position: relative; z-index: 1; }
+.panneau--tel::before {
+	content: "";
+	position: absolute;
+	inset: 10px;
+	border-radius: 38px;
+	background: linear-gradient(180deg, #0e1720, #0a1017 60%);
+	z-index: 0;
+}
+
+/* Sortir de la poche : le téléphone monte depuis le bas et se redresse. */
+@keyframes tel-sortir {
+	from { transform: translate(-50%, 18%) rotate(-7deg) scale(.86); opacity: 0; }
+	60%  { opacity: 1; }
+	to   { transform: translate(-50%, -50%) rotate(0) scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.panneau--tel { animation: none; }
+}
+
+/* Barre d'état : heure à gauche, îlot au centre, réseau à droite. */
+.tel-statut {
+	display: grid !important;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	padding: 10px 22px 6px !important;
+	border: none !important;
+	background: none !important;
+}
+
+.tel-heure {
+	font: 600 15px/1 "Rajdhani", system-ui, sans-serif;
+	font-variant-numeric: tabular-nums;
+	color: var(--texte);
+}
+
+.tel-ilot {
+	width: 96px;
+	height: 26px;
+	border-radius: 14px;
+	background: #000;
+}
+
+.tel-reseau {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 6px;
+}
+
+.tel-reseau .capacite { font-size: 10px; letter-spacing: .08em; }
+
+.tel-barres { display: inline-flex; align-items: flex-end; gap: 1.5px; height: 10px; }
+.tel-barres b { width: 3px; background: var(--texte); border-radius: 1px; }
+.tel-barres b:nth-child(1) { height: 3px; }
+.tel-barres b:nth-child(2) { height: 5px; }
+.tel-barres b:nth-child(3) { height: 7px; }
+.tel-barres b:nth-child(4) { height: 10px; }
+
+.tel-batterie {
+	position: relative;
+	width: 20px;
+	height: 10px;
+	border: 1px solid var(--texte-faible);
+	border-radius: 3px;
+}
+
+.tel-batterie::after {
+	content: "";
+	position: absolute;
+	inset: 1px 5px 1px 1px;
+	border-radius: 1px;
+	background: #4fbf6a;
+}
+
+/* Le titre reste pour l'accessibilité, pas pour l'œil ; ESC reste accessible au
+   clavier mais la barre d'accueil est le geste de la souris. */
+.tel-titre-cache {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+}
+
+.tel-fermer {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	opacity: 0;
+}
+
+/* Dock : les applications en bas de l'écran, icône + nom. */
+.tel-apps {
+	display: flex;
+	justify-content: space-around;
+	gap: 8px;
+	margin: 6px 14px 4px;
+	padding: 10px 8px;
+	border-radius: 26px;
+	background: rgba(255, 255, 255, .06);
+}
+
+.tel-app {
+	position: relative;
+	display: grid;
+	justify-items: center;
+	gap: 5px;
+	padding: 4px 6px;
+	background: none;
+	border: none;
+	color: var(--texte-faible);
+	font: 600 11px/1 "Rajdhani", system-ui, sans-serif;
+	letter-spacing: .06em;
+	cursor: pointer;
+	transition: color .12s linear;
+}
+
+.tel-icone {
+	display: grid;
+	place-items: center;
+	width: 48px;
+	height: 48px;
+	border-radius: 14px;
+	background: #16222d;
+	color: var(--accent-fort);
+	transition: background-color .12s linear, transform .12s ease;
+}
+
+.tel-icone svg { width: 24px; height: 24px; }
+
+.tel-app:hover { color: var(--texte); }
+.tel-app:hover .tel-icone { transform: translateY(-2px); }
+.tel-app[aria-current="true"] { color: var(--texte); }
+.tel-app[aria-current="true"] .tel-icone { background: #1d6f80; color: #eafcff; }
+.tel-app:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+
+.tel-app .tel-badge {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	background: #05080c;
+}
+
+.tel-pied { border: none !important; background: none !important; padding: 4px 22px !important; min-height: 18px; }
+
+/* Barre d'accueil : un trait, et le geste de ranger le téléphone. */
+.tel-accueil {
+	align-self: center;
+	width: 134px;
+	height: 5px;
+	margin: 6px auto 8px;
+	padding: 0;
+	border: none;
+	border-radius: 3px;
+	background: rgba(215, 227, 236, .75);
+	cursor: pointer;
+}
+
+.tel-accueil:hover { background: #fff; }
+
+.tel-badge {
+	margin-left: 6px;
+	padding: 1px 5px;
+	border: 1px solid #e0a44a;
+	border-radius: 2px;
+	font: 400 10px/1.2 "Share Tech Mono", monospace;
+	color: #e0a44a;
+}
+
+.tel-vue {
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+}
+
+/* La carte : le canvas du radar, à la largeur de l'écran. */
+.tel-carte {
+	align-self: center;
+	width: 300px;
+	height: 300px;
+	margin: 22px 0 10px;
+}
+
+.tel-note {
+	margin: 0;
+	padding: 0 24px 16px;
+	font: 400 12px/1.5 "Share Tech Mono", monospace;
+	font-variant-numeric: tabular-nums;
+	color: var(--texte-faible);
+	text-align: center;
+}
+
+.tel-vide {
+	padding: 30px 24px;
+	font: 500 15px/1.5 "Rajdhani", system-ui, sans-serif;
+	color: var(--texte-faible);
+	list-style: none;
+}
+
+/* Le fil. Un filet SÉPARE deux messages. */
+.tel-fil { margin: 0; padding: 4px 0 12px; list-style: none; }
+.tel-fil li + li { border-top: 1px solid rgba(30, 45, 58, .6); }
+
+.tel-msg { padding: 14px 24px 15px; box-shadow: inset 3px 0 0 transparent; }
+.tel-msg[data-non-lu] { box-shadow: inset 3px 0 0 #e0a44a; background: rgba(224, 164, 74, .04); }
+
+.tel-msg-tete {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 5px;
+}
+
+.tel-msg-de {
+	font: 700 12px/1 "Rajdhani", system-ui, sans-serif;
+	letter-spacing: .16em;
+	text-transform: uppercase;
+	color: var(--accent-fort);
+}
+
+.tel-msg-heure {
+	font: 400 11px/1 "Share Tech Mono", monospace;
+	font-variant-numeric: tabular-nums;
+	color: var(--texte-faible);
+}
+
+.tel-msg-texte {
+	margin: 0;
+	font: 500 16px/1.4 "Rajdhani", system-ui, sans-serif;
+	color: var(--texte);
+	overflow-wrap: anywhere;
+	white-space: pre-wrap;
+	user-select: text;
+}
+
+/* Les contacts. */
+.tel-contacts { margin: 0; padding: 4px 0; list-style: none; }
+.tel-contacts li + li { border-top: 1px solid rgba(30, 45, 58, .6); }
+
+.tel-contact {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	width: 100%;
+	padding: 12px 24px;
+	background: none;
+	border: none;
+	box-shadow: inset 3px 0 0 transparent;
+	color: var(--texte);
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+	transition: background-color .12s linear, box-shadow .12s linear;
+}
+
+.tel-contact:hover { background: rgba(78, 201, 224, .05); }
+.tel-contact[aria-current="true"] { background: rgba(78, 201, 224, .07); box-shadow: inset 3px 0 0 var(--accent); }
+.tel-contact:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+
+.tel-contact-nom {
+	font: 700 15px/1.2 "Rajdhani", system-ui, sans-serif;
+	letter-spacing: .06em;
+	overflow-wrap: anywhere;
+}
+
+.tel-contact-etat {
+	flex: none;
+	font: 400 11px/1 "Share Tech Mono", monospace;
+	color: var(--accent);
+}
+
+.tel-contact[data-joignable="false"] .tel-contact-nom { color: var(--texte-faible); }
+.tel-contact[data-joignable="false"] .tel-contact-etat { color: #e0a44a; }
+
+/* Le composer se colle sous la liste, séparé par UN filet pleine largeur. */
+.tel-composer {
+	margin-top: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 14px 24px 16px;
+	border-top: 1px solid var(--bord);
+}
+
+.tel-a {
+	margin: 0;
+	font: 700 11px/1 "Rajdhani", system-ui, sans-serif;
+	letter-spacing: .18em;
+	text-transform: uppercase;
+	color: var(--texte-faible);
+}
+
+.tel-texte {
+	resize: none;
+	padding: 8px 10px;
+	background: var(--fond);
+	border: 1px solid var(--bord);
+	border-radius: 2px;
+	color: var(--texte);
+	font: 500 15px/1.35 "Rajdhani", system-ui, sans-serif;
+	user-select: text;
+}
+
+.tel-texte:hover { border-color: rgba(78, 201, 224, .45); }
+.tel-texte:focus-visible { outline: 1px solid var(--accent); border-color: var(--accent); }
+
+.tel-composer-pied {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.tel-compte {
+	font: 400 11px/1 "Share Tech Mono", monospace;
+	font-variant-numeric: tabular-nums;
+	color: var(--texte-faible);
+}
+
+.panneau--tel .action:disabled { opacity: .45; cursor: not-allowed; }
+
+.tel-message[data-ton="fait"],
+.dc-message[data-ton="fait"] { color: #4fbf6a; }
+.tel-message[data-ton="refus"],
+.dc-message[data-ton="refus"] { color: #e0a44a; }
+
+/* ── Digicode ──────────────────────────────────────────────────────────────── */
+
+.panneau--dc { width: min(300px, 90vw); }
+
+/* Pas de `.capacite` dans cet en-tête pour pousser la croix : elle se pousse seule. */
+.panneau--dc header .fermer { margin-left: auto; }
+
+.dc-aide {
+	margin: 0;
+	padding: 12px 24px 0;
+	font: 500 13px/1.4 "Rajdhani", system-ui, sans-serif;
+	color: var(--texte-faible);
+}
+
+/* L'écran : les points à gauche, la longueur à droite, en chiffres fixes. */
+.dc-ecran {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	margin: 12px 24px 4px;
+	padding: 12px 14px;
+	min-height: 52px;
+	background: var(--fond);
+	border: 1px solid var(--bord);
+	border-radius: 2px;
+}
+
+.dc-points {
+	font: 400 26px/1 "Share Tech Mono", monospace;
+	letter-spacing: .3em;
+	color: var(--accent-fort);
+}
+
+.dc-longueur {
+	font: 400 11px/1 "Share Tech Mono", monospace;
+	font-variant-numeric: tabular-nums;
+	color: var(--texte-faible);
+}
+
+.dc-clavier {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 6px;
+	padding: 12px 24px 18px;
+}
+
+.dc-touche {
+	height: 48px;
+	background: rgba(255, 255, 255, .02);
+	border: 1px solid var(--bord);
+	border-radius: 2px;
+	color: var(--texte);
+	font: 400 20px/1 "Share Tech Mono", monospace;
+	cursor: pointer;
+	transition: border-color .1s linear, background-color .1s linear, color .1s linear;
+}
+
+.dc-touche:hover { border-color: rgba(78, 201, 224, .5); color: var(--accent-fort); }
+.dc-touche:active:not(:disabled) { background: rgba(78, 201, 224, .14); }
+.dc-touche:focus-visible { outline: 1px solid var(--accent); outline-offset: 1px; }
+
+.dc-touche--effacer { color: var(--texte-faible); font-size: 17px; }
+
+.dc-touche--valider {
+	border-color: rgba(78, 201, 224, .55);
+	color: var(--accent-fort);
+	font: 700 14px/1 "Rajdhani", system-ui, sans-serif;
+	letter-spacing: .14em;
+}
+
+.dc-touche--valider:disabled { opacity: .4; cursor: not-allowed; }
