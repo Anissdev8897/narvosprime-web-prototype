@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // reapparition.mjs — harnais de Logic/Reapparition.lua (retour en jeu d'un joueur
 // mort) contre le VRAI catalogue des mondes et les VRAIES règles de départ.
 //
@@ -8,7 +9,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const SHARED = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const SHARED = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 const regles = fs.readFileSync(`${SHARED}/Logic/Reapparition.lua`, "utf8");
 const mondes = fs.readFileSync(`${SHARED}/Catalogs/Mondes.lua`, "utf8");
 

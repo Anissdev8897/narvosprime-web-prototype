@@ -1,3 +1,5 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
+import { bundleTS } from "./_bundle.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // chat.mjs — parité TS ↔ Lua du chat (chatStore).
 //
@@ -11,13 +13,12 @@ import path from "node:path";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
 
-const RACINE = "E:/narvosprime-web-prototype";
-const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
+const RACINE = RACINE_DEPOT + "";
 const LUA = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 
 // 1. TS : bundle chatStore.ts → chatStore (le singleton).
 const tmp = path.join(os.tmpdir(), `chat-ts-${Date.now()}.mjs`);
-execFileSync("node", [ESBUILD, `${RACINE}/WebPortal/src/rpg/chat/chatStore.ts`, "--bundle", "--format=esm", "--platform=node", `--outfile=${tmp}`]);
+await bundleTS(`${RACINE}/WebPortal/src/rpg/chat/chatStore.ts`, tmp);
 const ts = await import(pathToFileURL(tmp).href);
 
 // 2. Séquence TS (singleton) : mêmes envois que côté Lua.

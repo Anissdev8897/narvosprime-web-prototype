@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // metacustom.mjs — harnais de Logic/MetaCustom.lua (apparence du Meta Customization
 // System) contre le catalogue GÉNÉRÉ Catalogs/MetaCustom.lua.
 //
@@ -10,7 +11,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const SHARED = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const SHARED = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 const logique = fs.readFileSync(`${SHARED}/Logic/MetaCustom.lua`, "utf8");
 const catalogue = fs.readFileSync(`${SHARED}/Catalogs/MetaCustom.lua`, "utf8");
 

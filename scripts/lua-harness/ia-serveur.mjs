@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ia-serveur.mjs — harnais de l'EXÉCUTANT des PNJ (narvos-map-proto/Server/Ia.lua)
 // branché sur la VRAIE décision (Logic/Ia.lua), le vrai combat (Logic/Combat.lua)
 // et les vrais niveaux (Logic/Progression.lua + catalogues).
@@ -14,7 +15,7 @@
 import fs from "node:fs";
 import { LuaFactory } from "wasmoon";
 
-const RACINE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/";
+const RACINE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/";
 const lire = (p) => fs.readFileSync(RACINE + p, "utf8");
 
 const lua = await new LuaFactory().createEngine();

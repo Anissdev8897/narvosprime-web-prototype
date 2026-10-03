@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // vehicules.mjs — la voiture ROULANTE, prouvée hors du jeu.
 //
@@ -25,7 +26,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const PACKAGE = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos`;
 const PROTO = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos-map-proto`;
 const TOML = `${RACINE}/WebPortal/Server/Assets/narvos/Assets.toml`;

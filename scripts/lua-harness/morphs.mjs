@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // morphs.mjs — exécute les tests de Shared/Catalogs/Morphs.lua.
 //
@@ -17,7 +18,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const morphs = fs.readFileSync(`${BASE}/Catalogs/Morphs.lua`, "utf8");
 const tests = fs.readFileSync(new URL("./morphs-tests.lua", import.meta.url), "utf8");

@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // objets-isp.mjs — les données d'InventorySystemPro versées dans NOS catalogues,
 // prouvées sur les VRAIS catalogues et dans l'ORDRE du chargement réel.
@@ -17,7 +18,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const LUA = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const LUA = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 const CIBLES = ["Catalogs/Items.lua", "Catalogs/Recettes.lua", "Catalogs/ObjetsHyper.lua",
   "Catalogs/ObjetsIsp.lua", "Catalogs/Ateliers.lua", "Logic/ObjetsHyper.lua"];
 for (const c of CIBLES) {

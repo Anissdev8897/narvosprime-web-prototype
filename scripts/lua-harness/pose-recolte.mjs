@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // pose-recolte.mjs — les gisements et les ateliers sont-ils POSABLES à la main ?
 //
@@ -20,7 +21,7 @@
 import fs from "node:fs";
 import { LuaFactory } from "wasmoon";
 
-const RACINE = "E:/narvosprime-web-prototype/";
+const RACINE = RACINE_DEPOT + "/";
 const NARVOS = RACINE + "WebPortal/Server/nanos_world/packages/narvos/Shared/";
 const lire = (p) => fs.readFileSync(p, "utf8");
 

@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // sorts-serveur.mjs — harnais de l'EXÉCUTANT des sorts
 // (narvos-map-proto/Server/Sorts.lua) branché sur les VRAIES règles
 // (Logic/Sorts.lua) et les VRAIS catalogues (Spells, Classes, Vfx, SortsVfx).
@@ -16,7 +17,7 @@
 import fs from "node:fs";
 import { LuaFactory } from "wasmoon";
 
-const RACINE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/";
+const RACINE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/";
 const lire = (p) => fs.readFileSync(RACINE + p, "utf8");
 
 const lua = await new LuaFactory().createEngine();

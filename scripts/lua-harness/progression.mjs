@@ -1,3 +1,5 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
+import { bundleTS } from "./_bundle.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // progression.mjs — parité TS ↔ Lua du NIVEAU du personnage (menu Compétences).
 //
@@ -26,8 +28,7 @@ import path from "node:path";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
 
-const RACINE = "E:/narvosprime-web-prototype";
-const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
+const RACINE = RACINE_DEPOT + "";
 const RPG = `${RACINE}/WebPortal/src/rpg`;
 const LUA = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 
@@ -55,10 +56,7 @@ fs.writeFileSync(entree, [
   `export { TALENTS } from "${RPG}/talents/talentCatalog.ts";`,
 ].join("\n"));
 const sortie = path.join(dossier, "bundle.mjs");
-execFileSync("node", [ESBUILD, entree, "--bundle", "--format=esm", "--platform=node",
-  `--outfile=${sortie}`, "--log-level=error",
-  "--define:import.meta.env.DEV=false", "--define:import.meta.env.PROD=true",
-  "--define:import.meta.env={}", "--define:process.env.NODE_ENV=\"production\""]);
+await bundleTS(entree, sortie, { logLevel: "error", define: { "import.meta.env.DEV": "false", "import.meta.env.PROD": "true", "import.meta.env": "{}", "process.env.NODE_ENV": '"production"' } });
 const ts = await import(pathToFileURL(sortie).href);
 
 // ── 2. Les entrées, communes aux deux côtés ──────────────────────────────────

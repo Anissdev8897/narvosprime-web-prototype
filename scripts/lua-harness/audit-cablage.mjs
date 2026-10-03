@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // audit-cablage.mjs — rejoue le chargement RÉEL de Shared/Index.lua dans wasmoon
 // avec un Package.Require qui lit les vrais fichiers, puis dump l'état final
@@ -9,7 +10,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const BASE = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 
 // ── Sérialiseur JSON tolérant ─────────────────────────────────────────────────

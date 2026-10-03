@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // incarnations-check.mjs — qui joue les marchands, et le peut-il ?
 //
@@ -25,7 +26,7 @@
 
 import fs from "node:fs";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const PKG = `${RACINE}/WebPortal/Server/nanos_world/packages`;
 const INDEX = `${PKG}/narvos-map-proto/Server/Index.lua`;
 const MERCHANTS = `${PKG}/narvos/Shared/Catalogs/Merchants.lua`;

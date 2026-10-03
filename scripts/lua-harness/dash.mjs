@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // dash.mjs — exécute les tests de Shared/Logic/Dash.lua.
 //
@@ -13,7 +14,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const BASE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+const BASE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 const SRC_ANIMATIONS = `${BASE}/narvos/Shared/Logic/Animations.lua`;
 const SRC_DASH = `${BASE}/narvos/Shared/Logic/Dash.lua`;
 const SRC_SERVER_DASH = `${BASE}/narvos-map-proto/Server/Dash.lua`;

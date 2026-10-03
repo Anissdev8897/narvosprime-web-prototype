@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // z-absolu-check.mjs — un point RELATIF ne garde pas un Z ABSOLU.
 //
@@ -33,7 +34,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const RACINE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos-map-proto";
+const RACINE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos-map-proto";
 const DOSSIERS = ["Server", "Client"];
 
 // Exceptions déclarées : "fichier:extrait" -> raison.

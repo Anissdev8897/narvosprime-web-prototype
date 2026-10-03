@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // graphismes.mjs — exécute les tests de Shared/Logic/Graphismes.lua.
 //
@@ -27,7 +28,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const graphismes = fs.readFileSync(`${BASE}/Logic/Graphismes.lua`, "utf8");
 const tests = fs.readFileSync(new URL("./graphismes-tests.lua", import.meta.url), "utf8");

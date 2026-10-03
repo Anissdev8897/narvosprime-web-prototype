@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // pcall-retour-perdu-check.mjs — un pcall dont on ne lit que le booléen, autour
 // d'une fonction qui RENVOIE quelque chose.
@@ -26,7 +27,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const RACINE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+const RACINE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 
 /** Rend les violations d'un texte Lua : [{ ligne, texte }]. */
 function Examiner(source) {

@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // animaux.mjs — les compagnons : état, catalogue généré, codec, et le refus.
 //
@@ -17,7 +18,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 import path from "node:path";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const BASE = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 const SOURCE =
   RACINE +

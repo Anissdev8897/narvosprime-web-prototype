@@ -1,3 +1,5 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
+import { bundleTS } from "./_bundle.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // radar.mjs — exécute les tests de Shared/Logic/Radar.lua.
 //
@@ -15,10 +17,9 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const BASE = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 const TS_PROJ = `${RACINE}/WebPortal/src/rpg/runtime/radar/projection.ts`;
-const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
 
 const radarLua = fs.readFileSync(`${BASE}/Logic/Radar.lua`, "utf8");
 const tests = fs.readFileSync(new URL("./radar-tests.lua", import.meta.url), "utf8");
@@ -27,8 +28,7 @@ const tests = fs.readFileSync(new URL("./radar-tests.lua", import.meta.url), "ut
 let ts;
 try {
   const tmp = path.join(os.tmpdir(), `radar-ts-bundle-${Date.now()}.mjs`);
-  execFileSync("node", [ESBUILD, TS_PROJ, "--bundle", "--format=esm",
-    "--platform=node", `--outfile=${tmp}`]);
+  await bundleTS(TS_PROJ, tmp);
   ts = await import(pathToFileURL(tmp).href);
 } catch (e) {
   console.error("ERREUR esbuild (import TS):", e.message);

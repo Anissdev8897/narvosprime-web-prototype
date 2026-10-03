@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // comptes.mjs — exécute les tests de Shared/Logic/Comptes.lua.
 //
@@ -17,7 +18,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const crypto = fs.readFileSync(`${BASE}/Logic/Crypto.lua`, "utf8");
 const comptes = fs.readFileSync(`${BASE}/Logic/Comptes.lua`, "utf8");

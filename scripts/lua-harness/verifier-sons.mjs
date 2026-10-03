@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // narvos-verifier-sons.mjs — vérifie que chaque nom de son de Sons.lua existe
 // réellement dans le pack cuit (Server/Assets/narvos/Assets.toml [assets.sounds]).
@@ -12,8 +13,8 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const BASE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
-const TOML = "E:/narvosprime-web-prototype/WebPortal/Server/Assets/narvos/Assets.toml";
+const BASE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const TOML = RACINE_DEPOT + "/WebPortal/Server/Assets/narvos/Assets.toml";
 const sonsLua = fs.readFileSync(`${BASE}/Catalogs/Sons.lua`, "utf8");
 
 // 1. Sons.lua → Sons (wasmoon)

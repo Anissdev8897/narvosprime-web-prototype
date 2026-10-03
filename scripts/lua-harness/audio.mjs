@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // audio.mjs — exécute les tests de Shared/Logic/Audio.lua (logique pure).
 //
@@ -8,7 +9,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const BASE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const BASE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 const lire = (p) => fs.readFileSync(`${BASE}/${p}`, "utf8");
 const sons = lire("Catalogs/Sons.lua");
 const audio = lire("Logic/Audio.lua");

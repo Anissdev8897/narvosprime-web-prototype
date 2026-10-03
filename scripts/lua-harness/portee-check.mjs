@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // portee-check.mjs — un nom est-il employé AVANT sa déclaration `local` ?
 //
@@ -37,7 +38,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const P = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+const P = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 
 const FICHIERS = (() => {
   const sortie = [];

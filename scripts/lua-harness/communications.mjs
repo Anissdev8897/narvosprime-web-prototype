@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // communications.mjs — exécute les tests de Logic/TexteChat.lua, Logic/Radio.lua
 // et Logic/Telephone.lua, avec le VRAI catalogue d'objets.
@@ -11,7 +12,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const CIBLES = ["Logic/TexteChat.lua", "Logic/Radio.lua", "Logic/Telephone.lua", "Catalogs/Items.lua"];
 let manquante = false;

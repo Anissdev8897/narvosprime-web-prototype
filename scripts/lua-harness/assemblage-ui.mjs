@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // assemblage-ui.mjs — harnais d'intégration de l'établi d'assemblage.
 //
@@ -25,9 +26,9 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const SHARED =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 const SERVEUR =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos-map-proto/Server";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos-map-proto/Server";
 
 const CIBLES = [
   `${SHARED}/Logic/Inventory.lua`,

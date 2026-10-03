@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // anims.mjs — exécute les tests de Shared/Logic/Animations.lua.
 //
@@ -10,7 +11,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const SRC = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared/Logic/Animations.lua";
+const SRC = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared/Logic/Animations.lua";
 
 const lua = await new LuaFactory().createEngine();
 

@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // teleports.mjs — harnais de Logic/Teleports.lua (points de téléportation, purs)
 // et du catalogue Catalogs/Teleports.lua (relu par le jeu ET par l'éditeur).
 //
@@ -8,7 +9,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const SHARED = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const SHARED = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 const logique = fs.readFileSync(`${SHARED}/Logic/Teleports.lua`, "utf8");
 const catalogue = fs.readFileSync(`${SHARED}/Catalogs/Teleports.lua`, "utf8");
 

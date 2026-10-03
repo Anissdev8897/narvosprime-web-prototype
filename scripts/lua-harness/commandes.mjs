@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // commandes.mjs — exécute les tests de Shared/Logic/Commandes.lua.
 //
@@ -20,7 +21,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const commandes = fs.readFileSync(`${BASE}/Logic/Commandes.lua`, "utf8");
 const tests = fs.readFileSync(new URL("./commandes-tests.lua", import.meta.url), "utf8");

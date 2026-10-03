@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // niveaux-pnj-places.mjs — niveau manuel d'un PNJ, de l'interface au respawn.
 //
 // Prouve deux choses distinctes :
@@ -7,7 +8,7 @@
 import fs from "node:fs";
 import { LuaFactory } from "wasmoon";
 
-const ROOT = "E:/narvosprime-web-prototype/";
+const ROOT = RACINE_DEPOT + "/";
 const read = (p) => fs.readFileSync(ROOT + p, "utf8");
 const serverRoot = "WebPortal/Server/nanos_world/packages/narvos-map-proto/";
 const narvosRoot = "WebPortal/Server/nanos_world/packages/narvos/";

@@ -1,3 +1,5 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
+import { bundleTS } from "./_bundle.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // competences.mjs — parité TS ↔ Lua du générateur de compétences.
 //
@@ -14,14 +16,13 @@ import path from "node:path";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
 
-const SRC = "E:/narvosprime-web-prototype/WebPortal/src";
-const LUA = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
-const RACINE = "E:/narvosprime-web-prototype";
-const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
+const SRC = RACINE_DEPOT + "/WebPortal/src";
+const LUA = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const RACINE = RACINE_DEPOT + "";
 
 // 1. TS : bundle skillGenerator.ts → getAllSkills() via le binaire esbuild.
 const tmp = path.join(os.tmpdir(), `skills-ts-${Date.now()}.mjs`);
-execFileSync("node", [ESBUILD, `${SRC}/rpg/skills/skillGenerator.ts`, "--bundle", "--format=esm", "--platform=node", `--outfile=${tmp}`]);
+await bundleTS(`${SRC}/rpg/skills/skillGenerator.ts`, tmp);
 const ts = await import(pathToFileURL(tmp).href);
 const tsSkills = ts.getAllSkills();
 
