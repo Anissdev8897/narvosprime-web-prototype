@@ -213,9 +213,13 @@ Naitre = function(rang, p)
     -- point d'entrée que `Spawner.Invoquer` : un PNJ né autrement ne bougera
     -- pas, et rien ne le signalera.
     if (Narvos.IaServeur) then
-        pcall(function()
+        local pris, erreur = pcall(function()
             Narvos.IaServeur.Prendre(entite, entree, { niveau = p.niveau })
         end)
+        if (not pris) then
+            Console.Warn("[PEUPLEMENT] IA refusee pour " .. tostring(entree and entree.id)
+                .. " : " .. tostring(erreur))
+        end
     end
 end
 

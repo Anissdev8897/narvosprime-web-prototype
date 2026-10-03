@@ -29,7 +29,10 @@ Teleports.NOM_MAX = 48
 Teleports.RAYON_DEFAUT = 150.0     -- cm : on entre dans le cercle, pas à côté
 Teleports.RAYON_MIN = 50.0
 Teleports.RAYON_MAX = 1000.0
-Teleports.COORD_MAX = 10000000.0   -- 100 km : au-delà, une coordonnée est une erreur
+-- 200 km : au-delà, une coordonnée est une erreur. C'était 100 km jusqu'au
+-- 2026-10-03 ; la Mégastructure (Y = 103,9 km, sans décalage de sous-niveau)
+-- tombait dehors, et tout point posé chez elle était refusé « position invalide ».
+Teleports.COORD_MAX = 20000000.0
 --- À l'arrivée sur un AUTRE point, on se pose devant lui, hors de son cercle :
 --- arriver au centre ferait réapparaître aussitôt l'invite du retour.
 Teleports.RECUL_ARRIVEE = 60.0

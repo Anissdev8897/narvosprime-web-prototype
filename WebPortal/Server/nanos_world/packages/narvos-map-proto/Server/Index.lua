@@ -1867,7 +1867,11 @@ end
 -- `folder` : nil ici = matche les quêtes « tuer N » sans enemyFolder. Les quêtes à
 -- enemyFolder (ex. "space_ship") relèvent d'un contexte spatial absent du hub — le
 -- getter du folder d'entité n'a pas pu être confirmé dans l'API (voir rubrique).
-Character.Subscribe("Death", function(self, last_damage_taken, bone, damage_type_reason, hit_direction, instigator, causer)
+--
+-- ⚠ LES DEUX CLASSES. Jusqu'au 2026-10-03 seul `Character` était écouté : un
+-- monstre `CharacterSimple` (venom_stalker…) donnait son XP (`Progression.lua`
+-- écoute les deux) mais ne comptait pour aucune quête.
+local function SurMortPourQuetes(self, last_damage_taken, bone, damage_type_reason, hit_direction, instigator, causer)
     if (instigator ~= nil) then
         -- folder(s) de l'ennemi = ses tags (GetActorTags, BaseActor.json) : une quête
         -- `enemyFolder:"space_ship"` matche si l'ennemi porte ce tag. Repli nil (kill-any).
@@ -1878,7 +1882,9 @@ Character.Subscribe("Death", function(self, last_damage_taken, bone, damage_type
         end
         SurKillJoueur(instigator, tags)
     end
-end)
+end
+Character.Subscribe("Death", SurMortPourQuetes)
+if (CharacterSimple) then CharacterSimple.Subscribe("Death", SurMortPourQuetes) end
 
 --- Hook : un item vient d'être fabriqué.
 SurCraftJoueur = function(player, item_id)

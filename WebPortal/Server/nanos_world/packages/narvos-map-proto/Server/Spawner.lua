@@ -338,9 +338,13 @@ function Spawner.Invoquer(player, id, niveau)
     -- signalera. `Prendre` lit `entree.role` pour choisir le profil, et un role
     -- inconnu retombe sur `passif` — jamais sur un comportement agressif.
     if (Narvos.IaServeur) then
-        pcall(function()
+        local pris, erreur = pcall(function()
             Narvos.IaServeur.Prendre(entite, entree, { niveau = niveau_pnj })
         end)
+        if (not pris) then
+            Console.Warn("[SPAWNER] IA refusee pour " .. tostring(entree and entree.id)
+                .. " : " .. tostring(erreur))
+        end
     end
 
     -- ⚠ MEME RAISON QUE POUR LES PROPS : sans l'identifiant de catalogue pose

@@ -46,6 +46,11 @@ local l2, id2 = T.Creer(l, { nom = "Entree tour", monde = "tower", x = 0, y = 0,
 verifier(id2 == "entree_tour_2" and #l == 1 and #l2 == 2, "creer : id unique, liste d'origine intacte")
 verifier(T.Creer({}, { nom = "x", monde = "tower", x = 0 / 0, y = 0, z = 0 }) == nil, "creer : NaN refuse")
 verifier(T.Creer({}, { nom = "x", monde = "tower", x = 1e9, y = 0, z = 0 }) == nil, "creer : hors bornes refuse")
+-- La Megastructure est a 103,9 km de l'origine et n'a pas de decalage : ses
+-- coordonnees locales SONT ses coordonnees monde. Un point pose a son arrivee
+-- doit etre accepte.
+verifier(T.Creer({}, { nom = "m", monde = "megastructure", x = -8511120, y = 10387420, z = 150100 }) ~= nil,
+  "creer : un point a l'arrivee de la Megastructure est accepte")
 verifier(T.Creer({}, { nom = "x", monde = "", x = 0, y = 0, z = 0 }) == nil, "creer : monde vide refuse")
 verifier(T.Creer({}, { nom = "x", monde = "../x", x = 0, y = 0, z = 0 }) == nil, "creer : monde invalide refuse")
 local lr = T.Creer({}, { nom = "r", monde = "tower", x = 0, y = 0, z = 0, rayon = 99999 })
