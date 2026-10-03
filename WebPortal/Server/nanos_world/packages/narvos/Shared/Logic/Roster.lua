@@ -634,7 +634,7 @@ function Roster.Creer(compte_id, params)
         "VALUES (:0, :1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14, :15)",
         perso.id, compte_id, perso.name, perso.classId, perso.gender, perso.loreId, perso.corps,
         perso.level, Roster.EncoderTenue(perso.tenue),
-        Roster.EncoderGardeRobe(garde_robe), Roster.EncoderMorphs(perso.morphs),
+        Roster.EncoderGardeRobe(perso.gardeRobe), Roster.EncoderMorphs(perso.morphs),
         perso.credits,
         Roster.EncoderCouleurs(perso.colors),
         -- Un personnage neuf a un sac vide, pas nil : `DecoderInventaire("")`
