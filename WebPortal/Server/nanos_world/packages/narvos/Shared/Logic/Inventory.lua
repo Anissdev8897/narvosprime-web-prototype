@@ -79,9 +79,9 @@ local Inventory = {}
 Inventory.DEFAULT_GRID_COLS = 8
 Inventory.DEFAULT_GRID_ROWS = 10
 --- ⚠ TROISIEME valeur de credits du depot, et elle etait la seule a diverger.
---- Les deux autres ont ete alignees sur 500 le 2026-09-08 :
----   Roster.lua:54       CREDITS_DEPART = 500  ← fait foi, pose a la creation
----   src/rpg/loot/Inventory.ts:52  STARTER_CREDITS = 500
+--- Les trois valent 1500 depuis le 2026-10-03 (regle : aucune tenue offerte) :
+---   Roster.lua:54       CREDITS_DEPART = 1500 ← fait foi, pose a la creation
+---   src/rpg/loot/Inventory.ts:52  STARTER_CREDITS = 1500
 --- Celle-ci sert de REPLI (l. 797 et 850 : `next_state.credits or …`). Elle est
 --- dormante aujourd hui : l UI n affiche aucun credit, et les credits vivent dans
 --- leur propre colonne `personnages.credits`, pas dans le blob d inventaire.
@@ -89,7 +89,7 @@ Inventory.DEFAULT_GRID_ROWS = 10
 --- Alignee quand meme. Sur ce depot, une valeur dormante gardee "au cas ou" a
 --- deja pris la place du choix du joueur le jour ou la fonction a ete branchee
 --- (COULEURS_DEFAUT, et les couleurs sont parties effacees en base).
-Inventory.DEFAULT_CREDITS = 500
+Inventory.DEFAULT_CREDITS = 1500
 
 --- Ordre d'affichage des slots d'équipement. Source de vérité UNIQUE : les deux
 --- tables suivantes en sont dérivées, pour qu'un renommage ne puisse pas créer

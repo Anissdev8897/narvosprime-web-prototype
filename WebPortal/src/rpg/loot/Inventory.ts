@@ -49,7 +49,7 @@ export const STARTER_ITEMS: LootItem[] = [
  * `RpgGameWorld.tsx` (`Math.max(base.credits, …)`). Les désynchroniser fait
  * remonter les crédits en silence au premier chargement.
  */
-export const STARTER_CREDITS = 500; // fait foi = 500 (le jeu Lua, Roster.lua:54 CREDITS_DEPART, donne 500 au spawn ; ce TS doit suivre, pas diverger)
+export const STARTER_CREDITS = 1500; // suit Roster.CREDITS_DEPART (jeu Lua) : 1 500 au départ, aucune tenue offerte ; ce TS doit suivre, pas diverger
 
 export function createInventory(): InventoryState {
   return { items: [...STARTER_ITEMS], equipped: {}, credits: STARTER_CREDITS };

@@ -174,8 +174,12 @@ egal(motif_vol, motif_absent, "meme message pour vol et inexistant")
 
 section("MajTenue")
 
-local cible = Roster.ParCompte(1)[1]
-ok(cible ~= nil, "un personnage reste pour le test")
+-- ⚠ UN PERSONNAGE AU CORPS HABILLABLE, CRÉÉ ICI. « Hanibes » vient d'être
+-- supprimé, et les « PersoN » restants ont le corps d'office (famille
+-- `metahuman`, sans aucune pièce) : prendre le premier de la liste faisait
+-- échouer tout ce bloc pour une raison étrangère à ce qu'il vérifie.
+local cible = Roster.Creer(1, { nom = "Habillable", class_id = CLASSE, genre = "M", corps = CORPS_M })
+ok(cible ~= nil, "un personnage au corps habillable est cree pour le test")
 
 -- ⚠ La piece doit etre de la MEME famille que le corps du personnage : c'est
 -- `Roster.MajTenue` qui le verifie, en lisant la famille du corps et non un
@@ -267,8 +271,12 @@ local neuf = Roster.Creer(2, { nom = "Vestiaire", class_id = CLASSE, genre = "M"
 ok(neuf ~= nil, "personnage neuf cree")
 
 if (neuf) then
+    -- Règle de Hanibes (2026-10-03) : AUCUNE tenue offerte. Le personnage neuf
+    -- reçoit 1 500 pièces et achète sa tenue à un PNJ.
+    egal(Roster.CREDITS_DEPART, 1500, "la bourse de depart vaut 1 500 pieces")
     egal(neuf.credits, Roster.CREDITS_DEPART, "le personnage neuf recoit sa bourse")
-    ok(next(neuf.gardeRobe.porte) ~= nil, "le personnage neuf porte une tenue offerte")
+    egal(next(neuf.gardeRobe.porte), nil, "le personnage neuf ne porte aucun vetement")
+    egal(next(neuf.gardeRobe.possede), nil, "le personnage neuf ne possede aucun vetement")
 
     -- La relecture est ce qui compte : une garde-robe correcte en memoire mais
     -- perdue a l'ecriture ne se verrait qu'a la reconnexion suivante.
@@ -278,8 +286,8 @@ if (neuf) then
     end
     ok(relu ~= nil, "le personnage neuf est relu depuis la base")
     if (relu) then
-        egal(relu.gardeRobe.porte.torse, neuf.gardeRobe.porte.torse,
-             "la tenue offerte survit a l aller-retour en base")
+        egal(next(relu.gardeRobe.porte), nil,
+             "la garde-robe vide survit a l aller-retour en base")
         egal(relu.credits, Roster.CREDITS_DEPART, "la bourse survit a l aller-retour")
     end
 

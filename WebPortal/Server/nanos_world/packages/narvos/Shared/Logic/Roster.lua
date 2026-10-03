@@ -49,9 +49,11 @@ end
 --- Plafond par compte. Sans lui, un client bavard remplirait la base.
 Roster.MAX_PAR_COMPTE = 5
 
---- Bourse d'un personnage neuf. Assez pour deux ou trois pièces civiles : de
---- quoi essayer la boutique sans la vider, ce qui est le but de la demande.
-Roster.CREDITS_DEPART = 500 -- fait foi = 500 (le joueur démarre à 500 ici) ; synchroniser avec src/rpg/loot/Inventory.ts STARTER_CREDITS (a été aligné sur ce 500)
+--- Bourse d'un personnage neuf. Règle de Hanibes (2026-10-03) : aucune tenue
+--- offerte, 1 500 pièces pour acheter celle qu'on veut à un PNJ.
+--- Fait foi ; `Inventory.DEFAULT_CREDITS` et `STARTER_CREDITS`
+--- (src/rpg/loot/Inventory.ts) doivent suivre (`constantes-check.mjs`).
+Roster.CREDITS_DEPART = 1500
 
 local db = nil
 
@@ -621,18 +623,10 @@ function Roster.Creer(compte_id, params)
         return nil, "Ce nom est deja pris"
     end
 
-    -- Tenue offerte. Un personnage neuf ne sort pas en sous-vêtements : depuis
-    -- que le mesh de base est caché, sa peau vient des slots, et sans vêtement
-    -- il serait littéralement nu — pas « en tenue simple ».
-    --
-    -- La famille vient du CORPS choisi, seul endroit qui la connaisse. Un corps
-    -- inconnu (ancienne sauvegarde, client modifié) donne une garde-robe vide
-    -- plutôt qu'une erreur : le personnage reste jouable, juste dévêtu.
-    local corps_def = Modular.CORPS[perso.corps]
-    local garde_robe = corps_def
-        and Vestiaire().Initiale(corps_def.famille, corps_def.genre)
-        or { possede = {}, porte = {} }
-    perso.gardeRobe = garde_robe
+    -- AUCUNE tenue offerte (règle de Hanibes, 2026-10-03) : la garde-robe naît
+    -- vide, la bourse de départ sert à acheter sa tenue à un PNJ. Le corps
+    -- reste visible : il vient de `perso.tenue` (l'apparence), pas d'ici.
+    perso.gardeRobe = Vestiaire().Nouvelle()
     perso.credits = Roster.CREDITS_DEPART
 
     local touchees = db:Execute(
