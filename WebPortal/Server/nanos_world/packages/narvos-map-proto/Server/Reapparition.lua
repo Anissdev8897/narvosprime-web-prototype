@@ -109,9 +109,16 @@ function ReapparitionServeur.Revive(demandeur, cible)
         lacet = 0
         pcall(function() lacet = character:GetRotation().Yaw end)
     end
+    -- Le monde où il est MORT, lu avant de le déplacer : s'il se relève ailleurs,
+    -- c'est un voyage, et le client doit changer de ciel.
+    local monde_mort = Narvos.Mondes.ParPosition(character:GetLocation())
     character:Respawn(point, Rotator(0, lacet, 0))
     character:SetHealth(Regles().Vie(character:GetMaxHealth()))
     morts[character] = nil
+    if ((not monde_mort or monde_mort.id ~= monde_id)
+        and Narvos.VoyageServeur and Narvos.VoyageServeur.Annoncer) then
+        Narvos.VoyageServeur.Annoncer(cible, monde_id)
+    end
 
     RendreMana(cible)
     Events.CallRemote("Narvos:Mort", cible, Reliability.Reliable, false)

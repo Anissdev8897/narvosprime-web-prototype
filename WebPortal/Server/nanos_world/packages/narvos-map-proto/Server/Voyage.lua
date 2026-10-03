@@ -212,6 +212,24 @@ function VoyageServeur.Envoyer(player, monde_id)
     -- geometrie d'un sous-niveau n'est pas une entite nanos, elle reste en
     -- dimension 1. Le voyage est donc une teleportation, et rien d'autre.
     character:SetLocation(arrivee)
+    VoyageServeur.Annoncer(player, monde_id)
+
+    return true, nil
+end
+
+--- Ce qui suit TOUTE arrivée dans un autre monde, quel que soit le chemin
+--- (portail, point de téléportation, Zaap, réapparition) : vol et vitesse du
+--- monde, puis l'annonce au client, qui change de ciel et de nom de monde.
+--- Avant le 2026-10-03 seul `Envoyer` le faisait : un joueur relevé dans un autre
+--- monde gardait le ciel — et le vol x40 — de celui qu'il quittait.
+---@param player table
+---@param monde_id string
+---@return boolean
+function VoyageServeur.Annoncer(player, monde_id)
+    local monde = Mondes.Trouver(monde_id)
+    if (not monde) then return false end
+    local character = player:GetControlledCharacter()
+    if (not character) then return false end
 
     -- ── VOL ET VITESSE, PAR MONDE ────────────────────────────────────────────
     -- L'orbite fait 40 km du hub a la premiere etoile. A 9,5 m/s c'est 70
@@ -229,7 +247,7 @@ function VoyageServeur.Envoyer(player, monde_id)
         description = monde and monde.description or nil,
     })
 
-    return true, nil
+    return true
 end
 
 --- Franchissement d'un portail.

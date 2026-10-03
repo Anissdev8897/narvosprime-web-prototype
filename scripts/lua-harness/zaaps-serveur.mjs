@@ -127,7 +127,11 @@ Narvos.ZaapsCatalogue = { LISTE = {} }
 Narvos.Reapparition = (function() ${lire("narvos/Shared/Logic/Reapparition.lua")} end)()
 
 local mondes_charges = {}
-Narvos.VoyageServeur = { Charger = function(id) mondes_charges[#mondes_charges + 1] = id; return true end }
+local annonces = {}
+Narvos.VoyageServeur = {
+  Charger = function(id) mondes_charges[#mondes_charges + 1] = id; return true end,
+  Annoncer = function(p, id) annonces[#annonces + 1] = { joueur = p, monde = id }; return true end,
+}
 
 local sessions = {}
 Narvos.SessionServeur = { De = function(p) return sessions[p] end }
@@ -260,6 +264,7 @@ egal(rs.r.Yaw, 90, "releve tourne dans le sens du zaap")
 egal(joueur.corps.vie, 66, "vie rendue : moitie")
 egal(dernier_distant("Narvos:Mort").charge, false, "panneau de mort retire")
 ok(journal[#journal]:find("automatique", 1, true) ~= nil, "journal : reapparition automatique nommee")
+egal(#annonces, 0, "releve dans le MEME monde : aucun voyage annonce")
 
 -- ── 4. /revive conserve, sans double reapparition ────────────────────────────
 joueur.corps:Mourir()
@@ -298,6 +303,11 @@ ok(dernier_distant("Narvos:Mort").charge.lieu == foret.label, "panneau : retour 
 avancer(Narvos.Reapparition.DELAI_AUTO_MS + 100)
 local der = joueur.corps.respawns[#joueur.corps.respawns]
 ok(der.p == foret.arrivee, "releve SEUL a l'arrivee de la cite choisie au depart")
+-- Mort dans la capitale, releve dans la foret : le client doit changer de ciel
+-- et de nom de monde, comme apres un portail.
+local ann = annonces[#annonces]
+ok(ann ~= nil and ann.joueur == joueur and ann.monde == "foret",
+   "releve dans un AUTRE monde : voyage annonce (" .. tostring(ann and ann.monde) .. ")")
 
 -- Corps detruit avant l'echeance : aucun minuteur ne le touche.
 joueur.corps:Mourir()

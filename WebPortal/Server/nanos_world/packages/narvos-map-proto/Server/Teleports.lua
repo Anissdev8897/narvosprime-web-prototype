@@ -49,6 +49,8 @@ local deps = {
     peut_gerer = function(_) return false end,
     ecrire = function(_, _) return nil end,
     charger_monde = function(_) end,
+    --- Après une arrivée dans un AUTRE monde : vol, vitesse, ciel du client.
+    annoncer_monde = function(_, _) end,
 }
 
 function TeleportsServeur.Configurer(d)
@@ -188,12 +190,14 @@ function TeleportsServeur.Utiliser(player, id)
     local dest, raison = Logique.Destination(liste, id)
     if (not dest) then return false, raison end
     local ici = VersLocal(o)
-    if (not ici or ici.monde ~= dest.monde) then deps.charger_monde(dest.monde) end
+    local autre_monde = (not ici or ici.monde ~= dest.monde)
+    if (autre_monde) then deps.charger_monde(dest.monde) end
 
     dernier[player] = horloge_ms
     proche[player] = nil
     character:SetLocation(VersMonde(dest))
     character:SetRotation(Rotator(0, dest.yaw or 0, 0))
+    if (autre_monde) then deps.annoncer_monde(player, dest.monde) end
     Console.Log(("[TP] %s : %s -> %s"):format(tostring(player:GetName()), p.id,
         tostring(p.vers or (dest.monde .. " (position)"))))
     return true, p.nom

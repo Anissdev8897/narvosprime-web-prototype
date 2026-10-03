@@ -672,6 +672,9 @@ Narvos.TeleportsServeur.Configurer({
     charger_monde = function(monde_id)
         if (Narvos.VoyageServeur) then Narvos.VoyageServeur.Charger(monde_id) end
     end,
+    annoncer_monde = function(player, monde_id)
+        if (Narvos.VoyageServeur) then Narvos.VoyageServeur.Annoncer(player, monde_id) end
+    end,
 })
 Narvos.TeleportsServeur.Charger()
 
@@ -687,6 +690,9 @@ Narvos.ZaapsServeur.Configurer({
     ecrire = Narvos.Export.Catalogue,
     charger_monde = function(monde_id)
         if (Narvos.VoyageServeur) then Narvos.VoyageServeur.Charger(monde_id) end
+    end,
+    annoncer_monde = function(player, monde_id)
+        if (Narvos.VoyageServeur) then Narvos.VoyageServeur.Annoncer(player, monde_id) end
     end,
     perso_de = function(player)
         local s = Narvos.SessionServeur and Narvos.SessionServeur.De(player)

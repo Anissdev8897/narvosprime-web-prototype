@@ -509,7 +509,9 @@ Mondes.LIAISONS = {
     {
         de = "tower", vers = "orbital",
         label = "Plateforme de la Tour",
-        position = Vector(-8000000, 2000000, 345),
+        -- Sur l'arrivée remesurée le 2026-09-08 (l'ancienne position,
+        -- -8000000 / 2000000 / 345, était 1,5 km sous le désert).
+        position = Vector(-8513420, 2385420, 151935),
         rayon = 6.0 * M,
         exige_vol = true,
         teinte = Color(0.25, 0.75, 1.0),
@@ -517,7 +519,8 @@ Mondes.LIAISONS = {
     {
         de = "alien", vers = "orbital",
         label = "Balise d'Azur",
-        position = Vector(-8000000, 4000000, 1586),
+        -- Sur l'arrivée remesurée le 2026-09-08, comme la Tour.
+        position = Vector(-8513420, 4385420, 153506),
         rayon = 6.0 * M,
         exige_vol = true,
         teinte = Color(0.25, 0.75, 1.0),

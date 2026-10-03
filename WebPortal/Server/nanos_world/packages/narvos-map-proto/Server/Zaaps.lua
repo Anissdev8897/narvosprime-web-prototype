@@ -49,6 +49,8 @@ local deps = {
     peut_gerer = function(_) return false end,
     ecrire = function(_, _) return nil end,
     charger_monde = function(_) end,
+    --- Après une arrivée dans un AUTRE monde : vol, vitesse, ciel du client.
+    annoncer_monde = function(_, _) end,
     --- Le personnage EN JEU du joueur (table de session : `zaap`, `id`…), ou nil.
     perso_de = function(_) return nil end,
     --- Écrit le Zaap retenu en base. Rend (ok, raison).
@@ -300,9 +302,11 @@ OPERATIONS.Aller = function(player, id)
     local character = player:GetControlledCharacter()
     if (not character) then return false, "Aucun personnage" end
     local ici = VersLocal(character:GetLocation())
-    if (not ici or ici.monde ~= arrivee.monde) then deps.charger_monde(arrivee.monde) end
+    local autre_monde = (not ici or ici.monde ~= arrivee.monde)
+    if (autre_monde) then deps.charger_monde(arrivee.monde) end
     character:SetLocation(VersMonde(arrivee))
     character:SetRotation(Rotator(0, arrivee.yaw or 0, 0))
+    if (autre_monde) then deps.annoncer_monde(player, arrivee.monde) end
     return true, "Vous etes devant : " .. Logique.Libelle(Logique.Trouver(liste, id).nom)
 end
 

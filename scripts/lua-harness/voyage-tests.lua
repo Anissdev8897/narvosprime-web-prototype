@@ -294,6 +294,15 @@ for i, a in ipairs(Mondes.LIAISONS) do
     end
 end
 
+-- Un portail de DÉPART est dans le monde qu'il quitte. Les arrivées de la Tour
+-- et d'Azur ont été remesurées le 2026-09-08 (1,5 km plus haut, 5 km plus loin) ;
+-- leurs portails de montée étaient restés aux anciennes coordonnées, hors de la
+-- sphère de leur monde : `ParPosition` les voyait en orbite.
+for _, l in ipairs(Mondes.LIAISONS) do
+    egal(Mondes.ParPosition(l.position).id, l.de,
+        "portail de départ dans son monde : " .. l.de .. " -> " .. l.vers)
+end
+
 print("")
 print(string.format("%d reussis, %d echec(s)", reussis, echecs))
 if (echecs > 0) then error(echecs .. " test(s) en echec") end
