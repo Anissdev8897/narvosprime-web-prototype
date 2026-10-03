@@ -229,3 +229,20 @@ dans le code, à mesurer avant de corriger :
 
 Les lots 1 à 4 se font en Lua pur avec harnais, sans pack. Les lots 5 à 7 ne peuvent
 être validés qu'avec un client qui se connecte, donc après le lot 0 et un cook.
+
+## 10. Lot 1 — fait le 03/10 (commits `1440f80`, `b1dfbd2`, `e258aeb`)
+
+Batterie : 108 harnais, 91 verts, 17 rouges, 11 809 assertions
+(`E:\mes_projet\BATTERIE_14_lot1_fin_2026-10-03.txt`). Rien n'a été vu en jeu.
+
+| correctif | fichiers | preuve |
+|---|---|---|
+| Menotté : esquive et escalade refusées | `Shared/Logic/Menottes.lua` | `menottes-cablage-check` |
+| Portails de montée Tour et Azur posés sur les arrivées remesurées | `Shared/Catalogs/Mondes.lua` | `voyage-tests.lua` : tout portail de départ est dans le monde qu'il quitte |
+| Arrivée unique : `VoyageServeur.Annoncer` (vol, vitesse, ciel) appelé par la réapparition, les points de téléportation et les Zaaps quand le monde change | `Server/Voyage.lua`, `Reapparition.lua`, `Teleports.lua`, `Zaaps.lua`, `Index.lua` | `zaaps-serveur.mjs` |
+| Points posables sur la Mégastructure (`COORD_MAX` 200 km) | `Shared/Logic/Teleports.lua` | `teleports.mjs` |
+| Quêtes « tuer N » : les `CharacterSimple` comptent | `Server/Index.lua` | lecture seule (aucun harnais ne charge `Index.lua`) |
+| `IaServeur.Prendre` en échec : journalisé | `Server/Peuplement.lua`, `Spawner.lua` | lecture seule |
+| Harnais de l'exécutant des sorts | `scripts/lua-harness/sorts-serveur.mjs` | 42 assertions |
+
+Reste du lot 1 : `roster-tests.lua` (attend la règle « tenue offerte » ou non).
