@@ -1,0 +1,31 @@
+=== PLAN ===
+
+SCENE                      ACTEURS    CIBLE X (km)   CIBLE Y (km)  OFFSET APPLIQUE
+--------------------------------------------------------------------------------------------------------
+BIG_CITY_NIGHT_1              3182          -85.13          63.85  (-8463865, 6487246, 163560)
+WEAPON_CENTER                 4037          -85.13          66.15  (-8513928, 6612615, 151970)
+HOSPITAL                      2191          -85.13          66.47  (-8514461, 6647346, 151869)
+LIBRARY                       1504          -85.13          66.77  (-8513385, 6676939, 155086)
+LABORATORY                     787          -85.13          67.06  (-8513408, 6705030, 151842)
+TERMINAL                       597          -85.13          67.33  (-8508067, 6730565, 150730)
+APARTMENT                      396          -85.13          67.58  (-8513696, 6755109, 151974)
+Probs_Scene                     36          -85.13          67.81  (-8513208, 6781316, 151930)
+Dj_Hall                        596          -85.13          68.04  (-8513175, 6803640, 151800)
+POWER_GENERATOR_ROOM           164          -85.13          68.26  (-8513488, 6825235, 151859)
+
+10 scene(s), 13490 acteur(s) a poser
+
+⚠ pour tout retirer : selectionner le prefixe NARVOS_VILLE_ dans l'outliner.
+  POSE  BIG_CITY_NIGHT_1           3182 acteur(s)
+  POSE  WEAPON_CENTER              4037 acteur(s)
+  POSE  HOSPITAL                   2191 acteur(s)
+  POSE  LIBRARY                    1504 acteur(s)
+  POSE  LABORATORY                 787 acteur(s)
+  POSE  TERMINAL                   597 acteur(s)
+  POSE  APARTMENT                  396 acteur(s)
+  POSE  Probs_Scene                36 acteur(s)
+  POSE  Dj_Hall                    596 acteur(s)
+  POSE  POWER_GENERATOR_ROOM       164 acteur(s)
+
+13490 acteur(s) pose(s), 0 rate(s), 624 mesh(es) distincts charges
+sauvegarde : 0 map(s) sale(s) restante(s)

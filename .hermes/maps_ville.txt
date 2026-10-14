@@ -1,0 +1,23 @@
+
+MAP                                            ACTEURS EMPRISE X EMPRISE Y TYPES
+----------------------------------------------------------------------------------------------------
+BIG_CITY_NIGHT_1                                  3182    753960    404573  StaticMeshActor x3208, GroupActor x309, DecalActor x242
+BIG_CITY_NIGHT_OPENNING                           3186    753960    404573  StaticMeshActor x3212, GroupActor x309, DecalActor x242
+OVERVIEW_BIGCITY                                   189     97034    248021  StaticMeshActor x189, DirectionalLight x1, PlayerStart x1
+Dj_Hall                                            596      2050      1688  StaticMeshActor x596, SpotLight x19, SphereReflectionCapture x13
+Probs_Scene                                         36      2469      2879  StaticMeshActor x36, SphereReflectionCapture x8, PlayerStart x1
+POWER_GENERATOR_ROOM                               164      1655      2298  StaticMeshActor x164, DecalActor x27, PointLight x26
+OVERVIEW                                            30      3752      5838  StaticMeshActor x30, DirectionalLight x1, PlayerStart x1
+HOSPITAL                                          2191     11654      8797  StaticMeshActor x2191, GroupActor x134, RectLight x83
+OVERVIEW                                            93      7665      5797  StaticMeshActor x93, DirectionalLight x1, PlayerStart x1
+LIBRARY                                           1504      8954     12052  StaticMeshActor x1504, GroupActor x86, SpotLight x65
+OVERVIEW                                            98     17546     15251  StaticMeshActor x98, DirectionalLight x1, PlayerStart x1
+APARTMENT                                          396      3826      3455  StaticMeshActor x396, RectLight x59, DecalActor x18
+OVERVIEW                                            73      4227      6026  StaticMeshActor x73, DirectionalLight x1, PlayerStart x1
+LABORATORY                                         787      7215      5535  StaticMeshActor x787, PointLight x40, SphereReflectionCapture x6
+TERMINAL                                           597      4734      7847  StaticMeshActor x597, PointLight x32, SpotLight x24
+OVERVIEW                                           103     19208     11845  StaticMeshActor x103, DirectionalLight x1, PlayerStart x1
+WEAPON_CENTER                                     4037     14545     14540  StaticMeshActor x4037, DecalActor x632, GroupActor x298
+Overview                                           104     11985      7710  StaticMeshActor x104, DirectionalLight x1, PlayerStart x1
+
+18 map(s) recoltee(s), 17366 StaticMeshActor au total

@@ -1,138 +1,92 @@
 # CLAUDE.md
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-## Projet
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-## Commandes (depuis `WebPortal/`)
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-## Flux de navigation (`src/App.tsx`)
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-## Architecture du runtime 3D (`src/rpg/`)
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-### Système d'assets et chargement (critique — source des freezes)
-- **Draco offline-safe** : decoders servis depuis `public/draco/` (pas le CDN Google). Configuré à 2 endroits qui doivent rester cohérents : `main.tsx` (`useGLTF.setDecoderPath('/draco/')` pour drei) **et** chaque `new DRACOLoader()` manuel (`runtime/loading/AssetPreloader.ts`, `runtime/PuzzleMap.tsx`). Oublier le 2e → "No DRACOLoader instance provided".
-- **KTX2 câblé globalement** (`loaders/installKtx2Everywhere.ts`, appelé dans `main.tsx`) : contrairement à Draco, drei n'a PAS de configuration globale pour KTX2 — il faut un `extendLoader` en 4e argument de `useGLTF`, que 37 appels sur 40 oubliaient. On patche donc `parse` sur le prototype des DEUX `GLTFLoader` (`three-stdlib` pour drei, `three/examples` pour les loaders manuels) : plus aucun call-site ne peut rater le transcodeur. **Ne pas "nettoyer" ce patch en repassant à des `extendLoader` explicites** — le prochain `useGLTF(path)` écrit sans 4e argument casserait silencieusement tous les assets KTX2. `KTX2Loader` exige `detectSupport(renderer)` avant tout transcodage : monter `<RendererRegistrar />` dans chaque `<Canvas>` qui charge des GLB, sinon `attachKTX2` fabrique un renderer jetable (ça marche, mais ça consomme un contexte WebGL).
-- **Textures des assets → KTX2** (`scripts/assets-to-ktx2.mjs`) : la VRAM ne dépend PAS du poids du fichier — une texture PNG/WebP est décompressée en RGBA8 sur le GPU (un 2048² = 22 Mo, mipmaps compris). Mesuré : `Wraith.glb` 832 Mo, `Murdock_Executioner.glb` 1024 Mo. C'est LA cause des "Context Lost". Le script ne touche QUE les textures — **ni `draco()`, ni `prune()`, ni `dedup()`** : Draco réordonne les sommets et désaligne les morph targets (Wraith, Rampage en ont), et `prune()` supprime les nœuds vides qui SONT les points d'attache d'armes cherchés par nom au runtime. Originaux archivés en `<pack>_original/` **et non** `_ktx2_backup/` — vérifié sur disque le 2026-09-03 : aucun `_ktx2_backup` n'existe, le seul original conservé est `personnages/ZombieSoldierPack_original` (41,7 Go, rollback documenté dans `WebPortal/export/README.md`). Cibler la liste produite par `scripts/audit-runtime-assets.mjs` (le runtime ne charge que ~4,7 Go des ~120 Go de `public/models/`).
-- **Variantes qualité** (`loaders/assetQuality.ts`) : `<name>.glb` (high) / `.med.glb` (1024) / `.low.glb` (512). `precomputeQualityCache()` au boot fait des HEAD checks ; `qualityVariant(path)` retourne le path optimal en synchrone, fallback silencieux sur high si la variante manque.
-- **PuzzleMap** (`runtime/PuzzleMap.tsx`) : les grosses maps sont **découpées en chunks** chargés **séquentiellement** (`await loadAsync` + `await requestAnimationFrame` entre chaque) → le navigateur respire → pas de freeze. Activé quand `MAPS[id].chunks` est défini dans `loaders/assetManifest.ts` ; sinon fallback `MapModel` (GLB unique). Chaque chunk garde sa transform monde, donc l'assemblage est invisible.
-- **Génération des chunks** : `scripts/puzzle-chunks.mjs <input.glb> <outputDir> <chunkCount> [maxTexSize]` (ex: `node scripts/puzzle-chunks.mjs public/models/Maps/forge_map/halo_map.glb public/models/Maps/forge_map/chunks 8`). Default maxTexSize = 2048 (cap GPU runtime). Pipeline : `flatten()` → bucketing greedy LPT équilibré → `prune()` + `dedup()` → `textureCompress(WebP, maxTexSize)` → `draco()`. Nécessite `gltf-transform`, `draco3dgltf`, `sharp` (déjà en devDependencies).
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-### Catalogues = source de vérité statique
-Le contenu de jeu vit dans des objets/maps TS, pas en base : `classes/classes.ts`, `elements/elements.ts`, `spells/spellCatalog.ts`, `loot/LootRegistry.ts` (+ `SHOP_CATALOG` dans `Inventory.ts`), `npc/npcCatalog.ts` & `merchants.ts`, `runtime/vehicles/vehicleCatalog.ts`, `loaders/assetManifest.ts` (maps, PNJ, armes, tenues).
 
-### Où trouver un asset (208 packs, 250 Go)
-`public/models/CATALOG.md` indexe **tout** par catégorie ET par thème — c'est le point d'entrée, pas un `ls`. Version machine : `src/data/asset-catalog.json`. Regénérer après tout ajout : `npm run assets:catalog`. Taxonomie et placement : `scripts/lib/asset-taxonomy.mjs`.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-⚠️ **Ne jamais renommer un dossier de premier niveau de `public/models/`.** 87 chemins sont codés en dur dans `src/` (`/models/vehicule/` ×29, `/models/Maps/` ×15, `/models/nature/` ×14…). Ce sont des chaînes : `tsc` ne verra jamais la rupture, et le fallback SPA de Vite renvoie du `text/html` en 200 au lieu d'un 404. Un pack vit dans **un seul** dossier (son type dominant) et porte **plusieurs tags** dans le catalogue — les thèmes recoupent les types, les ranger deux fois obligerait à dupliquer des dizaines de Go.
+## Current State — recovery in progress (read first)
 
-Analyse des plugins Unreal et de ce qui est portable dans le moteur : `docs/PLUGINS_CPP.md`.
+The E: drive was formatted on 2026-09-26. The project was reassembled here (the only copy, a git repo since 2026-10-03) from disk recovery, the nanos client cache and agent histories.
 
-### Sous-systèmes notables
-- `runtime/vehicles/` : vaisseaux pilotables (PV, explosion, réparation), invoqués via clés consommables, marchand "Garagiste". `ShipController` injecté avec `applyVehicleDef()`.
-- `runtime/space/` + `SpaceEnvironment.tsx` : hub orbital, combat spatial, univers infini (pas de barrière physique).
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-## Port nanos world (`WebPortal/Server/nanos_world/`)
+- **Resume point**: `.hermes/RAPPORT_RECUPERATION_2026-10-03.md` §0 quater — what is done, what is next, the exact commands.
+- **Recovery tools and their rules**: `scripts/recuperation/README.md`.
 
-⚠ **Deuxième runtime vivant, absent de ce fichier jusqu'au 2026-09-04.** Le jeu
-est aussi porté sur **nanos world** — client Unreal 5.7 shipping + packages
-**Lua 5.4** + pages **WebUI** (HTML/JS). Rien à voir avec React : même univers,
-autre moteur.
+Where the three blockers between the code and a game that can be seen running stand (`.hermes/AUDIT_REFONTE_2026-10-03.md` §0, state of 2026-10-04):
 
-```
-WebPortal/Server/nanos_world/packages/
-  narvos/Shared/       Catalogs/ (GÉNÉRÉS) + Logic/ (écrit à la main)
-  narvos-map-proto/    Server/ (session, spawn, vestiaire) + Client/ (relais, WebUI)
-WebPortal/Server/adk/  NanosWorldADK.uproject — l'éditeur qui cuit les assets
-WebPortal/Server/Assets/narvos/Assets.toml   manifeste du pack cuit (GÉNÉRÉ)
-```
+1. **The cooked asset pack is staged, not promoted.** The ADK sources (`WebPortal/Server/adk/Content/Narvos`) were rebuilt folder by folder from `WebPortal/public` and from off-disk copies — measure with `python scripts/recuperation/etat-adk.py` (what is deliberately left is listed in the resume point). The latest cook is staged under `WebPortal/Server/AssetBuilds/chaine-*/narvos/`; `WebPortal/Server/Assets/narvos` still holds only a reconstructed `Assets.toml`. Promoting the staging is the user's call — check it first with `python scripts/recuperation/pack-contre-lua.py <staging>/narvos/Assets.toml`. Do NOT run the catalog generators (`scripts/narvos-*-to-lua.mjs`) before that decision: they rewrite the Lua catalogs from the active pack.
+2. **`Map_Narvos` and `Map_Alien` are rebuilt** (full-editor sessions under `scripts/recuperation/`: `adk-session-monde.py`, `adk-session-capitale.py`, `adk-session-alien.sh`), and the ground sits where `Shared/Catalogs/Mondes.lua` puts the player (`adk-sonder-monde.py`). Nothing has run in game yet.
+3. **Only the NAMES of the `UnrealMCPServer` plugin are left** (`mes_projet/Nouveau dossier/$F10497/Plugins/UnrealMCPServer`: content overwritten, the DLL is not an executable; disabled in the `.uproject`). Scripted editor sessions (`scripts/recuperation/adk-session.sh`) replace it for levels, materials, blend spaces and the Python part of `PontMetaHuman` (21 of 27 packages rebuilt, not cooked yet). Blueprint GRAPH surgery still waits: the 6 remaining `PontMetaHuman` packages (`BP_NarvosMH_M/F`, face without LiveLink, sculpt adapters) and NavMesh. The older `UnrealMCP` plugin survives, built for this engine, under `C:\Users\aniss\Documents\Plugins57\` — a different API. Only one UnrealEditor process at a time, commandlets included.
 
-**Les catalogues sont générés, la logique non.** 22 générateurs
-`scripts/narvos-*.mjs` produisent `Shared/Catalogs/*.lua`. Ne jamais éditer un
-catalogue à la main : le prochain `--apply` l'écrase.
+Before calling anything lost, search for its NAME across the whole project, recovery lots included (`python scripts/recuperation/chercher-nom.py <regex>`), then probe the CONTENT (`sonder-contenu.py <dir>`): second-pass lots keep right names over overwritten bytes.
 
-```bash
-node scripts/lua-harness/syntaxe-check.mjs          # Lua + les 43 .mjs
-node scripts/lua-harness/portee-check.mjs           # emploi avant déclaration
-node scripts/lua-harness/schema-check.mjs           # CREATE vs ALTER
-node scripts/narvos-verifier-catalogues.mjs         # références ET types d'assets
-node scripts/lua-harness/apparence.mjs              # un harnais (15 au total, 881 assertions)
-```
+`mes_projet/` holds the recovery lots (1.2 TB) and recovered credentials. It is excluded through `.git/info/exclude`: never let it into a commit. `WebPortal/public` and `WebPortal/Server/adk` are junctions into it.
 
-Documentation complète : **skill `nanos-world`** (`.claude/skills/nanos-world/`).
-L'invoquer AVANT tout code Lua nanos ou toute modification sous
-`WebPortal/Server/nanos_world/`. État de session : `.hermes/RAPPORT_PROJET_*.md`.
+## Project Overview
+**NARVOS PRIME** is a sci-fi MMORPG prototype with two live runtimes sharing one universe:
+- **Frontend**: React, Three.js (via `@react-three/fiber` and `@react-three/drei`), Tailwind CSS, and Electron for the desktop shell.
+- **Engine**: A custom C++/WASM engine (**NarvosEngine**) handles core gameplay logic, physics, and combat.
+- **nanos world**: the runtime the game is being ported to — a shipping Unreal Engine 5.7 client, a server running **Lua 5.4** packages, and **WebUI** pages (HTML/JS). Gameplay is Lua; Unreal (the ADK project) only cooks asset packs. No third-party C++ plugin runs there.
 
-## Base de données (Electron)
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-<!-- [TROU — ligne jamais lue dans les transcriptions] -->
-## Pièges connus
+## Development Commands
 
-- **TDZ dans RpgGameWorld** : composant monolithique où les `useEffect` (listeners clavier) référencent des `useCallback` déclarés plus bas → `ReferenceError`. Solution établie : pattern **ref** (`const fooRef = useRef(...); fooRef.current?.()` dans le listener, assigné après la déclaration du callback). Plusieurs instances existent (`quickHealRef`, `pushToastRef`, `useSlotRef`…).
-- **Audio Vite SPA fallback** : un fichier manquant renvoie du `text/html` (200) au lieu d'un 404. Toujours vérifier le `Content-Type` avant de traiter une réponse comme un asset (cf. `assetExists` et `AudioManager`).
-- **SSR / tests** : garder `if (typeof document === "undefined") return;` dans le code qui touche le DOM au module-load (ex: `AudioManager`), sinon les tests vitest (env `node`) crashent.
-- Fichiers `*.bak` (ex: `RpgGameWorld.tsx.bak`, `vite.config.ts.bak`) = sauvegardes mortes. Ne pas éditer, ne pas s'y fier — le `.tsx.bak` est une version ANTÉRIEURE et divergente.
-- Pas de Cursor/Copilot rules dans le repo. Pas de linter configuré (pas d'ESLint script) — la barrière qualité est `tsc`.
-- **Backtick dans un template literal de générateur** : les `scripts/*.mjs` fabriquent du Lua par interpolation. Un backtick dans le texte généré termine la chaîne et casse le script — arrivé **quatre fois** le 2026-09-04. Symptôme trompeur : `--apply` échoue, mais si sa sortie est masquée on croit avoir régénéré le catalogue alors qu'on relit l'ancien. Garde-fou : `node scripts/lua-harness/syntaxe-check.mjs` (43 fichiers). **Ne jamais masquer la sortie d'un `--apply`.**
-- **Une liste de clés recopiée diverge toujours de sa source.** `Roster.EncoderCouleurs` itérait `{skin, hair, jacket}` écrit en dur ; les vraies cibles s'appellent autrement, la fonction rendait une chaîne **vide** et les couleurs partaient en base effacées, sans le moindre signal. Itérer le catalogue, jamais une copie.
-  - **Récidive mesurée le 2026-09-10**, côté Lua nanos : `narvos-map-proto/Server/Index.lua` déclarait les mondes chargés par `ipairs({ "orbital", "tower", "alien" })`, liste écrite quand il y avait quatre mondes. La capitale et la forêt, ajoutées le 09/09, n'y étaient pas : **7 portails posés sur 10** au premier lancement. Aucun signal — `MondePraticable` n'avait refusé personne (`Portail non posé` : 0 occurrence), le diagnostic annonçait les 4 passages « ouvert », zéro erreur Lua. La boucle n'était pas atteinte. Corrigé en itérant `Mondes.MONDES` filtré sur la **propriété** (`niveau` non vide ou `decor_persistant`) — `Index.lua:2367`.
-  - **Le garde qui ferme la forme** : `node scripts/lua-harness/listes-recopiees-check.mjs`. Il refuse tout littéral de chaînes dont **tous** les éléments sont des clés d'un catalogue surveillé — c'est la définition d'une copie. Il ne vérifie pas qu'une copie est *complète* : une copie complète aujourd'hui est périmée demain, et c'est exactement le mode d'échec. Il a trouvé une **seconde** occurrence dans le même fichier (`ipairs({ "tower", "alien" })` doublant les clés de `PEUPLEMENT_PAR_MONDE`, `Index.lua:2419`) que la recherche manuelle avait manquée. Ajouter un catalogue à sa surveillance coûte trois lignes.
-- **Une valeur morte gardée « au cas où » n'est pas neutre.** `COULEURS_DEFAUT` ne pilotait rien pendant des mois ; le jour où les couleurs ont été branchées, elle a pris la place du choix du joueur. Supprimer, pas conserver.
-- **Un garde-fou doit filtrer sur la FORME du défaut, pas sur le LIEU du premier incident.** Le `node --check` ne couvrait que `narvos-*.mjs` ; la récidive est arrivée dans les harnais, et le contrôle en place n'a rien vu.
-- **Une clé `narvos::X_3` n'est pas un NOM, c'est un RANG.** `nanos-build-asset-pack.mjs` suffixe les homonymes (`SK_Mannequin`, `_2`, `_3`…) dans l'ordre des dossiers sous `Narvos/`. Promouvoir un pack qui trie AVANT décale tout d'un cran : la clé existe toujours, tous les contrôles d'existence restent verts, et elle désigne un AUTRE asset. Mesuré le 2026-09-13 : la promotion de Farming a fait publier le mannequin de WW100IdleAnimPack « Infectée 4 » dans le menu des monstres (règle `SK_Mannequin_Female_[4-7]`), et `SKM_Manny_3` — le porteur de TOUS les corps MetaHuman — était écrit en dur à deux endroits. Règles : un générateur choisit par CHEMIN, jamais par suffixe (`narvos-spawnables-to-lua.mjs`, `narvos-modular-to-lua.mjs` `CHEMIN_PORTEUR`) ; une clé citée à la main est gardée par le **verrou d'identité** de `narvos-verifier-catalogues.mjs` (`adk/_manifests/cles-citees.lock.json`, clé → chemin ; `--reverrouiller` pour accepter un changement voulu). Les catalogues régénérés par la chaîne de cook (`REGENERES_PAR_LA_CHAINE`, sept au 2026-09-13 : Spawnables, PropsNarvos, Animations, ObjetsHyper, Modular, ObjetsDivers, Minimap) sont hors verrou — leurs générateurs DOIVENT tourner après chaque reconstruction du pack (`narvos-chaine-cook.sh` et les scripts de lot).
+> All npm commands must be run from the `WebPortal/` directory (`cd WebPortal`). The repository root has no `package.json`.
 
-- **Contenu de PLUGIN cité par le pack = copie du CLIENT, pas la nôtre.** Mesuré le 2026-09-13 : 15 500 paquets cuits citaient `/InterchangeAssets/` (instances glTF) ; le client nanos a sa copie d'origine du plugin, notre `M_Default` modifié ne l'était pas chez lui → la Forge entière au damier. Correctif : copie sous `Content/Narvos/Interchange` + `PackageRedirects`. **Un redirect `MatchSubstring` dont la cible CONTIENT la source se réapplique à son résultat** (`/Game/Narvos/Game/Narvos/...`, 50 999 lignes « does not exist » en simple `Display`, cook arrêté). Gardes : `node scripts/narvos-dependances-moteur.mjs` (montages hors `/Game/ /Script/ /Engine/`) et `node scripts/lua-harness/redirects-idempotents-check.mjs`.
+### Core Workflow
+- **Install Dependencies**: `npm install`
+- **Development Mode** (Electron + Vite): `npm run electron:dev`
+- **Build Production App**: `npm run build`
+- **Preview Build**: `npm run preview`
+- **Type Checking**: `npm run typecheck`
 
-## graphify
+### Assets & Engine
+- **Generate Asset Manifests**: `npm run assets:catalog`
+- **Convert Assets (KTX2/Draco)**: `npm run generate:assets`
+- **Build WASM Engine**: `npm run build:wasm`
+- **Copy WASM to Public**: `npm run copy:wasm`
 
-This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+### Testing & Quality
+- **Run All Tests**: `npm run test`
+- **Watch Tests**: `npm run test:watch`
+- **Smoke Test Game**: `npm run smoke`
+- **Regression Tests**: `npm run regression`
+- **Typecheck Prototypes**: `npm run typecheck:proto`
 
-Rules:
-- For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
-- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
-- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
-- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
-<!-- [FIN INCONNUE — la suite du fichier n'a jamais été lue dans sa dernière version] -->
+### nanos world (run from the repository root, not `WebPortal/`)
+- **Whole Lua battery, one verdict**: `node scripts/lua-harness/tout.mjs`
+- **One harness**: `node scripts/lua-harness/<name>.mjs`
+- **Regenerate a catalog**: `node scripts/narvos-<name>-to-lua.mjs --apply` (simulation without `--apply`; never hide its output)
+
+## Architecture & Structure
+
+### Core Directories
+- `WebPortal/`: The main web application and Electron shell.
+  - `renderer/`: React frontend components and UI logic.
+  - `electron/`: Main process code for the desktop wrapper.
+  - `wasm/`: C++/WASM engine source and build artifacts.
+  - `src/rpg/`: Core RPG systems, including vehicle controllers, combat logic, and state management.
+  - `public/`: Static assets (WASM, models, Draco decoders in `public/draco/`).
+  - `scripts/`: Web asset processing (KTX2 conversion, Draco compression, manifests) — what the npm scripts call.
+  - `Server/nanos_world/packages/narvos/Shared/`: `Catalogs/` (GENERATED) and `Logic/` (hand-written, pure Lua under test).
+  - `Server/nanos_world/packages/narvos-map-proto/`: `Server/` (session, spawn, world) and `Client/` (relays, WebUI).
+  - `Server/adk/`: `NanosWorldADK.uproject`, the editor project that cooks the asset pack.
+  - `Server/Assets/narvos/Assets.toml`: manifest of the cooked pack (GENERATED).
+- `scripts/` (repository root): nanos tooling — catalog generators `narvos-*.mjs`, ADK import/cook scripts `adk-*.py`, the Lua harness `lua-harness/`, recovery tools `recuperation/`.
+- `.hermes/`: session reports and handoffs.
+
+### Key Architectural Patterns
+1. **Hybrid Engine Bridge**: Communication between the Three.js frontend and NarvosEngine occurs via WASM bindings. Use `WebPortal/src/rpg/wasm/` to understand the TS-to-WASM bridge.
+2. **Static Source of Truth**: Game data (classes, elements, spells, loot) is stored in static TypeScript objects (`classes/`, `elements/`, etc.) rather than a live database for high-performance access.
+3. **Chunked Map Loading**: Large maps are split into chunks and loaded sequentially to prevent browser main-thread freezes.
+4. **nanos world port**: Decision lives in `Shared/Logic/` (pure Lua, covered by the harness), execution in `narvos-map-proto/Server/` (touches the engine). Invoke the `nanos-world` skill before any nanos Lua, any asset export to nanos, or any change under `WebPortal/Server/nanos_world/`.
+
+## Skills
+
+Invoke a skill with `/<name>` (example: `/narvos-preflight`).
+
+- In `.claude/skills/` (repo root): `nanos-world`, `wasm-engine`
+- In `WebPortal/.claude/skills/`: `narvos-error-log`, `narvos-iteration-guard`, `narvos-level-design`, `narvos-lua`, `narvos-measure-first`, `narvos-mesh-pipeline`, `narvos-preflight`, `narvos-project-map`, `train-hermes`
+
+## Critical Constraints & Pitfalls
+- **Draco Offline-Safe**: Decoders must be served from `public/draco/`. Ensure consistency between `main.tsx` and manual loader instances.
+- **KTX2 Global Patch**: KTX2 support is patched globally on the `GLTFLoader` prototype. Do not remove this patch; it ensures all assets use the shared transcoder.
+- **VRAM Management**: Texture compression (KTX2) is mandatory to prevent "Context Lost" errors. Never ship raw PNG/WebP for large textures.
+- **Asset Paths**: NEVER rename top-level folders in `public/models/`. Many paths are hardcoded across the codebase.
+- **Lua Logic**: Do not edit Lua catalogs manually; they are generated by scripts. Use the provided harness tools to verify syntax and schema.
