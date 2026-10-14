@@ -9,7 +9,17 @@ divergeraient au premier lot ajouté.
 import os
 
 PROJET = r"E:\narvosprime-web-prototype"
-LOTS = r"E:\mes_projet"
+# Les lots vivaient sous E:\mes_projet. Le 03/10/2026 (~15 h 10) le dossier a été déplacé
+# DANS le projet : toutes les jonctions pointaient dans le vide et chaque outil cherchait
+# ses lots au mauvais endroit. On prend l'emplacement qui EXISTE — un déplacement de plus
+# ne doit pas recasser la chaîne — et les jonctions se refont par `assembler-final.py`.
+EMPLACEMENTS_DES_LOTS = (os.path.join(PROJET, "mes_projet"), r"E:\mes_projet")
+LOTS = next((d for d in EMPLACEMENTS_DES_LOTS if os.path.isdir(d)), EMPLACEMENTS_DES_LOTS[0])
+# ⚠ Quand les lots sont SOUS le projet, tout parcours du projet doit les sauter : 1,3 To de
+# fichiers récupérés y seraient pris pour des fichiers du projet (orphelins à écarter,
+# sources à indexer…). `LOTS_DANS_PROJET` est le chemin relatif à sauter, ou None.
+LOTS_DANS_PROJET = (os.path.relpath(LOTS, PROJET)
+                    if os.path.normcase(LOTS).startswith(os.path.normcase(PROJET) + os.sep) else None)
 RESTAURE = os.path.join(LOTS, "narvos-restaure")
 # ⚠ Hermes avait étiqueté ce lot « outil-react » : c'est la RACINE de WebPortal
 # (src, wasm, tools…), retrouvée le 01/10/2026.

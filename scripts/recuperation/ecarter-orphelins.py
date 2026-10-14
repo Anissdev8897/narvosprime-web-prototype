@@ -19,7 +19,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from sante import fichier_sain  # noqa: E402
-from lots import PROJET, LOTS  # noqa: E402
+from lots import PROJET, LOTS, LOTS_DANS_PROJET  # noqa: E402
 
 GARDES = ("package.json", "package-lock.json")
 # Les rapports de la récupération elle-même : écrits après la perte, aucune source ne
@@ -51,12 +51,21 @@ def poses_avant():
 
 def main():
     ecrire = "--ecrire" in sys.argv
+    # Le projet est un dépôt git depuis le 03/10/2026 : ce qu'un vieux journal d'assemblage
+    # nomme « orphelin » peut être devenu un fichier suivi. Voir assembler-final.py.
+    if ecrire and os.path.isdir(os.path.join(PROJET, ".git")) and "--depot-vivant-accepte" not in sys.argv:
+        print("REFUS : le projet est un dépôt git vivant. Simulation seule, ou --depot-vivant-accepte.")
+        sys.exit(2)
     avant = poses_avant()
     with open(os.path.join(PROJET, "ASSEMBLAGE.tsv"), encoding="utf-8") as f:
         orphelins = [l.rstrip("\n").split("\t")[1] for l in f if l.startswith("ORPHELIN\t")]
     for rel in orphelins:
         src = os.path.join(PROJET, rel)
         if not os.path.isfile(src):
+            continue
+        # Les lots vivent DANS le projet depuis le 03/10/2026 : rien n'en sort jamais.
+        if LOTS_DANS_PROJET and os.path.normcase(rel).startswith(os.path.normcase(LOTS_DANS_PROJET) + os.sep):
+            print("gardé    ", rel[:120], "  (fichier d'un lot de récupération)")
             continue
         reste = ".reconstruit" + os.sep in rel and os.path.normcase(rel) in avant
         # Un JSON valide que l'assembleur a laissé en place, la reconstruction (à marqueurs)

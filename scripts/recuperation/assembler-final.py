@@ -36,7 +36,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from sante import fichier_sain  # noqa: E402
-from lots import PROJET, LOTS, RACINE, COPIES, JONCTIONS, IGNORES, MARQUES  # noqa: E402
+from lots import PROJET, LOTS, LOTS_DANS_PROJET, RACINE, COPIES, JONCTIONS, IGNORES, MARQUES  # noqa: E402
 
 EXTRACTION = next((a[13:] for a in sys.argv if a.startswith("--extraction=")),
                   os.path.join(LOTS, "narvos-reconstruit-final"))
@@ -48,7 +48,22 @@ AVANT = os.path.join(LOTS, "_avant_reassemblage_" + datetime.datetime.now().strf
 FICHIERS_SERVEUR = ["Config.toml"]     # depuis racine-projet\Server
 # Ce que l'assemblage ne touche pas et ne compte pas comme orphelin.
 PROTEGES = (r"scripts\recuperation", "node_modules", r"WebPortal\node_modules")
+# Les lots sont DANS le projet depuis le 03/10/2026 : sans cette garde, le relevé des
+# orphelins compterait 1,3 To de fichiers récupérés — et `ecarter-orphelins.py` les
+# DÉPLACERAIT hors de leur lot.
+if LOTS_DANS_PROJET:
+    PROTEGES += (LOTS_DANS_PROJET,)
 REPARSE = 0x400
+
+
+def depot_vivant():
+    """Le projet est un dépôt git depuis le 03/10/2026 (11 h 22) : il reçoit des correctifs
+    qu'AUCUNE histoire d'agent ne connaît forcément (session cloud, CI, édition à la main).
+    Réassembler par-dessus remettrait ces fichiers à leur état reconstruit et rangerait
+    les nouveaux parmi les orphelins. L'assemblage en écriture est donc refusé tant que
+    le dépôt existe, sauf demande expresse (`--depot-vivant-accepte`) ; la simulation,
+    elle, reste libre."""
+    return os.path.isdir(os.path.join(PROJET, ".git")) and "--depot-vivant-accepte" not in sys.argv
 
 
 def norme(octets):
@@ -248,4 +263,10 @@ class Assemblage:
 
 
 if __name__ == "__main__":
+    if "--ecrire" in sys.argv and depot_vivant():
+        print("REFUS : " + PROJET + " est un dépôt git vivant — réassembler en écriture écraserait des\n"
+              "correctifs que les histoires ne connaissent pas. Lancer sans --ecrire (simulation), lire\n"
+              "ASSEMBLAGE_simulation.tsv, puis ne reporter à la main que ce qui manque.\n"
+              "(Passer outre, en connaissance de cause : --depot-vivant-accepte.)")
+        sys.exit(2)
     Assemblage("--ecrire" in sys.argv).lancer()

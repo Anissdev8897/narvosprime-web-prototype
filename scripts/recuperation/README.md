@@ -6,7 +6,15 @@ copié) : l'ancien emplacement sur D: n'était plus qu'une coquille vide.
 
 **Le projet vit de nouveau sur `E:\narvosprime-web-prototype`, et nulle part
 ailleurs** (consigne de Hanibes, 01/10/2026 : plus aucun dossier sur D:). Les
-lots de récupération et les sorties des outils sont sous `E:\mes_projet\`.
+lots de récupération et les sorties des outils étaient sous `E:\mes_projet\` ;
+depuis le 03/10 (15 h 10) le dossier est DANS le projet :
+`E:\narvosprime-web-prototype\mes_projet\` (exclu de git, sauté par tout parcours
+du projet). `lots.py` prend l'emplacement qui existe : lire `E:\mes_projet\…`,
+dans les commandes ci-dessous, comme « le dossier des lots ».
+
+⚠ Le projet est un dépôt git depuis le 03/10 : `assembler-final.py --ecrire` et
+`ecarter-orphelins.py --ecrire` refusent d'y tourner (ils remettraient des fichiers
+corrigés depuis à leur état reconstruit). La simulation reste libre.
 
 ## Les sources
 
@@ -41,9 +49,10 @@ nanos), et le lot `E:\mes_projet\narvos-rebuild` d'Hermes (voir plus bas).
 ```bash
 cd E:\narvosprime-web-prototype\scripts\recuperation
 
-# 0. Les preuves des outils (387 assertions)
+# 0. Les preuves des outils (422 assertions)
 python test_reconstitution.py && python test_commandes.py && python test_codex.py
 python test_bac.py && python test_scripts.py && python test_cache_client.py
+python test_ini_moteur.py
 
 # 1. Le cache du client nanos, déchiffré comme un lot de plus (ne touche pas à C:)
 python cache-client-nanos.py --ecrire
@@ -103,7 +112,44 @@ python comparer-manifestes.py <extraction A> <extraction B> [--zone webportal/se
 | `evaluer.py`, `ecarts.py`, `bilan.py`, `comparer-manifestes.py`, `tracer.py`, `ruptures.py`, `chaine.py`, `scripts-bilan.py`, `doute.py`, `sante.py`, `verifier-lua.mjs`, `classer-rouges.py` | mesure et diagnostic |
 | `verifier-journaux.py` | confronte le Lua reconstruit aux journaux du serveur et du client nanos (piles d'appels, messages) |
 | `fusionner.py` | compare le lot d'Hermes à l'extraction (ne sert plus à remonter le projet) |
+| `rebatir-ini-moteur.py` | rebâtit `adk\Config\DefaultEngine.ini` (jamais rendu par DMDE) : vrai fichier du 06/09 + reconstitution + lectures de Codex en témoins ; régénère les redirects exacts de la ville depuis le disque |
 | `test_*.py` | les preuves : chaque cas est un défaut réel ou une règle à ne pas voir régresser |
+
+### Rebâtir l'ADK (03-04/10)
+
+La copie DMDE de l'ADK s'est arrêtée à 60 % : le reste se refait dossier par dossier depuis
+`WebPortal\public`. Point de reprise et recette de chaque dossier :
+`.hermes\RAPPORT_RECUPERATION_2026-10-03.md` §0 quater.
+
+| fichier | rôle |
+|---|---|
+| `chercher-nom.py` | AVANT de dire « perdu » : le nom cherché dans TOUT le projet, lots compris (2,2 millions de fichiers, jonctions non suivies), résumé par lot |
+| `sonder-contenu.py` | un dossier récupéré a-t-il le contenu que ses noms promettent (texte lisible, `MZ`/PE, `C1 83 2A 9E`…) ; donne le seuil faux/sain d'un contenu recouvert |
+| `etat-adk.py` | la règle graduée : disque contre l'inventaire du 23/09, par dossier (`--manquants`, `--en-trop`) |
+| `recette-dossiers.py`, `restaurer-copies-de-packs.py` | quelle recette par dossier ; recopie des dossiers qui n'étaient que des liens durs vers un pack d'origine |
+| `manifeste-depuis-inventaire.py` | le manifeste d'import d'un dossier à partir de ce que l'inventaire y attend (jamais d'une règle de tri) |
+| `adk-importer.sh` | UN import de GLB (`scripts/adk-import-narvos.py`) et son bilan |
+| `adk-lancer.sh` | n'importe quel script de l'ADK en COMMANDLET (`--projet` pour un autre `.uproject`) |
+| `adk-session.sh` | un script dans l'ÉDITEUR COMPLET, avec garde de durée — dès qu'on sauve un `UMaterial` ou qu'on édite un niveau |
+| `adk-session-reparations.{py,sh}` | les passes d'origine qu'un import refait ne rend pas : noms réservés, noms `MTL_*` d'origine, instances modulaires, `M_NarvosCouleurSommet` (`adk-materiau-couleur-sommet.py`), drapeaux skeletal, `BS_Narvos_Locomotion` (`adk-blend-space-locomotion.py`) ; puis la preuve sur disque. Rejouable : chaque passe saute ce qui est déjà fait |
+| `adk-chaine-stylized.py` | fin de la chaîne des personnages Stylized (rebranchement, coiffures, peau teintable), en un commandlet |
+| `adk-session-monde.py`, `adk-session-capitale.py` | `Map_Narvos` : niveau persistant, sous-niveaux, ciel ; puis la capitale (13 490 acteurs CITY_PACK) |
+| `adk-session-pont-metahuman.py` | la partie PYTHON de `PontMetaHuman` (rigs, retargeters, ABP de retarget, 14 porteurs) par `scripts/adk-pont-metahuman.py` ; ne refait PAS `BP_NarvosMH_M/F` (visage LiveLink = crash client sans chirurgie de graphe) |
+| `adk-session-alien.{py,sh}` | `Map_Alien` : la carte d'exemple du pack MW Landscape (cache d'Epic) renommée, sans son ciel, terrain posé où le Lua l'attend, montée dans `Map_Narvos` ; refuse de sauver si le sol mesuré n'est pas celui attendu |
+| `adk-sonder-monde.py` | lecture seule : chaque sous-niveau est-il monté au bon décalage, et le sol est-il là où `Mondes.CENTRES` pose le joueur (raycast par monde) |
+| `adk-rebrancher-apres-renommage.py` | répare un asset sauvé trop tôt pendant un renommage (il cite encore l'ancien nom de ses textures) — la cause est corrigée dans `scripts/adk-renommer-asset.py` |
+| `monde-2026-09-06/` | les 49 scripts de session du 06/09 qui avaient assemblé le monde, relus des historiques (jamais rangés dans le dépôt) |
+| `cook-materiaux.py` | un journal de cook : les matériaux qui n'ont pas compilé (gris en jeu), par dossier et par CAUSE (texture nulle, fonction absente…), et `--contre` un autre cook : réparés / apparus |
+| `pack-contre-lua.py` | avant de promouvoir un staging : les clés `narvos::` écrites dans le Lua (hors commentaires) qu'il ne déclare pas, et ce qu'il a perdu face à un manifeste de référence |
+| `textures-rebaties.py`, `adk-verifier-textures-rebatis.py` | les paquets rebâtis ont-ils leurs textures : sur disque (références mortes, matériaux sans image), puis par Unreal (meshes gris, dossier par dossier) |
+
+Règles payées en route : un import refait rend les paquets de l'IMPORT, pas ceux du 23/09 (rejouer
+les réparations) ; une promotion laisse des imports à l'ancien chemin (un `PackageRedirects` de
+préfixe par pack promu, puis ne plus rejouer la promotion) ; la liste fantôme `$F09232` (nom,
+taille, date de chaque paquet perdu) est le témoin de fidélité — tailles égales ou à 2 % = même
+recette ; un seul Unreal à la fois ; le code de sortie d'un commandlet ne dit rien, on lit `[NARVOS]` ;
+un blend space ne construit ses données d'exécution que si son ÉDITEUR est ouvert quand on pose
+ses échantillons (`ResampleData` n'est appelé que par Persona) — sinon il se cuit et ne joue rien.
 
 ## Le cache du client
 
@@ -393,14 +439,21 @@ sait tout ce qu'il sait.
   trace (un générateur lancé pour de vrai, une main dans un éditeur) ne se voit pas.
 - **Le pack d'assets cuit est perdu** (`Server\Assets\narvos`, 88,7 Go, 231 710
   fichiers) et son `Assets.toml` avec lui : 68 418 lignes dont 580 connues. Les
-  catalogues générés sont revenus par le cache du client ; les régénérer demandera un
-  nouveau cook. Ce qu'il faut pour cuire est là : l'ADK du lot DMDE
-  (`E:\mes_projet\narvos-restaure\racine-projet\Server\adk`, `Content` de 76 Go,
-  `NanosWorldADK.uproject`, `_assets-inventory.json` du 23/09), le moteur
-  (`D:\Epic Games\UE_5.7`), et `scripts\nanos-build-asset-pack.mjs`, revenu complet le
-  03/10, qui dérive `Assets.toml` du cook (`Saved\Cooked`, vide dans le lot). Cuire
-  écrirait à travers la jonction `WebPortal\Server\adk` dans le lot : c'est une
-  décision de Hanibes, pas de l'outil.
+  catalogues générés sont revenus par le cache du client ; les régénérer demande un
+  nouveau cook (décidé par Hanibes le 03/10, lancé le soir même).
+- **L'ADK n'est rendu qu'à 60 %** (mesuré le 03/10, `.hermes\RAPPORT_RECUPERATION_2026-10-03.md`
+  §0 ter) : la copie DMDE s'est arrêtée en plein `Content\Narvos\Orbital` — 55 225 paquets
+  sources présents sur 91 438, tous sains ; les dossiers de `Narvos` après `Orbital`
+  (pnj, tower_map, Weapon, UI, PontMetaHuman…), `Map_Narvos`, `Map_Alien`, `Saved`,
+  `Plugins` n'ont jamais été copiés. `DefaultEngine.ini` manquait aussi : rebâti
+  (`rebatir-ini-moteur.py`).
+- **Un nom juste n'est pas un contenu juste.** Les lots de la 2e passe (`Nouveau
+  dossier\$F…`, `recup_dir.1`, `scripts-astra\$F00010`) portent les bons noms, tailles et
+  dates, et le contenu d'autres fichiers à 99 % : leurs clusters avaient été recouverts
+  par la copie des lots sur E: (30/09). Le cook du 26/09, les sauvegardes d'Astra et
+  leurs copies de `Map_Narvos.umap` sont du bruit. Sonder avant de compter : un paquet
+  Unreal commence par `C1 83 2A 9E` ; seuls les fichiers de moins de ~700 octets
+  (stockés dans la fiche MFT) sont toujours justes.
 - **Des générateurs restent incomplets** (`narvos-verifier-catalogues.mjs`,
   `narvos-emotes-to-lua.mjs`, `narvos-modular-to-lua.mjs`… : 20 sous `scripts\`) :
   voir `bilan.py … --detail scripts`. Une ligne d'ancienne version de
