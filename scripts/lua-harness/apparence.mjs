@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // apparence.mjs — exécute les tests de Shared/Logic/Apparence.lua.
 //
@@ -23,7 +24,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const lire = (p) => fs.readFileSync(`${BASE}/${p}`, "utf8");
 

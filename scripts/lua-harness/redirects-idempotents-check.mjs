@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // redirects-idempotents-check.mjs — un redirect par SOUS-CHAINE peut-il se
 // réappliquer à son propre résultat ?
@@ -21,7 +22,7 @@
 
 import fs from "node:fs";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const INI = `${RACINE}/WebPortal/Server/adk/Config/DefaultEngine.ini`;
 const CONTENT = `${RACINE}/WebPortal/Server/adk/Content`;
 // Le fichier à contrôler peut être imposé (essai sur une copie mutante).

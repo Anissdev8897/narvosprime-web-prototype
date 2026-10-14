@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // raccourcis.mjs — exécute les tests de Shared/Logic/Raccourcis.lua.
 //
@@ -17,7 +18,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const emotes = fs.readFileSync(`${BASE}/Catalogs/Emotes.lua`, "utf8");
 const raccourcis = fs.readFileSync(`${BASE}/Logic/Raccourcis.lua`, "utf8");

@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // zones.mjs — exécute les tests de Logic/Zones.lua et surveille le catalogue.
 //
@@ -20,7 +21,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const zones = fs.readFileSync(`${BASE}/Logic/Zones.lua`, "utf8");
 const catalogue = fs.readFileSync(`${BASE}/Catalogs/Zones.lua`, "utf8");

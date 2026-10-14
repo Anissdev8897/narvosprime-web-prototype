@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // fouille.mjs — preuves du modèle de cadavre fouillable (Logic/Fouille.lua).
 //   node scripts/lua-harness/fouille.mjs
@@ -6,7 +7,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const LUA = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const LUA = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 const lire = (f) => fs.readFileSync(`${LUA}/${f}`, "utf8");
 
 const lua = await new LuaFactory().createEngine();

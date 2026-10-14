@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // combat-horloge.mjs — l'enchaînement de mêlée suit le TEMPS RÉEL, pas la minuterie.
 //
@@ -31,8 +32,8 @@
 import fs from "node:fs";
 import { LuaFactory } from "wasmoon";
 
-const NARVOS = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared/";
-const PROTO = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos-map-proto/Server/";
+const NARVOS = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared/";
+const PROTO = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos-map-proto/Server/";
 
 const lire = (p) => fs.readFileSync(p, "utf8");
 

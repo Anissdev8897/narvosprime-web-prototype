@@ -103,6 +103,18 @@ for a in ar.get_assets_by_path(unreal.Name(RACINE), recursive=True):
 candidats = {d: e for d, e in candidats.items() if e["avec"] == 0 and e["sans"] > 0}
 journal("%d dossier(s) dont AUCUN materiau n'a de texture propre" % len(candidats))
 
+# ── Perimetre optionnel (2026-10-04) ──────────────────────────────────────────
+# `NARVOS_DOSSIERS` : chemins de paquet separes par des virgules. Rejouer cette
+# passe sur un ADK a moitie rebati ne doit toucher QUE les dossiers rebatis : un
+# dossier rendu tel qu'il etait le 23/09 a deja recu sa passe, ou ne l'avait pas
+# recue expres. Sans la variable, comportement d'origine (tout /Game/Narvos).
+import os as _os
+_limite = set(d.strip().rstrip("/") for d in _os.environ.get("NARVOS_DOSSIERS", "").split(",") if d.strip())
+if _limite:
+    candidats = {d: e for d, e in candidats.items() if d in _limite}
+    journal("perimetre NARVOS_DOSSIERS : %d candidat(s) retenu(s) sur %d dossier(s) demandes"
+            % (len(candidats), len(_limite)))
+
 # ── Reparation ───────────────────────────────────────────────────────────────
 
 faits, sautes, sans_textures = 0, 0, []

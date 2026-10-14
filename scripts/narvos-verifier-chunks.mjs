@@ -23,8 +23,8 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { NodeIO } from "../WebPortal/node_modules/@gltf-transform/core/dist/index.modern.js";
-import { ALL_EXTENSIONS } from "../WebPortal/node_modules/@gltf-transform/extensions/dist/index.modern.js";
+import { NodeIO } from "../WebPortal/node_modules/@gltf-transform/core/dist/index.js";
+import { ALL_EXTENSIONS } from "../WebPortal/node_modules/@gltf-transform/extensions/dist/index.js";
 
 const source = process.argv[2];
 const dossier = process.argv[3];

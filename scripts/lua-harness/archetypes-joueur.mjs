@@ -1,3 +1,5 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
+import { bundleTS } from "./_bundle.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // archetypes-joueur.mjs — parité TS ↔ Lua du catalogue d'archétypes joueur.
 //
@@ -11,13 +13,12 @@ import path from "node:path";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
 
-const RACINE = "E:/narvosprime-web-prototype";
-const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
+const RACINE = RACINE_DEPOT + "";
 const LUA = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 
 // 1. TS : bundle archetypeCatalog.ts → ARCHETYPES/ARCHETYPE_IDS/getArchetype.
 const tmp = path.join(os.tmpdir(), `arch-ts-${Date.now()}.mjs`);
-execFileSync("node", [ESBUILD, `${RACINE}/WebPortal/src/rpg/archetypes/archetypeCatalog.ts`, "--bundle", "--format=esm", "--platform=node", `--outfile=${tmp}`]);
+await bundleTS(`${RACINE}/WebPortal/src/rpg/archetypes/archetypeCatalog.ts`, tmp);
 const ts = await import(pathToFileURL(tmp).href);
 const tsIds = ts.ARCHETYPE_IDS;
 

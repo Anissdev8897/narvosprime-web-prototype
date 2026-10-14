@@ -113,14 +113,23 @@ if not PACKS:
 #
 # Pour ces packs, la voie est `scripts/adk-copier-hyper.mjs` : liens durs sous
 # `Narvos/`, un PackageRedirects de prefixe, et l'original n'est jamais ecrit.
-_CONTENT = os.path.join(os.path.dirname(unreal.Paths.get_project_file_path()), "Content")
+#
+# ⚠ `realpath` SUR LA RACINE D'ABORD (2026-10-04). Depuis la recuperation, l'ADK
+# est lui-meme atteint par une jonction (`WebPortal/Server/adk` -> lot DMDE) :
+# compare depuis le chemin tel que lance, TOUT dossier « passait par une
+# jonction » et la garde arretait chaque promotion. Ce qu'elle doit refuser est
+# une jonction SOUS `Content/` — la racine resolue, il ne reste qu'elles.
+# `normcase` : `realpath` rend la casse du disque, `NARVOS_PACKS` celle du shell.
+_CONTENT = os.path.realpath(
+    os.path.join(os.path.dirname(unreal.Paths.get_project_file_path()), "Content"))
 for _p in PACKS:
     _rel = _p[len("/Game/"):] if _p.startswith("/Game/") else _p
     _morceaux = [m for m in _rel.split("/") if m]
     _chemin = _CONTENT
     for _m in _morceaux:
         _chemin = os.path.join(_chemin, _m)
-        if os.path.isdir(_chemin) and os.path.realpath(_chemin) != os.path.abspath(_chemin):
+        if os.path.isdir(_chemin) and (os.path.normcase(os.path.realpath(_chemin))
+                                       != os.path.normcase(os.path.abspath(_chemin))):
             journal("ARRET : %s passe par une JONCTION (%s -> %s)." % (
                 _p, _chemin, os.path.realpath(_chemin)))
             journal("   Deplacer ici SUPPRIMERAIT les fichiers du pack d'origine.")

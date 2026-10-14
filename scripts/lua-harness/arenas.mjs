@@ -1,3 +1,5 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
+import { bundleTS } from "./_bundle.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // arenas.mjs — parité TS ↔ Lua des configurations d'arènes (arenaConfig).
 //
@@ -11,12 +13,11 @@ import path from "node:path";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
 
-const RACINE = "E:/narvosprime-web-prototype";
-const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
+const RACINE = RACINE_DEPOT + "";
 const LUA = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 
 const tmp = path.join(os.tmpdir(), `arenas-ts-${Date.now()}.mjs`);
-execFileSync("node", [ESBUILD, `${RACINE}/WebPortal/src/rpg/arenas/arenaConfig.ts`, "--bundle", "--format=esm", "--platform=node", `--outfile=${tmp}`]);
+await bundleTS(`${RACINE}/WebPortal/src/rpg/arenas/arenaConfig.ts`, tmp);
 const ts = await import(pathToFileURL(tmp).href);
 const tsC = ts.ARENA_CONFIGS;
 

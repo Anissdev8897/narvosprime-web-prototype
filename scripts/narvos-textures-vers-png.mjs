@@ -49,8 +49,8 @@ import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import sharp from "../WebPortal/node_modules/sharp/lib/index.js";
-import { NodeIO } from "../WebPortal/node_modules/@gltf-transform/core/dist/index.modern.js";
-import { ALL_EXTENSIONS } from "../WebPortal/node_modules/@gltf-transform/extensions/dist/index.modern.js";
+import { NodeIO } from "../WebPortal/node_modules/@gltf-transform/core/dist/index.js";
+import { ALL_EXTENSIONS } from "../WebPortal/node_modules/@gltf-transform/extensions/dist/index.js";
 
 const args = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 const APPLY = process.argv.includes("--apply");

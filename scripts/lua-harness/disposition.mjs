@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // disposition.mjs — exécute les tests de Shared/Logic/Disposition.lua.
 //
@@ -10,7 +11,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const module = fs.readFileSync(`${BASE}/Logic/Disposition.lua`, "utf8");
 const tests = fs.readFileSync(new URL("./disposition-tests.lua", import.meta.url), "utf8");

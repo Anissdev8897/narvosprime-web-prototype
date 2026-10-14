@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // zaaps.mjs — harnais de Logic/Zaaps.lua (points de sauvegarde, purs) branché sur
 // les VRAIES règles de Logic/Teleports.lua, et du catalogue Catalogs/Zaaps.lua.
 //
@@ -9,7 +10,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const SHARED = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const SHARED = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 const zaaps = fs.readFileSync(`${SHARED}/Logic/Zaaps.lua`, "utf8");
 const teleports = fs.readFileSync(`${SHARED}/Logic/Teleports.lua`, "utf8");
 const catalogue = fs.readFileSync(`${SHARED}/Catalogs/Zaaps.lua`, "utf8");

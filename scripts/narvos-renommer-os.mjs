@@ -32,8 +32,8 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { NodeIO } from "../WebPortal/node_modules/@gltf-transform/core/dist/index.modern.js";
-import { ALL_EXTENSIONS } from "../WebPortal/node_modules/@gltf-transform/extensions/dist/index.modern.js";
+import { NodeIO } from "../WebPortal/node_modules/@gltf-transform/core/dist/index.js";
+import { ALL_EXTENSIONS } from "../WebPortal/node_modules/@gltf-transform/extensions/dist/index.js";
 
 const args = process.argv.slice(2).filter((a) => a !== "--apply");
 const APPLY = process.argv.includes("--apply");

@@ -1,3 +1,5 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
+import { bundleTS } from "./_bundle.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // metiers.mjs — parité TS ↔ Lua de la progression des MÉTIERS.
 //
@@ -21,8 +23,7 @@ import path from "node:path";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
 
-const RACINE = "E:/narvosprime-web-prototype";
-const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
+const RACINE = RACINE_DEPOT + "";
 const LUA = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 
 let reussis = 0;
@@ -35,13 +36,11 @@ const vrai = (c, nom) => { if (c) reussis++; else { echecs++; console.log(`  ECH
 
 // ── 1. Le TS, exécuté ────────────────────────────────────────────────────────
 const tmp = path.join(os.tmpdir(), `metiers-ts-${Date.now()}.mjs`);
-execFileSync("node", [ESBUILD, `${RACINE}/WebPortal/src/rpg/professions/professionTypes.ts`,
-  "--bundle", "--format=esm", "--platform=node", `--outfile=${tmp}`]);
+await bundleTS(`${RACINE}/WebPortal/src/rpg/professions/professionTypes.ts`, tmp);
 const ts = await import(pathToFileURL(tmp).href);
 
 const tmp2 = path.join(os.tmpdir(), `metiers-cat-${Date.now()}.mjs`);
-execFileSync("node", [ESBUILD, `${RACINE}/WebPortal/src/rpg/professions/professionCatalog.ts`,
-  "--bundle", "--format=esm", "--platform=node", `--outfile=${tmp2}`]);
+await bundleTS(`${RACINE}/WebPortal/src/rpg/professions/professionCatalog.ts`, tmp2);
 const cat = await import(pathToFileURL(tmp2).href);
 
 // ── 2. Le Lua ────────────────────────────────────────────────────────────────

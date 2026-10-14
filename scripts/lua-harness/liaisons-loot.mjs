@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // liaisons-loot.mjs — preuves des liaisons de l'audit (2026-09-19) :
 //   · les 101 définitions de LOOT_CATALOG sont reliées au sac ;
@@ -12,7 +13,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 import path from "node:path";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const BASE = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 
 const SERIALISEUR = `

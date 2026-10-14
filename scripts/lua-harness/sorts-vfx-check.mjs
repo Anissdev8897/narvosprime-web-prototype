@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // sorts-vfx-check.mjs — les icônes de sorts annoncées existent-elles sur disque ?
 //
@@ -17,7 +18,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const PAQUETS = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+const PAQUETS = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 const CATALOGUE = `${PAQUETS}/narvos/Shared/Catalogs/SortsVfx.lua`;
 const SPELLS = `${PAQUETS}/narvos/Shared/Catalogs/Spells.lua`;
 const UI = `${PAQUETS}/narvos-map-proto/Client/UI`;

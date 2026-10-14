@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // roulade.mjs — exécute les tests de Shared/Logic/Roulade.lua.
 //
@@ -11,7 +12,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const BASE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+const BASE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 const SRC_ROULADE = `${BASE}/narvos/Shared/Logic/Roulade.lua`;
 const SRC_ANIMATIONS = `${BASE}/narvos/Shared/Logic/Animations.lua`;
 const SRC_SERVER = `${BASE}/narvos-map-proto/Server/Roulade.lua`;

@@ -93,6 +93,7 @@ if not concernes:
 concernes.sort(key=lambda c: (c[1] != ANCIEN, c[1]))
 
 renommes = 0
+cibles_renommees = []
 echecs = []
 for paquet, nom in concernes:
     dossier = paquet.rsplit("/", 1)[0]
@@ -107,6 +108,7 @@ for paquet, nom in concernes:
 
     if unreal.EditorAssetLibrary.rename_asset(paquet, cible):
         renommes += 1
+        cibles_renommees.append(cible)
         journal("  %-40s -> %s" % (nom, neuf))
     else:
         echecs.append(paquet)
@@ -127,6 +129,16 @@ if renommes > 0:
     # dont il a réécrit les références. Ce sont exactement ceux qu'il faut sauver.
     unreal.EditorAssetLibrary.save_directory(RACINE, only_if_is_dirty=True, recursive=True)
     journal("assets sales resauves sous " + RACINE)
+    # ⚠ ... ET LES RENOMMES EUX-MEMES, DE FORCE (2026-10-04). `rename_asset` SAUVE chaque
+    # asset au moment ou il le renomme : le materiau, renomme le premier, part sur le disque
+    # avec les noms que ses textures portent ENCORE. Les textures renommees ensuite, il les
+    # suit en memoire mais n'est pas marque sale — `only_if_is_dirty=True` le saute, et le
+    # paquet cite pour toujours `X_BaseColor`, qui n'existe plus : un materiau gris, sans
+    # erreur, que le controle ci-dessous ne voit pas (il compte des noms, pas des references).
+    # Mesure sur le holster du Tankman : 3 references mortes (textures-rebaties.py).
+    for cible in cibles_renommees:
+        unreal.EditorAssetLibrary.save_asset(cible, only_if_is_dirty=False)
+    journal("%d asset(s) renomme(s) resauve(s) de force" % len(cibles_renommees))
 
 # ── Controle ─────────────────────────────────────────────────────────────────
 

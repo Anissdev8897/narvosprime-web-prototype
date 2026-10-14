@@ -1,8 +1,9 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // Butin ennemi : cinq raretes, vrais ids persistants et configuration modulaire.
 import fs from "node:fs";
 import { LuaFactory } from "wasmoon";
 
-const chemin = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared/Logic/ButinEnnemi.lua";
+const chemin = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared/Logic/ButinEnnemi.lua";
 const source = fs.readFileSync(chemin, "utf8");
 const lua = await new LuaFactory().createEngine();
 let sortie;

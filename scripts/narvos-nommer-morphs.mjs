@@ -39,8 +39,8 @@ import path from "node:path";
 // dépôt, alors que gltf-transform est installé sous `WebPortal/node_modules`.
 // Un specifier nu (`@gltf-transform/core`) ne résoudrait que depuis WebPortal —
 // c'est pourquoi `puzzle-chunks.mjs`, qui y vit, peut se le permettre.
-import { NodeIO } from "../WebPortal/node_modules/@gltf-transform/core/dist/index.modern.js";
-import { ALL_EXTENSIONS } from "../WebPortal/node_modules/@gltf-transform/extensions/dist/index.modern.js";
+import { NodeIO } from "../WebPortal/node_modules/@gltf-transform/core/dist/index.js";
+import { ALL_EXTENSIONS } from "../WebPortal/node_modules/@gltf-transform/extensions/dist/index.js";
 
 /**
  * Les 52 blendshapes ARKit, dans l'ordre canonique d'Apple.

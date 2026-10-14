@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // syntaxe-check.mjs — chaque fichier Lua des packages COMPILE-t-il ?
 //
@@ -15,7 +16,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const P = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+const P = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 
 // ⚠ ON PARCOURT LE DISQUE, ON NE TIENT PLUS DE LISTE.
 //
@@ -93,8 +94,9 @@ process.exitCode = ko === 0 ? 0 : 1;
 // vient en complement du precedent, il ne se relance pas seul.
 import { execFileSync } from "node:child_process";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const SCRIPTS = "E:/narvosprime-web-prototype/scripts";
+const SCRIPTS = RACINE_DEPOT + "/scripts";
 
 // ⚠ LES HARNAIS AUSSI. La quatrieme occurrence du meme defaut, le 2026-09-04,
 // n'etait pas dans un generateur mais dans parcours.mjs et roster.mjs : un
@@ -102,7 +104,7 @@ const SCRIPTS = "E:/narvosprime-web-prototype/scripts";
 // le template literal. Le controle ci-dessus ne les regardait pas, parce qu'ils
 // ne s'appellent pas narvos-*. Un garde-fou qui ne couvre que l'endroit ou la
 // panne s'est produite la premiere fois ne garde rien.
-const HARNAIS = path.dirname(new URL(import.meta.url).pathname.replace(/^\//, ""));
+const HARNAIS = path.dirname(fileURLToPath(import.meta.url));
 
 const generateurs = [
   ...fs.readdirSync(SCRIPTS)

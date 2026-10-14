@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // objets-hyper.mjs — l'integration des donnees de Hyper Inventory V2, prouvee sur
 // les VRAIS catalogues.
@@ -21,7 +22,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const LUA = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+const LUA = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 const lire = (f) => fs.readFileSync(`${LUA}/${f}`, "utf8");
 
 const lua = await new LuaFactory().createEngine();

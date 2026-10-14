@@ -30,8 +30,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import sharp from "../WebPortal/node_modules/sharp/lib/index.js";
-import { NodeIO } from "../WebPortal/node_modules/@gltf-transform/core/dist/index.modern.js";
-import { ALL_EXTENSIONS } from "../WebPortal/node_modules/@gltf-transform/extensions/dist/index.modern.js";
+import { NodeIO } from "../WebPortal/node_modules/@gltf-transform/core/dist/index.js";
+import { ALL_EXTENSIONS } from "../WebPortal/node_modules/@gltf-transform/extensions/dist/index.js";
 
 const args = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 const TOUT = process.argv.includes("--tout");

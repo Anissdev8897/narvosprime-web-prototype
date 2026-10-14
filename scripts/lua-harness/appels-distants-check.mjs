@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // appels-distants-check.mjs — un appel distant sans sa fiabilité perd sa charge.
 //
@@ -22,7 +23,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const PKG = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+const PKG = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 
 function luaDe(dossier) {
   const sortie = [];

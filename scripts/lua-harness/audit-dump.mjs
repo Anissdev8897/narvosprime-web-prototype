@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // audit-dump.mjs — AUDIT récolte/craft/inventaire (brief 2026-09-19).
 // Charge les catalogues et la logique RÉELS (wasmoon) et dump leurs structures
@@ -9,7 +10,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const BASE = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 const lire = (p) => fs.readFileSync(`${BASE}/${p}`, "utf8");
 

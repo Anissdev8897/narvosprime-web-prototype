@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // traversee-harness.mjs — preuve exécutable de Server/Traversee.lua (v2 :
 // normale, snap, collision capsule, arc 2 phases). Charge les vrais modules
 // (Shared/Logic/Traversee.lua + Server/Traversee.lua) dans wasmoon (Lua 5.4).
@@ -5,7 +6,7 @@
 import { readFileSync } from "node:fs";
 import { LuaFactory } from "wasmoon";
 
-const RACINE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+const RACINE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 const SHARED = RACINE + "/narvos/Shared/Logic/Traversee.lua";
 const SERVEUR = RACINE + "/narvos-map-proto/Server/Traversee.lua";
 

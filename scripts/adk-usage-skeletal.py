@@ -6,6 +6,10 @@ targets » si le maillage en porte) sur les MATERIAUX DE BASE des SkeletalMesh d
 
     UnrealEditor.exe <ADK>.uproject -ExecutePythonScript=".../adk-usage-skeletal.py"
     NARVOS_APPLIQUER=1   ecrire ; sinon passe a blanc (liste seulement)
+    NARVOS_ECRITS_DEPUIS=AAAA-MM-JJ   ne corriger que les materiaux dont le FICHIER a ete
+                         ecrit depuis cette date (2026-10-04 : ADK a moitie rebati — un
+                         materiau rendu tel qu'il etait le 23/09 a deja eu sa passe, ou
+                         etait LIE EN DUR ce jour-la et ne l'est plus depuis la recuperation)
 
 -- LE DEFAUT (mesure du 2026-09-13) ------------------------------------------------
 PNJ, monstres, zombies, Cyberpunk Samurai GRIS en jeu. Leurs materiaux glTF
@@ -38,6 +42,12 @@ import sys
 import unreal
 
 APPLIQUER = os.environ.get("NARVOS_APPLIQUER") == "1"
+_DEPUIS = os.environ.get("NARVOS_ECRITS_DEPUIS", "").strip()
+if _DEPUIS:
+    import datetime
+    SEUIL = datetime.datetime.strptime(_DEPUIS, "%Y-%m-%d").timestamp()
+else:
+    SEUIL = None
 RAPPORT = "E:/narvosprime-web-prototype/WebPortal/Server/adk/_manifests/usage-skeletal.json"
 RACINE = "/Game/Narvos/"
 CONTENT = unreal.Paths.convert_relative_path_to_full(unreal.Paths.project_content_dir())
@@ -73,6 +83,16 @@ def fichier_de(paquet):
 def lie_en_dur(paquet):
     try:
         return os.stat(fichier_de(paquet)).st_nlink > 1
+    except OSError:
+        return False
+
+
+def anterieur_au_seuil(paquet):
+    """Vrai si le fichier du materiau date d'AVANT le seuil demande : il n'a pas ete rebati."""
+    if SEUIL is None:
+        return False
+    try:
+        return os.path.getmtime(fichier_de(paquet)) < SEUIL
     except OSError:
         return False
 
@@ -157,7 +177,7 @@ for i, (paquet, info) in enumerate(sorted(materiaux.items())):
         mi = base = None
         unreal.SystemLibrary.collect_garbage()
 
-deja, corriges, lies, hors, echecs = [], [], [], [], []
+deja, corriges, lies, hors, echecs, anciens = [], [], [], [], [], []
 par_dossier = {}
 for n, (pb, info) in enumerate(sorted(bases.items())):
     if not pb.startswith(RACINE):
@@ -174,6 +194,9 @@ for n, (pb, info) in enumerate(sorted(bases.items())):
         continue
     if lie_en_dur(pb):
         lies.append({"materiau": pb, "manquants": manquants})
+        continue
+    if anterieur_au_seuil(pb):
+        anciens.append({"materiau": pb, "manquants": manquants})
         continue
     par_dossier[dossier_de(pb)] = par_dossier.get(dossier_de(pb), 0) + 1
     if not APPLIQUER:
@@ -197,6 +220,8 @@ for n, (pb, info) in enumerate(sorted(bases.items())):
 journal("    bases : %d ; deja bonnes %d ; %s %d ; liees en dur (non touchees) %d ; hors Narvos %d ; echecs %d ; illisibles %d"
         % (len(bases), len(deja), "corrigees" if APPLIQUER else "a corriger", len(corriges),
            len(lies), len(hors), len(echecs), len(illisibles)))
+if SEUIL is not None:
+    journal("    anterieures au %s (etat du 23/09, non touchees) : %d" % (_DEPUIS, len(anciens)))
 for d, c in sorted(par_dossier.items(), key=lambda x: -x[1])[:15]:
     journal("      %5d  %s" % (c, d))
 for e in echecs[:10]:
@@ -211,6 +236,7 @@ with open(RAPPORT, "w", encoding="utf-8") as f:
         "deja": len(deja),
         "corriges": corriges,
         "lies_en_dur": lies,
+        "anterieurs_au_seuil": anciens,
         "hors_narvos": hors,
         "echecs": echecs,
         "illisibles": illisibles,

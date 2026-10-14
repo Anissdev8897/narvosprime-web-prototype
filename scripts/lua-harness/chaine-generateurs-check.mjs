@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // chaine-generateurs-check.mjs — chaque catalogue HORS VERROU est-il régénéré par
 // la chaîne de cook générale, APRÈS le pack ?
@@ -21,7 +22,7 @@
 
 import fs from "node:fs";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const VERIFICATEUR = `${RACINE}/scripts/narvos-verifier-catalogues.mjs`;
 const CHAINE = `${RACINE}/scripts/narvos-chaine-cook.sh`;
 

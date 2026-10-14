@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // modules-orphelins-check.mjs — un module qui n'est câblé NULLE PART n'existe pas.
 //
@@ -36,7 +37,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const RACINE = "E:/narvosprime-web-prototype";
+const RACINE = RACINE_DEPOT + "";
 const SHARED = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared`;
 
 // ── Les orphelins qu'on accepte, avec leur raison ─────────────────────────────

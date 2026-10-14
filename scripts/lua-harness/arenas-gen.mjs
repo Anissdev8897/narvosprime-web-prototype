@@ -1,3 +1,5 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
+import { bundleTS } from "./_bundle.mjs";
 // arenas-gen.mjs — génère Catalogs/Arenes.lua depuis arenaConfig.ts (sérialisation).
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
@@ -5,12 +7,11 @@ import path from "node:path";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
 
-const RACINE = "E:/narvosprime-web-prototype";
-const ESBUILD = `${RACINE}/WebPortal/node_modules/esbuild/bin/esbuild`;
+const RACINE = RACINE_DEPOT + "";
 const OUT = `${RACINE}/WebPortal/Server/nanos_world/packages/narvos/Shared/Catalogs/Arenes.lua`;
 
 const tmp = path.join(os.tmpdir(), `arenas-gen-${Date.now()}.mjs`);
-execFileSync("node", [ESBUILD, `${RACINE}/WebPortal/src/rpg/arenas/arenaConfig.ts`, "--bundle", "--format=esm", "--platform=node", `--outfile=${tmp}`]);
+await bundleTS(`${RACINE}/WebPortal/src/rpg/arenas/arenaConfig.ts`, tmp);
 const ts = await import(pathToFileURL(tmp).href);
 const configs = ts.ARENA_CONFIGS;
 

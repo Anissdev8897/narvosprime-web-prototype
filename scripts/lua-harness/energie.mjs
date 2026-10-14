@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // energie.mjs — exécute les tests de Shared/Logic/Energie.lua.
 //
@@ -10,7 +11,7 @@
 import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
-const BASE = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+const BASE = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 const SRC_ENERGIE = `${BASE}/narvos/Shared/Logic/Energie.lua`;
 const SRC_SERVER = `${BASE}/narvos-map-proto/Server/Energie.lua`;
 

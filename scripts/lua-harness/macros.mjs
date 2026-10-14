@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // macros.mjs — exécute les tests de Shared/Logic/Macros.lua.
 //
@@ -20,9 +21,9 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 const GLB =
-  "E:/narvosprime-web-prototype/WebPortal/public/models/personnages/_body/base_morphable.glb";
+  RACINE_DEPOT + "/WebPortal/public/models/personnages/_body/base_morphable.glb";
 
 if (!fs.existsSync(GLB)) {
   console.error(`ARRET : ${GLB} absent.`);

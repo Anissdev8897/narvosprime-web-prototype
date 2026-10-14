@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // ui-liens.mjs — vérifie que la page et le Lua se parlent réellement.
 //
@@ -38,7 +39,7 @@
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos-map-proto/Client";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos-map-proto/Client";
 
 const lire = (p) => fs.readFileSync(`${BASE}/${p}`, "utf8");
 

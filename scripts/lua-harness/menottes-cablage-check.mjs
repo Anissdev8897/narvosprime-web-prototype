@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // menottes-cablage-check.mjs — les menottes sont-elles BRANCHÉES, d'un bout à
 // l'autre ?
@@ -20,7 +21,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const PAQUETS = "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages";
+const PAQUETS = RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages";
 const LOGIQUE = `${PAQUETS}/narvos/Shared/Logic/Menottes.lua`;
 const COMMANDES = `${PAQUETS}/narvos/Shared/Logic/Commandes.lua`;
 const SERVEUR = `${PAQUETS}/narvos-map-proto/Server`;

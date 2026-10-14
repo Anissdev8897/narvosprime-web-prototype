@@ -1,3 +1,4 @@
+import { RACINE_DEPOT } from "./_racine.mjs";
 // ══════════════════════════════════════════════════════════════════════════════
 // droits.mjs — exécute les tests de Logic/Droits.lua.
 //
@@ -16,7 +17,7 @@ import { LuaFactory } from "wasmoon";
 import fs from "node:fs";
 
 const BASE =
-  "E:/narvosprime-web-prototype/WebPortal/Server/nanos_world/packages/narvos/Shared";
+  RACINE_DEPOT + "/WebPortal/Server/nanos_world/packages/narvos/Shared";
 
 const droits = fs.readFileSync(`${BASE}/Logic/Droits.lua`, "utf8");
 const tests = fs.readFileSync(new URL("./droits-tests.lua", import.meta.url), "utf8");
