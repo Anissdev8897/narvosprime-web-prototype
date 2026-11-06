@@ -1,2 +1,0 @@
-# TLS dev certificates directory
-# Generate certs: node scripts/generate-dev-certs.js
